@@ -1,11 +1,12 @@
 # NovaCart Hybrid RAG Knowledge Assistant
 
 A learning and portfolio project for a fictional e-commerce knowledge assistant,
-built incrementally. **Current implementation: Phase 1 only** — a minimal FastAPI
-backend with configuration loading and a health endpoint.
+built incrementally. **Current implementation: Phase 2**: a minimal FastAPI
+backend plus local dataset and document ingestion.
 
-Document ingestion, embeddings, vector databases, BM25, RAG, and the frontend are
-reserved for later phases. The existing repository directories are preserved.
+Chunking, embeddings, vector databases, BM25, RAG, reranking, routing, and the
+frontend are reserved for later phases. The existing repository directories are
+preserved.
 
 ## Local setup (Windows PowerShell)
 
@@ -78,6 +79,40 @@ Check installed dependency compatibility with:
 .\.venv\Scripts\python.exe -m pip check
 ```
 
+## Ingest source documents
+
+Place NovaCart source files in `data/raw/`. Phase 2 supports PDF, DOCX, and CSV
+files:
+
+- PDF files are parsed with PyMuPDF and produce one record per page.
+- DOCX files are parsed with `python-docx` and produce one record per detected
+  section.
+- CSV files are parsed with pandas and produce one record per row.
+
+Each record uses the normalized internal model in
+`backend/app/ingestion/models.py` with these fields: `document_id`,
+`document_name`, `document_type`, `source`, `page`, `section`, and `text`.
+
+Run ingestion from the repository root:
+
+```powershell
+.\.venv\Scripts\python.exe -m scripts.ingest_documents --input-dir data/raw
+```
+
+Expected output is a concise summary like:
+
+```text
+Ingested 16 records from 7 files
+- products.csv | type=csv | records=5 | text_length=683 | rows=1-5
+- shipping_policy.pdf | type=pdf | records=1 | text_length=970 | pages=1-1
+```
+
+Run the Phase 2 tests with:
+
+```powershell
+.\.venv\Scripts\python.exe -m pytest tests/test_ingestion.py -q
+```
+
 ## Troubleshooting
 
 - **Module not found:** run from the repository root and install requirements
@@ -87,6 +122,12 @@ Check installed dependency compatibility with:
   and remains running in the first terminal.
 - **Settings validation error:** check `.env` and environment variables;
   `APP_DEBUG=false` is a valid value.
+- **No ingestion records:** confirm source files are directly under `data/raw/`
+  and use one of `.pdf`, `.docx`, or `.csv`.
+- **Parser import error:** reinstall dependencies with
+  `.\.venv\Scripts\python.exe -m pip install -r requirements.txt`.
+- **Unreadable source file:** open the file locally to confirm it is not corrupt
+  or password protected.
 
 The implementation follows the official [FastAPI first steps](https://fastapi.tiangolo.com/tutorial/first-steps/)
 and [Pydantic Settings documentation](https://docs.pydantic.dev/latest/concepts/pydantic_settings/).

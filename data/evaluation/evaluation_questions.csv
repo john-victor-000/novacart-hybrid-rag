@@ -1,0 +1,11 @@
+id,question,expected_source,retrieval_type
+E01,What is the standard return window?,return_policy.pdf,semantic
+E02,How long does standard delivery take?,shipping_policy.pdf,semantic
+E03,What is the price of NKM-10?,products.csv,keyword/structured
+E04,How long is the NCM-24 warranty?,products.csv + warranty_guide.docx,hybrid
+E05,Can I change my address after the order is packed?,shipping_policy.pdf,semantic
+E06,Is the NCB-100 covered by warranty?,product_documentation.pdf + warranty_guide.docx,hybrid
+E07,What happens to a refund after return inspection?,return_policy.pdf,semantic
+E08,Which products have more than 12 months warranty?,products.csv,structured/filter
+E09,Can every opened product be returned?,faq.pdf + return_policy.pdf,hybrid
+E10,What are the NCL-200 RAM and storage specifications?,product_documentation.pdf,keyword/semantic

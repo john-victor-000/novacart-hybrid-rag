@@ -1,0 +1,6 @@
+sku,product_name,category,price_inr,warranty_months,rating,stock_status
+NCB-100,Wireless Earbuds,Audio,2499,12,4.3,In Stock
+NCL-200,14-inch Laptop,Laptops,54990,12,4.5,Low Stock
+NKM-10,Mechanical Keyboard,Computer Accessories,3299,18,4.6,In Stock
+NCM-24,24-inch Monitor,Monitors,11999,24,4.4,In Stock
+NCP-65,USB-C Charger,Power Accessories,1799,12,4.2,Out of Stock
