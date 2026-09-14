@@ -1,11 +1,11 @@
 # NovaCart Hybrid RAG Knowledge Assistant
 
 A learning and portfolio project for a fictional e-commerce knowledge assistant,
-built incrementally. **Current implementation: Phase 2**: a minimal FastAPI
-backend plus local dataset and document ingestion.
+built incrementally. **Current implementation: Phase 3**: a minimal FastAPI
+backend plus local dataset ingestion, chunking, and metadata refinement.
 
-Chunking, embeddings, vector databases, BM25, RAG, reranking, routing, and the
-frontend are reserved for later phases. The existing repository directories are
+Embeddings, vector databases, BM25, RAG, reranking, routing, and the frontend
+are reserved for later phases. The existing repository directories are
 preserved.
 
 ## Local setup (Windows PowerShell)
@@ -33,6 +33,8 @@ Edit `.env` to override these defaults:
 | --- | --- | --- |
 | `APP_NAME` | `NovaCart Hybrid RAG Knowledge Assistant` | Application title in API documentation |
 | `APP_DEBUG` | `false` | FastAPI debug mode; keep disabled outside local development |
+| `CHUNK_SIZE` | `900` | Target maximum text characters per non-CSV chunk |
+| `CHUNK_OVERLAP` | `150` | Target text overlap between adjacent non-CSV chunks |
 
 `backend/app/core/config.py` uses Pydantic Settings to load and validate
 configuration. Environment variables take priority over the root `.env` file,
@@ -113,6 +115,44 @@ Run the Phase 2 tests with:
 .\.venv\Scripts\python.exe -m pytest tests/test_ingestion.py -q
 ```
 
+## Chunk source documents
+
+Phase 3 keeps chunking separate from parsing. Ingestion produces normalized
+records, then `backend/app/chunking/chunker.py` turns those records into
+retrieval-sized chunks. Each chunk preserves the source metadata from ingestion
+and adds a unique `chunk_id` plus `chunk_index`.
+
+For PDF and DOCX records, chunking respects the existing page or section record
+boundaries first. Longer text is split on paragraph and sentence boundaries
+where possible, with configurable overlap. CSV product records stay as one
+logical chunk per row so a product row is not fragmented.
+
+Run ingestion plus chunking from the repository root:
+
+```powershell
+.\.venv\Scripts\python.exe -m scripts.chunk_documents --input-dir data/raw
+```
+
+Override chunk settings when needed:
+
+```powershell
+.\.venv\Scripts\python.exe -m scripts.chunk_documents --input-dir data/raw --chunk-size 700 --chunk-overlap 100
+```
+
+Expected output is a concise summary like:
+
+```text
+Created 20 chunks from 16 ingested records across 7 files
+chunk_size=900 | chunk_overlap=150
+- products.csv | chunks=5 | ids=['43307a0aaf99', '2170143e8663', 'd119ef1e387b'] | sample_lengths=[130, 132, 147] | type=csv | page=none | section=row 1 | source=F:\novacart-hybrid-rag\data\raw\products.csv
+```
+
+Run the Phase 3 tests with:
+
+```powershell
+.\.venv\Scripts\python.exe -m pytest tests/test_chunking.py -q
+```
+
 ## Troubleshooting
 
 - **Module not found:** run from the repository root and install requirements
@@ -128,6 +168,10 @@ Run the Phase 2 tests with:
   `.\.venv\Scripts\python.exe -m pip install -r requirements.txt`.
 - **Unreadable source file:** open the file locally to confirm it is not corrupt
   or password protected.
+- **Chunk settings validation error:** ensure `CHUNK_OVERLAP` is smaller than
+  `CHUNK_SIZE`.
+- **Unexpectedly large CSV chunk:** CSV rows are intentionally kept whole to
+  preserve product record integrity.
 
 The implementation follows the official [FastAPI first steps](https://fastapi.tiangolo.com/tutorial/first-steps/)
 and [Pydantic Settings documentation](https://docs.pydantic.dev/latest/concepts/pydantic_settings/).
