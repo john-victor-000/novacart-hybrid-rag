@@ -1,12 +1,13 @@
 # NovaCart Hybrid RAG Knowledge Assistant
 
 A learning and portfolio project for a fictional e-commerce knowledge assistant,
-built incrementally. **Current implementation: Phase 3**: a minimal FastAPI
-backend plus local dataset ingestion, chunking, and metadata refinement.
+built incrementally. **Current implementation: Phase 4**: a minimal FastAPI
+backend plus local dataset ingestion, chunking, metadata refinement, and
+embeddings.
 
-Embeddings, vector databases, BM25, RAG, reranking, routing, and the frontend
-are reserved for later phases. The existing repository directories are
-preserved.
+Vector databases, vector search, BM25, RAG, reranking, routing, LLM generation,
+and the frontend are reserved for later phases. The existing repository
+directories are preserved.
 
 ## Local setup (Windows PowerShell)
 
@@ -35,6 +36,9 @@ Edit `.env` to override these defaults:
 | `APP_DEBUG` | `false` | FastAPI debug mode; keep disabled outside local development |
 | `CHUNK_SIZE` | `900` | Target maximum text characters per non-CSV chunk |
 | `CHUNK_OVERLAP` | `150` | Target text overlap between adjacent non-CSV chunks |
+| `EMBEDDING_MODEL_NAME` | `sentence-transformers/all-MiniLM-L6-v2` | Local Sentence Transformers model |
+| `EMBEDDING_BATCH_SIZE` | `16` | Number of chunks embedded per provider call |
+| `EMBEDDING_LOCAL_FILES_ONLY` | `false` | Load embedding model only from local cache |
 
 `backend/app/core/config.py` uses Pydantic Settings to load and validate
 configuration. Environment variables take priority over the root `.env` file,
@@ -153,6 +157,48 @@ Run the Phase 3 tests with:
 .\.venv\Scripts\python.exe -m pytest tests/test_chunking.py -q
 ```
 
+## Embed chunks
+
+Phase 4 keeps embeddings independent from future vector database storage.
+`backend/app/embeddings/providers.py` defines the provider interface and the
+initial Sentence Transformers provider. `backend/app/embeddings/service.py`
+turns `DocumentChunk` objects into embedding records while preserving metadata.
+
+The default model is `sentence-transformers/all-MiniLM-L6-v2`, a compact local
+open-source sentence embedding model with 384-dimensional vectors. It is small
+enough for local development while still useful for semantic retrieval
+experiments.
+
+Run ingestion, chunking, and embedding from the repository root:
+
+```powershell
+.\.venv\Scripts\python.exe -m scripts.embed_documents --input-dir data/raw
+```
+
+After the model is cached, offline/cache-only runs can skip Hugging Face
+metadata checks:
+
+```powershell
+.\.venv\Scripts\python.exe -m scripts.embed_documents --input-dir data/raw --local-files-only
+```
+
+Expected output is a concise summary like:
+
+```text
+Embedded 20 chunks
+embedding_model=sentence-transformers/all-MiniLM-L6-v2
+embedding_dimension=384
+sample_chunk_id=6ca72c8512077a2da68692f340d8bd96f296d65dce77efaa28a3bc26937d5123
+sample_metadata=document_id=b021631de09b944daadde43fec39375fc312ef4c3e55e02d545ff99676b4c0e5, document_name=company_information.pdf, document_type=pdf, source=F:\novacart-hybrid-rag\data\raw\company_information.pdf, page=1, section=none
+sample_embedding_length=384
+```
+
+Run the Phase 4 tests with:
+
+```powershell
+.\.venv\Scripts\python.exe -m pytest tests/test_embeddings.py -q
+```
+
 ## Troubleshooting
 
 - **Module not found:** run from the repository root and install requirements
@@ -172,6 +218,13 @@ Run the Phase 3 tests with:
   `CHUNK_SIZE`.
 - **Unexpectedly large CSV chunk:** CSV rows are intentionally kept whole to
   preserve product record integrity.
+- **Model download fails:** confirm internet access to Hugging Face, use
+  `--local-files-only` after the model is cached, or use a local model path in
+  `EMBEDDING_MODEL_NAME`.
+- **Embedding run is slow the first time:** the model is downloaded and cached
+  on first use; later runs reuse the cache.
+- **Embedding dimension mismatch:** verify one provider is used consistently for
+  the whole batch.
 
 The implementation follows the official [FastAPI first steps](https://fastapi.tiangolo.com/tutorial/first-steps/)
 and [Pydantic Settings documentation](https://docs.pydantic.dev/latest/concepts/pydantic_settings/).

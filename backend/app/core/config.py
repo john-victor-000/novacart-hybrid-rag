@@ -19,6 +19,9 @@ class Settings(BaseSettings):
     app_debug: bool = False
     chunk_size: int = Field(default=900, gt=0)
     chunk_overlap: int = Field(default=150, ge=0)
+    embedding_model_name: str = "sentence-transformers/all-MiniLM-L6-v2"
+    embedding_batch_size: int = Field(default=16, gt=0)
+    embedding_local_files_only: bool = False
 
     @model_validator(mode="after")
     def validate_chunk_settings(self) -> "Settings":
