@@ -1,4 +1,4 @@
-# Phase 1 through 4 runtime dependencies only.
+# Phase 1 through 5 runtime dependencies only.
 fastapi>=0.115,<1.0
 uvicorn>=0.30,<1.0
 pydantic-settings>=2.6,<3.0
@@ -6,4 +6,6 @@ PyMuPDF>=1.24,<2.0
 python-docx>=1.1,<2.0
 pandas>=2.2,<3.0
 sentence-transformers>=3.0,<4.0
+chromadb>=0.5,<1.0
+posthog>=2.4,<4.0  # Chroma 0.6 expects the legacy capture API.
 pytest>=8.0,<9.0

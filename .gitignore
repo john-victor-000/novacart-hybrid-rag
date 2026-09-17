@@ -10,3 +10,6 @@ __pycache__/
 .pytest_cache/
 .coverage
 htmlcov/
+
+# Locally persisted vector database
+data/vector_store/

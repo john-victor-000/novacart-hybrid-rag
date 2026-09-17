@@ -1,13 +1,12 @@
 # NovaCart Hybrid RAG Knowledge Assistant
 
 A learning and portfolio project for a fictional e-commerce knowledge assistant,
-built incrementally. **Current implementation: Phase 4**: a minimal FastAPI
+built incrementally. **Current implementation: Phase 5**: a minimal FastAPI
 backend plus local dataset ingestion, chunking, metadata refinement, and
-embeddings.
+embeddings with persistent dense vector retrieval.
 
-Vector databases, vector search, BM25, RAG, reranking, routing, LLM generation,
-and the frontend are reserved for later phases. The existing repository
-directories are preserved.
+BM25, hybrid retrieval, RRF, reranking, structured retrieval, routing, RAG/LLM
+generation, and the frontend are reserved for later phases.
 
 ## Local setup (Windows PowerShell)
 
@@ -39,6 +38,9 @@ Edit `.env` to override these defaults:
 | `EMBEDDING_MODEL_NAME` | `sentence-transformers/all-MiniLM-L6-v2` | Local Sentence Transformers model |
 | `EMBEDDING_BATCH_SIZE` | `16` | Number of chunks embedded per provider call |
 | `EMBEDDING_LOCAL_FILES_ONLY` | `false` | Load embedding model only from local cache |
+| `VECTOR_DB_PATH` | `data/vector_store` | Local ChromaDB persistence directory |
+| `VECTOR_COLLECTION_NAME` | `novacart_chunks` | ChromaDB collection used for NovaCart chunks |
+| `RETRIEVAL_TOP_K` | `5` | Default number of dense retrieval results |
 
 `backend/app/core/config.py` uses Pydantic Settings to load and validate
 configuration. Environment variables take priority over the root `.env` file,
@@ -199,6 +201,53 @@ Run the Phase 4 tests with:
 .\.venv\Scripts\python.exe -m pytest tests/test_embeddings.py -q
 ```
 
+## Index and search vectors
+
+Phase 5 stores embedded chunks in a persistent local ChromaDB collection.
+`backend/app/retrieval/vector_store.py` provides a replaceable vector-store
+interface and the ChromaDB implementation. `backend/app/retrieval/retriever.py`
+embeds a query through the Phase 4 provider before asking the vector store for
+the nearest chunks.
+
+Run the complete indexing pipeline from the repository root:
+
+```powershell
+.\.venv\Scripts\python.exe -m scripts.index_vectors --input-dir data/raw --local-files-only
+```
+
+Omit `--local-files-only` on the first run if the embedding model is not cached.
+The default index is stored under `data/vector_store/`, which is excluded from
+Git. Re-running the command skips chunk IDs already stored in the collection.
+A successful first run ends with output similar to:
+
+```text
+ingested_records=16
+chunks=20
+embedded_chunks=20
+newly_indexed=20
+collection=novacart_chunks
+db_path=F:\novacart-hybrid-rag\data\vector_store
+total_indexed=20
+```
+
+Search the persisted index without recreating document embeddings:
+
+```powershell
+.\.venv\Scripts\python.exe -m scripts.query_vectors "What is the return policy?" --local-files-only
+```
+
+Each result includes a cosine similarity score, chunk ID, document name and
+type, page or section, source path, and a text preview. Scores closer to `1.0`
+mean stronger cosine similarity; rankings are most useful when compared within
+the same query and embedding model.
+
+Run the focused Phase 5 tests or the complete suite with:
+
+```powershell
+.\.venv\Scripts\python.exe -m pytest tests/test_retrieval.py -q
+.\.venv\Scripts\python.exe -m pytest -q
+```
+
 ## Troubleshooting
 
 - **Module not found:** run from the repository root and install requirements
@@ -225,6 +274,12 @@ Run the Phase 4 tests with:
   on first use; later runs reuse the cache.
 - **Embedding dimension mismatch:** verify one provider is used consistently for
   the whole batch.
+- **Empty search results:** run the indexing command first and confirm its
+  `collection` and `db_path` match the query command.
+- **Chroma dimension error:** rebuild under a new collection name after changing
+  the embedding model; one collection must use one embedding dimension.
+- **Database file is locked:** close other indexing/query processes using the
+  same local ChromaDB path and retry.
 
 The implementation follows the official [FastAPI first steps](https://fastapi.tiangolo.com/tutorial/first-steps/)
 and [Pydantic Settings documentation](https://docs.pydantic.dev/latest/concepts/pydantic_settings/).

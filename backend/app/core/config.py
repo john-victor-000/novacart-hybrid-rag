@@ -22,6 +22,9 @@ class Settings(BaseSettings):
     embedding_model_name: str = "sentence-transformers/all-MiniLM-L6-v2"
     embedding_batch_size: int = Field(default=16, gt=0)
     embedding_local_files_only: bool = False
+    vector_db_path: str = "data/vector_store"
+    vector_collection_name: str = "novacart_chunks"
+    retrieval_top_k: int = Field(default=5, gt=0)
 
     @model_validator(mode="after")
     def validate_chunk_settings(self) -> "Settings":
