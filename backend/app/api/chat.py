@@ -10,6 +10,7 @@ from backend.app.embeddings import SentenceTransformerEmbeddingProvider
 from backend.app.hybrid import HybridRetriever, ReciprocalRankFusion
 from backend.app.llm import GroqLLMProvider, LLMProviderError
 from backend.app.rag import ContextBuilder, RAGResponse, RAGService
+from backend.app.reranking import CrossEncoderReranker, RerankingRetriever
 from backend.app.retrieval import ChromaVectorStore, DenseRetriever, Retriever
 from backend.app.sparse import BM25Index, BM25Retriever
 
@@ -45,12 +46,22 @@ def get_rag_service() -> RAGService:
     dense_retriever = DenseRetriever(embedding_provider, vector_store)
     retriever: Retriever = dense_retriever
     if settings.rag_retrieval_mode == "hybrid":
-        retriever = HybridRetriever(
+        hybrid_retriever = HybridRetriever(
             dense_retriever=dense_retriever,
             bm25_retriever=BM25Retriever(BM25Index.load(settings.bm25_index_path)),
             fusion=ReciprocalRankFusion(settings.rrf_k),
             dense_top_k=settings.hybrid_dense_top_k,
             bm25_top_k=settings.hybrid_bm25_top_k,
+        )
+        retriever = RerankingRetriever(
+            retriever=hybrid_retriever,
+            reranker=CrossEncoderReranker(
+                model_name=settings.rerank_model,
+                batch_size=settings.rerank_batch_size,
+                local_files_only=settings.rerank_local_files_only,
+            ),
+            candidate_count=settings.rerank_candidates,
+            enabled=settings.rerank_enabled,
         )
     llm = GroqLLMProvider(
         settings.groq_api_key.get_secret_value(),
@@ -68,11 +79,12 @@ def chat(
 ) -> RAGResponse:
     """Answer a question using configured retrieval and grounded generation."""
     settings = Settings()
-    top_k = (
-        settings.hybrid_top_k
-        if settings.rag_retrieval_mode == "hybrid"
-        else settings.retrieval_top_k
-    )
+    if settings.rag_retrieval_mode == "dense":
+        top_k = settings.retrieval_top_k
+    elif settings.rerank_enabled:
+        top_k = settings.rerank_top_k
+    else:
+        top_k = settings.hybrid_top_k
     try:
         return service.answer(
             request.query,

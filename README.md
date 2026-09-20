@@ -1,13 +1,14 @@
 # NovaCart Hybrid RAG Knowledge Assistant
 
 A learning and portfolio project for a fictional e-commerce knowledge assistant,
-built incrementally. **Current implementation: Phase 8**: a minimal FastAPI
+built incrementally. **Current implementation: Phase 9**: a minimal FastAPI
 backend plus local dataset ingestion, chunking, metadata refinement, and
 embeddings with independent persistent dense and BM25 retrieval, plus a baseline
-Groq RAG pipeline and optional hybrid retrieval using Reciprocal Rank Fusion.
+Groq RAG pipeline, hybrid retrieval using Reciprocal Rank Fusion, and optional
+cross-encoder reranking.
 
-Reranking, structured retrieval, routing, and the frontend are reserved for
-later phases. Dense and BM25 retrieval remain independently usable.
+Structured retrieval, routing, and the frontend are reserved for later phases.
+Dense, BM25, and non-reranked hybrid retrieval remain available.
 
 ## Local setup (Windows PowerShell)
 
@@ -51,6 +52,12 @@ Edit `.env` to override these defaults:
 | `HYBRID_BM25_TOP_K` | `10` | BM25 candidates supplied to fusion |
 | `HYBRID_TOP_K` | `5` | Final number of hybrid results |
 | `RAG_RETRIEVAL_MODE` | `dense` | RAG retriever: `dense` or `hybrid` |
+| `RERANK_ENABLED` | `true` | Apply reranking when RAG uses hybrid retrieval |
+| `RERANK_MODEL` | `BAAI/bge-reranker-base` | Local cross-encoder model |
+| `RERANK_CANDIDATES` | `20` | Hybrid candidates sent to the reranker |
+| `RERANK_TOP_K` | `5` | Reranked chunks sent to context construction |
+| `RERANK_BATCH_SIZE` | `8` | Query/chunk pairs scored per model batch |
+| `RERANK_LOCAL_FILES_ONLY` | `false` | Load the reranker only from the local cache |
 | `GROQ_API_KEY` | empty | Groq API key; required for answer generation |
 | `GROQ_BASE_URL` | `https://api.groq.com/openai/v1` | Groq OpenAI-compatible API base URL |
 | `GROQ_MODEL` | `llama-3.1-8b-instant` | Groq generation model |
@@ -328,6 +335,44 @@ Run the focused Phase 8 tests with:
 .\.venv\Scripts\python.exe -m pytest tests/test_hybrid.py -q
 ```
 
+## Rerank hybrid candidates
+
+Phase 9 adds a dedicated cross-encoder after RRF. Hybrid retrieval first
+produces a wider set of `RERANK_CANDIDATES`. The reranker then reads the query
+and each candidate together, reorders them by relevance, and keeps only
+`RERANK_TOP_K` for context construction. Dense scores, BM25 scores, source
+ranks, RRF rank and score, text, and source metadata are retained.
+
+The default model is `BAAI/bge-reranker-base`. It provides stronger
+query/document relevance scoring than the embedding model because it processes
+the pair jointly. It is also substantially larger and slower on CPU. Model
+loading is lazy, so dense RAG and disabled reranking do not load it.
+
+Compare the original hybrid ranking with the reranked list:
+
+```powershell
+.\.venv\Scripts\python.exe -m scripts.compare_reranking "What is the warranty period of NCM-24?"
+```
+
+After the model is cached, require offline model loading with:
+
+```powershell
+.\.venv\Scripts\python.exe -m scripts.compare_reranking "Can I return a damaged product?" --local-files-only
+```
+
+Useful comparison queries include:
+
+```text
+How long does standard shipping take?
+What happens after a return is approved?
+```
+
+Run the focused tests without downloading the model:
+
+```powershell
+.\.venv\Scripts\python.exe -m pytest tests/test_reranking.py -q
+```
+
 ## Ask questions with baseline RAG
 
 Phase 6 sends a question through the configured retriever, builds labeled
@@ -356,9 +401,11 @@ Dense retrieval remains the default. Select hybrid retrieval for one CLI call:
 .\.venv\Scripts\python.exe -m scripts.ask_rag "What is the warranty of NCM-24?" --retrieval-mode hybrid --local-files-only
 ```
 
-Set `RAG_RETRIEVAL_MODE="hybrid"` in `.env` to use hybrid retrieval from
-`POST /api/chat`, or leave it as `"dense"` for the original baseline.
-Hybrid mode requires both the Chroma collection and BM25 index to be built.
+Set `RAG_RETRIEVAL_MODE="hybrid"` and `RERANK_ENABLED=true` in `.env` to
+use `Hybrid Retrieval → Reranker → Context` from `POST /api/chat`. Set
+`RERANK_ENABLED=false` for `Hybrid Retrieval → Context`, or use
+`RAG_RETRIEVAL_MODE="dense"` for the original dense baseline. Hybrid mode
+requires both the Chroma collection and BM25 index to be built.
 Add `--show-chunks` to include retrieval scores and text previews. You can also
 ask through the API by starting Uvicorn and sending a request from a second terminal:
 
@@ -438,6 +485,13 @@ text and similarity scores for debugging. Run the Phase 6 tests with:
 - **A relevant chunk ranks lower than expected:** RRF uses positions rather
   than raw score magnitude; increase the dense or BM25 candidate depth to let
   more candidates participate in fusion.
+- **Reranker download fails:** allow access to Hugging Face for the first model
+  load, then use `RERANK_LOCAL_FILES_ONLY=true` after it is cached.
+- **Reranking is slow or runs out of memory:** lower `RERANK_CANDIDATES` or
+  `RERANK_BATCH_SIZE`; `BAAI/bge-reranker-base` is heavier than the embedding
+  model on CPU.
+- **Rerank configuration validation fails:** ensure `RERANK_CANDIDATES` is
+  greater than or equal to `RERANK_TOP_K`.
 - **Missing Groq API key:** set `GROQ_API_KEY` in the root `.env` file and
   restart Uvicorn.
 - **Groq 401 error:** verify that the API key is valid and belongs to the

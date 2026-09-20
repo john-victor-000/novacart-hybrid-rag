@@ -1,6 +1,6 @@
 """Ask NovaCart RAG with configurable dense or hybrid retrieval."""
 
-from argparse import ArgumentParser
+from argparse import ArgumentParser, BooleanOptionalAction
 import logging
 from pathlib import Path
 
@@ -9,6 +9,7 @@ from backend.app.embeddings import SentenceTransformerEmbeddingProvider
 from backend.app.hybrid import HybridRetriever, ReciprocalRankFusion
 from backend.app.llm import GroqLLMProvider
 from backend.app.rag import ContextBuilder, RAGService
+from backend.app.reranking import CrossEncoderReranker, RerankingRetriever
 from backend.app.retrieval import ChromaVectorStore, DenseRetriever, Retriever
 from backend.app.sparse import BM25Index, BM25Retriever
 
@@ -36,6 +37,32 @@ def main() -> None:
         default=settings.hybrid_bm25_top_k,
     )
     parser.add_argument("--rrf-k", type=int, default=settings.rrf_k)
+    parser.add_argument(
+        "--rerank",
+        action=BooleanOptionalAction,
+        default=settings.rerank_enabled,
+    )
+    parser.add_argument("--rerank-model", default=settings.rerank_model)
+    parser.add_argument(
+        "--rerank-candidates",
+        type=int,
+        default=settings.rerank_candidates,
+    )
+    parser.add_argument(
+        "--rerank-top-k",
+        type=int,
+        default=settings.rerank_top_k,
+    )
+    parser.add_argument(
+        "--rerank-batch-size",
+        type=int,
+        default=settings.rerank_batch_size,
+    )
+    parser.add_argument(
+        "--rerank-local-files-only",
+        action="store_true",
+        default=settings.rerank_local_files_only,
+    )
     parser.add_argument("--show-chunks", action="store_true")
     parser.add_argument(
         "--local-files-only",
@@ -66,12 +93,22 @@ def main() -> None:
                 f"BM25 index not found at {args.bm25_index_path}. "
                 "Run `python -m scripts.index_bm25` first."
             )
-        retriever = HybridRetriever(
+        hybrid_retriever = HybridRetriever(
             dense_retriever=dense_retriever,
             bm25_retriever=BM25Retriever(BM25Index.load(args.bm25_index_path)),
             fusion=ReciprocalRankFusion(args.rrf_k),
             dense_top_k=args.dense_top_k,
             bm25_top_k=args.bm25_top_k,
+        )
+        retriever = RerankingRetriever(
+            retriever=hybrid_retriever,
+            reranker=CrossEncoderReranker(
+                model_name=args.rerank_model,
+                batch_size=args.rerank_batch_size,
+                local_files_only=args.rerank_local_files_only,
+            ),
+            candidate_count=args.rerank_candidates,
+            enabled=args.rerank,
         )
     llm = GroqLLMProvider(
         settings.groq_api_key.get_secret_value(),
@@ -83,9 +120,13 @@ def main() -> None:
         args.top_k
         if args.top_k is not None
         else (
-            settings.hybrid_top_k
-            if args.retrieval_mode == "hybrid"
-            else settings.retrieval_top_k
+            settings.retrieval_top_k
+            if args.retrieval_mode == "dense"
+            else (
+                args.rerank_top_k
+                if args.rerank
+                else settings.hybrid_top_k
+            )
         )
     )
     response = RAGService(retriever, ContextBuilder(), llm).answer(
@@ -95,6 +136,10 @@ def main() -> None:
     )
 
     print(f"retrieval_mode={args.retrieval_mode}")
+    print(
+        "rerank_enabled="
+        f"{args.retrieval_mode == 'hybrid' and args.rerank}"
+    )
     print(f"answer={response.answer}")
     print(f"sources={len(response.sources)}")
     for source in response.sources:

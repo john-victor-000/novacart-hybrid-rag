@@ -34,6 +34,12 @@ class Settings(BaseSettings):
     hybrid_bm25_top_k: int = Field(default=10, gt=0)
     hybrid_top_k: int = Field(default=5, gt=0)
     rag_retrieval_mode: str = "dense"
+    rerank_enabled: bool = True
+    rerank_model: str = "BAAI/bge-reranker-base"
+    rerank_candidates: int = Field(default=20, gt=0)
+    rerank_top_k: int = Field(default=5, gt=0)
+    rerank_batch_size: int = Field(default=8, gt=0)
+    rerank_local_files_only: bool = False
     groq_api_key: SecretStr = SecretStr("")
     groq_base_url: str = "https://api.groq.com/openai/v1"
     groq_model: str = "llama-3.1-8b-instant"
@@ -46,4 +52,8 @@ class Settings(BaseSettings):
             raise ValueError("CHUNK_OVERLAP must be smaller than CHUNK_SIZE")
         if self.rag_retrieval_mode not in {"dense", "hybrid"}:
             raise ValueError("RAG_RETRIEVAL_MODE must be 'dense' or 'hybrid'")
+        if self.rerank_candidates < self.rerank_top_k:
+            raise ValueError(
+                "RERANK_CANDIDATES must be greater than or equal to RERANK_TOP_K"
+            )
         return self

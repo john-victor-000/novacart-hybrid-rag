@@ -32,3 +32,17 @@ class HybridRetrievalResult(RetrievalResult):
     def rrf_score(self) -> float:
         """Expose the normalized result score under its fusion-specific name."""
         return self.score
+
+
+@dataclass(frozen=True)
+class RerankedRetrievalResult(RetrievalResult):
+    """A reranked result retaining retrieval and fusion diagnostics."""
+
+    dense_rank: Optional[int]
+    bm25_rank: Optional[int]
+    dense_score: Optional[float]
+    bm25_score: Optional[float]
+    rrf_rank: Optional[int]
+    rrf_score: Optional[float]
+    reranker_score: float
+    reranker_rank: int
