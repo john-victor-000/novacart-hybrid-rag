@@ -1,12 +1,14 @@
 # NovaCart Hybrid RAG Knowledge Assistant
 
 A learning and portfolio project for a fictional e-commerce knowledge assistant,
-built incrementally. **Current implementation: Phase 6**: a minimal FastAPI
+built incrementally. **Current implementation: Phase 7**: a minimal FastAPI
 backend plus local dataset ingestion, chunking, metadata refinement, and
-embeddings with persistent dense retrieval and a baseline Groq RAG pipeline.
+embeddings with independent persistent dense and BM25 retrieval, plus a baseline
+Groq RAG pipeline.
 
-BM25, hybrid retrieval, RRF, reranking, structured retrieval, routing, RAG/LLM
-generation, and the frontend are reserved for later phases.
+Hybrid retrieval, RRF, reranking, structured retrieval, routing, and the
+frontend are reserved for later phases. Baseline RAG continues to use dense
+retrieval only.
 
 ## Local setup (Windows PowerShell)
 
@@ -41,6 +43,10 @@ Edit `.env` to override these defaults:
 | `VECTOR_DB_PATH` | `data/vector_store` | Local ChromaDB persistence directory |
 | `VECTOR_COLLECTION_NAME` | `novacart_chunks` | ChromaDB collection used for NovaCart chunks |
 | `RETRIEVAL_TOP_K` | `5` | Default number of dense retrieval results |
+| `BM25_INDEX_PATH` | `data/bm25_index.json` | Persisted sparse index path |
+| `BM25_TOP_K` | `5` | Default number of BM25 results |
+| `BM25_K1` | `1.5` | BM25 term-frequency saturation parameter |
+| `BM25_B` | `0.75` | BM25 document-length normalization parameter |
 | `GROQ_API_KEY` | empty | Groq API key; required for answer generation |
 | `GROQ_BASE_URL` | `https://api.groq.com/openai/v1` | Groq OpenAI-compatible API base URL |
 | `GROQ_MODEL` | `llama-3.1-8b-instant` | Groq generation model |
@@ -252,6 +258,45 @@ Run the focused Phase 5 tests or the complete suite with:
 .\.venv\Scripts\python.exe -m pytest -q
 ```
 
+## Build and query the BM25 index
+
+Phase 7 adds sparse lexical retrieval independently of ChromaDB and baseline
+RAG. It uses the same Phase 3 chunks and returns the same normalized retrieval
+result fields as dense retrieval. The portable JSON index stores tokenized text
+and source metadata under `data/bm25_index.json`, which is excluded from Git.
+
+Build or refresh the index after source documents or chunk settings change:
+
+```powershell
+.\.venv\Scripts\python.exe -m scripts.index_bm25 --input-dir data/raw
+```
+
+Query exact identifiers, phrases, or keywords:
+
+```powershell
+.\.venv\Scripts\python.exe -m scripts.query_bm25 "NCM-24 warranty" --top-k 3
+.\.venv\Scripts\python.exe -m scripts.query_bm25 "24 months warranty" --top-k 3
+.\.venv\Scripts\python.exe -m scripts.query_bm25 "standard return window" --top-k 3
+```
+
+Tokens are case-folded and punctuation is normalized without stemming or
+stop-word removal. Hyphenated identifiers remain intact, so `NCM-24` is indexed
+as `ncm-24`; its `ncm` and `24` parts are also added to support partial and
+phrase queries.
+
+Compare the independent dense and BM25 rankings without combining their scores:
+
+```powershell
+.\.venv\Scripts\python.exe -m scripts.compare_retrievers "NCM-24 warranty" --top-k 3 --local-files-only
+```
+
+Dense cosine scores and BM25 lexical scores use different scales and should not
+be compared numerically. Run the focused Phase 7 tests with:
+
+```powershell
+.\.venv\Scripts\python.exe -m pytest tests/test_bm25.py -q
+```
+
 ## Ask questions with baseline RAG
 
 Phase 6 sends a question through dense retrieval, builds labeled context, and
@@ -342,6 +387,12 @@ text and similarity scores for debugging. Run the Phase 6 tests with:
   the embedding model; one collection must use one embedding dimension.
 - **Database file is locked:** close other indexing/query processes using the
   same local ChromaDB path and retry.
+- **BM25 index not found:** run
+  `.\.venv\Scripts\python.exe -m scripts.index_bm25 --input-dir data/raw`.
+- **Stale BM25 results:** rebuild the BM25 index after changing source documents,
+  chunk size, or chunk overlap.
+- **No BM25 results:** BM25 requires lexical token overlap; try an exact SKU or
+  wording that occurs in the source documents.
 - **Missing Groq API key:** set `GROQ_API_KEY` in the root `.env` file and
   restart Uvicorn.
 - **Groq 401 error:** verify that the API key is valid and belongs to the

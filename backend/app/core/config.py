@@ -25,6 +25,10 @@ class Settings(BaseSettings):
     vector_db_path: str = "data/vector_store"
     vector_collection_name: str = "novacart_chunks"
     retrieval_top_k: int = Field(default=5, gt=0)
+    bm25_index_path: str = "data/bm25_index.json"
+    bm25_top_k: int = Field(default=5, gt=0)
+    bm25_k1: float = Field(default=1.5, gt=0)
+    bm25_b: float = Field(default=0.75, ge=0, le=1)
     groq_api_key: SecretStr = SecretStr("")
     groq_base_url: str = "https://api.groq.com/openai/v1"
     groq_model: str = "llama-3.1-8b-instant"

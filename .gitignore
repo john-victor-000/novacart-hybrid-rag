@@ -13,3 +13,4 @@ htmlcov/
 
 # Locally persisted vector database
 data/vector_store/
+data/bm25_index.json
