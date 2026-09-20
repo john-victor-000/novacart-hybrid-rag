@@ -1,14 +1,16 @@
 # NovaCart Hybrid RAG Knowledge Assistant
 
 A learning and portfolio project for a fictional e-commerce knowledge assistant,
-built incrementally. **Current implementation: Phase 9**: a minimal FastAPI
+built incrementally. **Current implementation: Phase 10**: a minimal FastAPI
 backend plus local dataset ingestion, chunking, metadata refinement, and
 embeddings with independent persistent dense and BM25 retrieval, plus a baseline
 Groq RAG pipeline, hybrid retrieval using Reciprocal Rank Fusion, and optional
-cross-encoder reranking.
+cross-encoder reranking. Product facts can also be queried independently through
+a deterministic structured retrieval layer.
 
-Structured retrieval, routing, and the frontend are reserved for later phases.
-Dense, BM25, and non-reranked hybrid retrieval remain available.
+Query routing and the frontend are reserved for later phases. Dense, BM25,
+non-reranked hybrid, reranked hybrid, and structured retrieval remain
+independently callable.
 
 ## Local setup (Windows PowerShell)
 
@@ -58,6 +60,7 @@ Edit `.env` to override these defaults:
 | `RERANK_TOP_K` | `5` | Reranked chunks sent to context construction |
 | `RERANK_BATCH_SIZE` | `8` | Query/chunk pairs scored per model batch |
 | `RERANK_LOCAL_FILES_ONLY` | `false` | Load the reranker only from the local cache |
+| `PRODUCTS_CSV_PATH` | `data/raw/products.csv` | Structured product source |
 | `GROQ_API_KEY` | empty | Groq API key; required for answer generation |
 | `GROQ_BASE_URL` | `https://api.groq.com/openai/v1` | Groq OpenAI-compatible API base URL |
 | `GROQ_MODEL` | `llama-3.1-8b-instant` | Groq generation model |
@@ -373,6 +376,51 @@ Run the focused tests without downloading the model:
 .\.venv\Scripts\python.exe -m pytest tests/test_reranking.py -q
 ```
 
+## Query structured product data
+
+Phase 10 loads `products.csv` through a validated pandas repository. The
+product service works against a repository protocol rather than reading CSV
+directly, which keeps filtering and comparison logic independent of storage.
+Each result contains SKU, name, category, price, warranty, rating, stock status,
+and `source=products.csv`.
+
+Run deterministic product queries:
+
+```powershell
+.\.venv\Scripts\python.exe -m scripts.query_products "What is the price of NKM-10?"
+.\.venv\Scripts\python.exe -m scripts.query_products "Which products cost less than 5000?"
+.\.venv\Scripts\python.exe -m scripts.query_products "Which products have more than 12 months warranty?"
+.\.venv\Scripts\python.exe -m scripts.query_products "Which products are in stock?"
+.\.venv\Scripts\python.exe -m scripts.query_products "Compare NCM-24 and NKM-10"
+```
+
+Product-name, category, and sorting queries are also supported:
+
+```powershell
+.\.venv\Scripts\python.exe -m scripts.query_products "Find product mechanical keyboard"
+.\.venv\Scripts\python.exe -m scripts.query_products "Which products are in the Audio category?"
+.\.venv\Scripts\python.exe -m scripts.query_products "Sort products by price descending"
+```
+
+The structured retriever is intentionally separate from RAG. Phase 10 does not
+automatically choose between structured and hybrid retrieval.
+
+Expected warranty-filter output includes:
+
+```text
+operation=filter
+results=2
+1. NKM-10 - Mechanical Keyboard | warranty_months=18
+2. NCM-24 - 24-inch Monitor | warranty_months=24
+source=products.csv
+```
+
+Run the focused tests:
+
+```powershell
+.\.venv\Scripts\python.exe -m pytest tests/test_structured_retrieval.py -q
+```
+
 ## Ask questions with baseline RAG
 
 Phase 6 sends a question through the configured retriever, builds labeled
@@ -492,6 +540,12 @@ text and similarity scores for debugging. Run the Phase 6 tests with:
   model on CPU.
 - **Rerank configuration validation fails:** ensure `RERANK_CANDIDATES` is
   greater than or equal to `RERANK_TOP_K`.
+- **Product CSV not found:** confirm `PRODUCTS_CSV_PATH` points to the existing
+  `products.csv` file.
+- **Malformed product data:** check required columns, numeric price/warranty/
+  rating values, nonempty text fields, and unique SKUs.
+- **Unsupported structured query:** use an SKU lookup, comparison, supported
+  numeric/stock/category filter, product-name lookup, or sort expression.
 - **Missing Groq API key:** set `GROQ_API_KEY` in the root `.env` file and
   restart Uvicorn.
 - **Groq 401 error:** verify that the API key is valid and belongs to the

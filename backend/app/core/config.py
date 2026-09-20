@@ -40,6 +40,7 @@ class Settings(BaseSettings):
     rerank_top_k: int = Field(default=5, gt=0)
     rerank_batch_size: int = Field(default=8, gt=0)
     rerank_local_files_only: bool = False
+    products_csv_path: str = "data/raw/products.csv"
     groq_api_key: SecretStr = SecretStr("")
     groq_base_url: str = "https://api.groq.com/openai/v1"
     groq_model: str = "llama-3.1-8b-instant"
