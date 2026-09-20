@@ -1,4 +1,4 @@
-"""Orchestrate dense retrieval, context construction, and generation."""
+"""Orchestrate retrieval, context construction, and generation."""
 
 from __future__ import annotations
 
@@ -10,7 +10,7 @@ from backend.app.llm import LLMProvider
 from backend.app.rag.context import ContextBuilder
 from backend.app.rag.models import RAGResponse, RetrievedChunk, SourceCitation
 from backend.app.rag.prompts import build_rag_prompt
-from backend.app.retrieval import DenseRetriever, RetrievalResult
+from backend.app.retrieval import Retriever, RetrievalResult
 
 logger = logging.getLogger(__name__)
 
@@ -21,11 +21,11 @@ SOURCE_LABEL_PATTERN = re.compile(r"\[Source\s+(\d+)\]", re.IGNORECASE)
 
 
 class RAGService:
-    """Run the baseline query-to-answer dense RAG pipeline."""
+    """Run the query-to-answer RAG pipeline with a configured retriever."""
 
     def __init__(
         self,
-        retriever: DenseRetriever,
+        retriever: Retriever,
         context_builder: ContextBuilder,
         llm: LLMProvider,
     ) -> None:

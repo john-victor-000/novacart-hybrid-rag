@@ -1,4 +1,4 @@
-"""Baseline dense retrieval-augmented generation pipeline."""
+"""Retrieval-augmented generation pipeline."""
 
 from backend.app.rag.context import ContextBuilder
 from backend.app.rag.models import RAGResponse, RetrievedChunk, SourceCitation

@@ -29,6 +29,11 @@ class Settings(BaseSettings):
     bm25_top_k: int = Field(default=5, gt=0)
     bm25_k1: float = Field(default=1.5, gt=0)
     bm25_b: float = Field(default=0.75, ge=0, le=1)
+    rrf_k: int = Field(default=60, gt=0)
+    hybrid_dense_top_k: int = Field(default=10, gt=0)
+    hybrid_bm25_top_k: int = Field(default=10, gt=0)
+    hybrid_top_k: int = Field(default=5, gt=0)
+    rag_retrieval_mode: str = "dense"
     groq_api_key: SecretStr = SecretStr("")
     groq_base_url: str = "https://api.groq.com/openai/v1"
     groq_model: str = "llama-3.1-8b-instant"
@@ -39,4 +44,6 @@ class Settings(BaseSettings):
         """Keep overlap smaller than chunk size so chunking can progress."""
         if self.chunk_overlap >= self.chunk_size:
             raise ValueError("CHUNK_OVERLAP must be smaller than CHUNK_SIZE")
+        if self.rag_retrieval_mode not in {"dense", "hybrid"}:
+            raise ValueError("RAG_RETRIEVAL_MODE must be 'dense' or 'hybrid'")
         return self
