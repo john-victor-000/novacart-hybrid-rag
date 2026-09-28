@@ -25,6 +25,7 @@ class Settings(BaseSettings):
     vector_db_path: str = "data/vector_store"
     vector_collection_name: str = "novacart_chunks"
     retrieval_top_k: int = Field(default=5, gt=0)
+    retrieval_mode: str = "auto"
     bm25_index_path: str = "data/bm25_index.json"
     bm25_top_k: int = Field(default=5, gt=0)
     bm25_k1: float = Field(default=1.5, gt=0)
@@ -41,6 +42,8 @@ class Settings(BaseSettings):
     rerank_batch_size: int = Field(default=8, gt=0)
     rerank_local_files_only: bool = False
     products_csv_path: str = "data/raw/products.csv"
+    rag_context_max_characters: int = Field(default=8000, gt=0)
+    rag_context_max_items: int = Field(default=8, gt=0)
     groq_api_key: SecretStr = SecretStr("")
     groq_base_url: str = "https://api.groq.com/openai/v1"
     groq_model: str = "llama-3.1-8b-instant"
@@ -53,6 +56,10 @@ class Settings(BaseSettings):
             raise ValueError("CHUNK_OVERLAP must be smaller than CHUNK_SIZE")
         if self.rag_retrieval_mode not in {"dense", "hybrid"}:
             raise ValueError("RAG_RETRIEVAL_MODE must be 'dense' or 'hybrid'")
+        if self.retrieval_mode not in {"auto", "dense", "hybrid"}:
+            raise ValueError(
+                "RETRIEVAL_MODE must be 'auto', 'dense', or 'hybrid'"
+            )
         if self.rerank_candidates < self.rerank_top_k:
             raise ValueError(
                 "RERANK_CANDIDATES must be greater than or equal to RERANK_TOP_K"

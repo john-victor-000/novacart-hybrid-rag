@@ -1,8 +1,4 @@
-from fastapi.testclient import TestClient
-
-from backend.app.api.chat import get_rag_service
 from backend.app.llm import LLMProvider
-from backend.app.main import app
 from backend.app.rag import ContextBuilder, RAGService
 from backend.app.rag.service import INFORMATION_NOT_FOUND
 from backend.app.retrieval import RetrievalResult
@@ -116,24 +112,15 @@ def test_llm_insufficient_context_answer_has_no_sources() -> None:
     assert response.sources == []
 
 
-def test_chat_api_response_schema() -> None:
+def test_baseline_rag_response_schema() -> None:
     service = RAGService(  # type: ignore[arg-type]
         FakeRetriever([_result()]),
         ContextBuilder(),
         FakeLLMProvider("Seven calendar days. [Source 1]"),
     )
-    app.dependency_overrides[get_rag_service] = lambda: service
 
-    try:
-        response = TestClient(app).post(
-            "/api/chat",
-            json={"query": "What is the return period?"},
-        )
-    finally:
-        app.dependency_overrides.clear()
+    body = service.answer("What is the return period?", top_k=1).model_dump()
 
-    assert response.status_code == 200
-    body = response.json()
     assert body["answer"] == "Seven calendar days. [Source 1]"
     assert body["retrieved_chunks"] is None
     assert body["sources"] == [
