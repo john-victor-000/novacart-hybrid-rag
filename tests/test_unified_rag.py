@@ -1,7 +1,13 @@
 from fastapi.testclient import TestClient
 import pytest
 
-from backend.app.api.chat import get_rag_service
+from backend.app.api.chat import get_chat_service
+from backend.app.chat import ChatService
+from backend.app.conversations import (
+    ConversationService,
+    FollowUpRewriter,
+    InMemoryConversationRepository,
+)
 from backend.app.llm import LLMProvider
 from backend.app.main import app
 from backend.app.rag import UnifiedContextBuilder, UnifiedRAGService
@@ -175,7 +181,12 @@ def test_unified_chat_api_response() -> None:
         products=[_product("NKM-10", "Mechanical Keyboard", 3299, 18)],
         llm_answer="The price is INR 3,299. [Source 1]",
     )
-    app.dependency_overrides[get_rag_service] = lambda: service
+    chat_service = ChatService(
+        service,
+        ConversationService(InMemoryConversationRepository()),
+        FollowUpRewriter(),
+    )
+    app.dependency_overrides[get_chat_service] = lambda: chat_service
     try:
         response = TestClient(app).post(
             "/api/chat",
@@ -188,7 +199,9 @@ def test_unified_chat_api_response() -> None:
     body = response.json()
     assert body["answer"] == "The price is INR 3,299. [Source 1]"
     assert body["route"] == "STRUCTURED"
-    assert body["retrieval_debug"] is None
+    assert "conversation_id" in body
+    assert body["metadata"]["retrieval_count"] == 1
+    assert "debug" not in body
     assert body["sources"][0]["sku"] == "NKM-10"
     assert body["sources"][0]["source"] == "products.csv"
 

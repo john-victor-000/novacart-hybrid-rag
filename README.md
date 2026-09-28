@@ -1,13 +1,15 @@
 # NovaCart Hybrid RAG Knowledge Assistant
 
 A learning and portfolio project for a fictional e-commerce knowledge assistant,
-built incrementally. **Current implementation: Accelerated Stage A**: a FastAPI
+built incrementally. **Current implementation: Accelerated Stage B**: a FastAPI
 backend plus local dataset ingestion, chunking, metadata refinement, and
 embeddings with independent persistent dense and BM25 retrieval, plus a baseline
 Groq RAG pipeline, hybrid retrieval using Reciprocal Rank Fusion, and optional
 cross-encoder reranking. Product facts can also be queried independently through
 a deterministic structured retrieval layer. An observable query router now
 selects structured, hybrid, or multi-source evidence for one unified RAG API.
+Responses now include evidence-backed citations, request timing metadata, and
+lightweight conversation history with deterministic SKU follow-up handling.
 
 Dense, BM25, non-reranked hybrid, reranked hybrid, and structured retrieval
 remain independently callable for debugging and evaluation.
@@ -86,8 +88,8 @@ From the repository root:
 
 Uvicorn runs the HTTP server and logs startup, shutdown, and requests to the
 terminal. `backend/app/main.py` creates the FastAPI application from settings and
-registers the router in `backend/app/api/health.py`. Keeping configuration and
-routes separate makes the entry point small as later phases are added.
+registers the health and chat routers. API routes delegate retrieval,
+conversation, citation, and generation work to application services.
 
 Interactive API documentation: <http://127.0.0.1:8000/docs>.
 Stop the server with `Ctrl+C`.
@@ -450,10 +452,12 @@ server and send a request from another terminal:
 curl.exe -X POST http://127.0.0.1:8000/api/chat -H "Content-Type: application/json" --data '{"query":"What is the price of NKM-10?"}'
 ```
 
-A successful response has one shape across all routes:
+A successful response has one shape across all routes. When
+`conversation_id` is omitted, the server creates one:
 
 ```json
 {
+  "conversation_id": "f23f0659-83c5-4d8e-8be0-c3350fd2d41f",
   "answer": "The price of NKM-10 is INR 3,299. [Source 1]",
   "route": "STRUCTURED",
   "sources": [
@@ -463,21 +467,48 @@ A successful response has one shape across all routes:
       "document_name": "products.csv",
       "document_type": "csv",
       "page": null,
-      "section": "product NKM-10",
+      "section": "NKM-10",
       "chunk_id": null,
       "document_id": null,
-      "sku": "NKM-10"
+      "sku": "NKM-10",
+      "retrieval_method": "structured",
+      "reranker_score": null,
+      "rrf_score": null
     }
   ],
-  "retrieval_debug": null
+  "metadata": {
+    "retrieval_count": 1,
+    "latency_ms": 142.3,
+    "retrieval_latency_ms": 4.1,
+    "generation_latency_ms": 136.8
+  }
 }
 ```
 
+Send the returned ID with a follow-up so the server can preserve a narrow query
+topic such as warranty while replacing the product SKU:
+
+```powershell
+curl.exe -X POST http://127.0.0.1:8000/api/chat -H "Content-Type: application/json" --data '{"query":"What about NKM-10?","conversation_id":"f23f0659-83c5-4d8e-8be0-c3350fd2d41f"}'
+curl.exe http://127.0.0.1:8000/api/conversations/f23f0659-83c5-4d8e-8be0-c3350fd2d41f
+```
+
+Conversation history is process-local and is cleared when the server restarts.
+It stores the original user message, effective retrieval query, assistant
+answer, route, source metadata, and UTC timestamp. Only explicit short SKU
+follow-ups such as `What about NKM-10?` are rewritten; full history is not added
+to every retrieval query.
+
+Citations are built from evidence included in the prompt. LLM-generated source
+metadata is never trusted, repeated citations are removed, and structured
+product citations identify `products.csv` plus the SKU section.
+
 Set `"include_debug": true` to expose the route reason, confidence, final
-evidence, metadata, and retrieval diagnostics. The older
+evidence, and retrieval diagnostics under a separate `debug` field. The older
 `"include_retrieved_chunks": true` flag remains as a debug alias.
 
 ```powershell
+.\.venv\Scripts\python.exe -m pytest tests/test_citations.py tests/test_chat_conversations.py -q
 .\.venv\Scripts\python.exe -m pytest tests/test_unified_rag.py -q
 .\.venv\Scripts\python.exe -m pytest -q
 ```
@@ -505,6 +536,8 @@ The Phase 6 command remains available for direct dense/hybrid evaluation:
   evaluation runs.
 - **Unified API fails during startup:** automatic mode requires the Chroma
   collection, BM25 index, and configured product CSV to exist.
+- **Conversation not found:** process-local history is cleared when the server
+  restarts and is not shared across multiple worker processes.
 - **No ingestion records:** confirm source files are directly under `data/raw/`
   and use one of `.pdf`, `.docx`, or `.csv`.
 - **Parser import error:** reinstall dependencies with

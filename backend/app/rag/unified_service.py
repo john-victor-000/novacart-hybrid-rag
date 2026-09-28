@@ -8,15 +8,21 @@ from time import perf_counter
 from typing import Protocol
 
 from backend.app.llm import LLMProvider
+from backend.app.rag.citations import CitationBuilder, SOURCE_LABEL_PATTERN
 from backend.app.rag.evidence import (
     Evidence,
     evidence_from_product,
     evidence_from_retrieval,
 )
+from backend.app.rag.errors import (
+    RetrievalUnavailableError,
+    StructuredDataUnavailableError,
+)
 from backend.app.rag.prompts import build_unified_rag_prompt
 from backend.app.rag.unified_context import UnifiedContextBuilder
 from backend.app.rag.unified_models import (
     EvidenceDebug,
+    PipelineMetadata,
     RetrievalDebug,
     UnifiedRAGResponse,
     UnifiedSource,
@@ -24,6 +30,7 @@ from backend.app.rag.unified_models import (
 from backend.app.retrieval import Retriever
 from backend.app.routing import QueryRoute, QueryRouter, RouteDecision
 from backend.app.structured import (
+    ProductDataError,
     StructuredQueryResult,
     StructuredRetrievalError,
 )
@@ -33,7 +40,6 @@ logger = logging.getLogger(__name__)
 INFORMATION_NOT_FOUND = (
     "The information was not found in the NovaCart knowledge base."
 )
-SOURCE_LABEL_PATTERN = re.compile(r"\[Source\s+(\d+)\]", re.IGNORECASE)
 
 
 class StructuredRetriever(Protocol):
@@ -57,6 +63,7 @@ class UnifiedRAGService:
         retrieval_mode: str = "auto",
         dense_top_k: int = 5,
         hybrid_top_k: int = 5,
+        citation_builder: CitationBuilder | None = None,
     ) -> None:
         if retrieval_mode not in {"auto", "dense", "hybrid"}:
             raise ValueError("retrieval_mode must be auto, dense, or hybrid")
@@ -71,11 +78,13 @@ class UnifiedRAGService:
         self.retrieval_mode = retrieval_mode
         self.dense_top_k = dense_top_k
         self.hybrid_top_k = hybrid_top_k
+        self.citation_builder = citation_builder or CitationBuilder()
 
     def answer(
         self,
         query: str,
         include_debug: bool = False,
+        request_id: str | None = None,
     ) -> UnifiedRAGResponse:
         normalized_query = " ".join(query.split())
         if not normalized_query:
@@ -84,26 +93,49 @@ class UnifiedRAGService:
         started = perf_counter()
         decision = self._route(normalized_query)
         retrieval_started = perf_counter()
-        evidence = self._retrieve(normalized_query, decision.route)
+        try:
+            evidence = self._retrieve(normalized_query, decision.route)
+        except StructuredDataUnavailableError:
+            raise
+        except Exception as exc:
+            logger.exception(
+                "Retrieval failed request_id=%s route=%s",
+                request_id,
+                decision.route.value,
+            )
+            raise RetrievalUnavailableError("retrieval is unavailable") from exc
+        retrieval_latency = perf_counter() - retrieval_started
         logger.info(
-            "Unified retrieval route=%s evidence=%s latency=%.3fs",
+            "Unified retrieval request_id=%s route=%s method=%s evidence=%s "
+            "latency=%.3fs",
+            request_id,
             decision.route.value,
+            decision.route.value.lower(),
             len(evidence),
-            perf_counter() - retrieval_started,
+            retrieval_latency,
         )
 
         built_context = self.context_builder.build(evidence)
         included = list(built_context.evidence)
         if not included:
             logger.info(
-                "Unified RAG completed without generation route=%s latency=%.3fs",
+                "Unified RAG completed without generation request_id=%s "
+                "route=%s latency=%.3fs",
+                request_id,
                 decision.route.value,
                 perf_counter() - started,
             )
+            total_latency = perf_counter() - started
             return UnifiedRAGResponse(
                 answer=INFORMATION_NOT_FOUND,
                 route=decision.route,
                 sources=[],
+                metadata=_metadata(
+                    len(included),
+                    total_latency,
+                    retrieval_latency,
+                    0.0,
+                ),
                 retrieval_debug=(
                     _build_debug(decision, included) if include_debug else None
                 ),
@@ -111,30 +143,43 @@ class UnifiedRAGService:
 
         prompt = build_unified_rag_prompt(normalized_query, built_context.text)
         generation_started = perf_counter()
-        answer = _remove_invalid_source_labels(
-            self.llm.generate(prompt),
-            len(included),
-        )
+        raw_answer = self.llm.generate(prompt)
+        generation_latency = perf_counter() - generation_started
+        answer = _remove_invalid_source_labels(raw_answer, len(included))
         logger.info(
-            "Unified generation model=%s latency=%.3fs",
+            "Unified generation request_id=%s model=%s latency=%.3fs",
+            request_id,
             self.llm.model_name,
-            perf_counter() - generation_started,
+            generation_latency,
         )
 
-        cited = [] if answer.strip() == INFORMATION_NOT_FOUND else _cited(answer, included)
+        sources = (
+            []
+            if answer.strip() == INFORMATION_NOT_FOUND
+            else self.citation_builder.build(raw_answer, included)
+        )
+        total_latency = perf_counter() - started
         response = UnifiedRAGResponse(
             answer=answer,
             route=decision.route,
-            sources=[_to_source(item) for item in cited],
+            sources=sources,
+            metadata=_metadata(
+                len(included),
+                total_latency,
+                retrieval_latency,
+                generation_latency,
+            ),
             retrieval_debug=(
                 _build_debug(decision, included) if include_debug else None
             ),
         )
         logger.info(
-            "Unified RAG completed route=%s sources=%s latency=%.3fs",
+            "Unified RAG completed request_id=%s route=%s sources=%s "
+            "latency=%.3fs",
+            request_id,
             decision.route.value,
             len(response.sources),
-            perf_counter() - started,
+            total_latency,
         )
         return response
 
@@ -190,6 +235,11 @@ class UnifiedRAGService:
     def _structured_evidence(self, query: str) -> list[Evidence]:
         try:
             result = self.structured_retriever.retrieve(query)
+        except ProductDataError as exc:
+            logger.exception("Structured product data failed")
+            raise StructuredDataUnavailableError(
+                "structured product data is unavailable"
+            ) from exc
         except StructuredRetrievalError as exc:
             logger.info("Structured retrieval produced no evidence error=%s", exc)
             return []
@@ -207,34 +257,21 @@ def _remove_invalid_source_labels(answer: str, evidence_count: int) -> str:
     return " ".join(SOURCE_LABEL_PATTERN.sub(replace, answer).split())
 
 
-def _cited(answer: str, evidence: list[Evidence]) -> list[Evidence]:
-    source_numbers = [
-        int(match.group(1))
-        for match in SOURCE_LABEL_PATTERN.finditer(answer)
-        if 1 <= int(match.group(1)) <= len(evidence)
-    ]
-    if not source_numbers:
-        return evidence
-    seen: set[int] = set()
-    cited: list[Evidence] = []
-    for number in source_numbers:
-        if number not in seen:
-            seen.add(number)
-            cited.append(evidence[number - 1])
-    return cited
-
-
 def _to_source(item: Evidence) -> UnifiedSource:
-    return UnifiedSource(
-        evidence_id=item.evidence_id,
-        chunk_id=item.chunk_id,
-        document_id=item.document_id,
-        sku=item.sku,
-        source=item.source,
-        document_name=item.document_name,
-        document_type=item.document_type,
-        page=item.page,
-        section=item.section,
+    return CitationBuilder.from_evidence(item)
+
+
+def _metadata(
+    evidence_count: int,
+    total_seconds: float,
+    retrieval_seconds: float,
+    generation_seconds: float,
+) -> PipelineMetadata:
+    return PipelineMetadata(
+        retrieval_count=evidence_count,
+        latency_ms=round(total_seconds * 1000, 3),
+        retrieval_latency_ms=round(retrieval_seconds * 1000, 3),
+        generation_latency_ms=round(generation_seconds * 1000, 3),
     )
 
 

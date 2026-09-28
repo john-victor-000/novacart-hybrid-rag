@@ -1,54 +1,110 @@
-"""Unified automatically routed NovaCart chat endpoint."""
+"""Thin FastAPI routes for conversation-aware NovaCart chat."""
 
 from functools import lru_cache
+import logging
+from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException
-from pydantic import BaseModel, Field, field_validator
 
+from backend.app.chat import (
+    ChatRequest,
+    ChatResponse,
+    ChatService,
+    build_chat_service,
+)
+from backend.app.conversations import (
+    ConversationNotFoundError,
+    ConversationRecord,
+)
 from backend.app.core.config import Settings
 from backend.app.llm import LLMProviderError
-from backend.app.rag import (
-    UnifiedRAGResponse,
-    UnifiedRAGService,
-    build_unified_rag_service,
+from backend.app.rag.errors import (
+    RetrievalUnavailableError,
+    StructuredDataUnavailableError,
 )
 
+logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/api", tags=["chat"])
 
 
-class ChatRequest(BaseModel):
-    """User query; retrieval strategy is selected by the backend."""
-
-    query: str = Field(min_length=1)
-    include_debug: bool = False
-    include_retrieved_chunks: bool = False
-
-    @field_validator("query")
-    @classmethod
-    def query_must_contain_text(cls, value: str) -> str:
-        if not value.strip():
-            raise ValueError("query cannot be blank")
-        return value.strip()
-
-
 @lru_cache
-def get_rag_service() -> UnifiedRAGService:
-    """Create and cache the configured unified RAG pipeline."""
-    return build_unified_rag_service(Settings())
+def _cached_chat_service() -> ChatService:
+    return build_chat_service(Settings())
 
 
-@router.post("/chat", response_model=UnifiedRAGResponse)
+def get_chat_service() -> ChatService:
+    """Return the process-wide chat service and its conversation store."""
+    try:
+        return _cached_chat_service()
+    except Exception as exc:
+        logger.exception("Chat service initialization failed")
+        raise HTTPException(
+            status_code=503,
+            detail="NovaCart retrieval services are unavailable",
+        ) from exc
+
+
+@router.post(
+    "/chat",
+    response_model=ChatResponse,
+)
 def chat(
     request: ChatRequest,
-    service: UnifiedRAGService = Depends(get_rag_service),
-) -> UnifiedRAGResponse:
-    """Route, retrieve, and answer without a caller-selected retriever."""
+    service: ChatService = Depends(get_chat_service),
+) -> ChatResponse:
+    """Answer a message using automatic routing and saved conversation state."""
     try:
         return service.answer(
             request.query,
+            conversation_id=request.conversation_id,
             include_debug=(
                 request.include_debug or request.include_retrieved_chunks
             ),
         )
+    except ConversationNotFoundError as exc:
+        raise HTTPException(
+            status_code=404,
+            detail="Conversation not found",
+        ) from exc
     except LLMProviderError as exc:
-        raise HTTPException(status_code=503, detail=str(exc)) from exc
+        logger.exception("LLM generation failed")
+        raise HTTPException(
+            status_code=503,
+            detail="The answer service is temporarily unavailable",
+        ) from exc
+    except StructuredDataUnavailableError as exc:
+        logger.exception("Structured retrieval failed")
+        raise HTTPException(
+            status_code=503,
+            detail="Product data is temporarily unavailable",
+        ) from exc
+    except RetrievalUnavailableError as exc:
+        logger.exception("Document retrieval failed")
+        raise HTTPException(
+            status_code=503,
+            detail="Document retrieval is temporarily unavailable",
+        ) from exc
+    except Exception as exc:
+        logger.exception("Unexpected chat failure")
+        raise HTTPException(
+            status_code=500,
+            detail="The request could not be completed",
+        ) from exc
+
+
+@router.get(
+    "/conversations/{conversation_id}",
+    response_model=ConversationRecord,
+)
+def get_conversation(
+    conversation_id: UUID,
+    service: ChatService = Depends(get_chat_service),
+) -> ConversationRecord:
+    """Return the stored turns for a process-local conversation."""
+    try:
+        return service.get_conversation(conversation_id)
+    except ConversationNotFoundError as exc:
+        raise HTTPException(
+            status_code=404,
+            detail="Conversation not found",
+        ) from exc

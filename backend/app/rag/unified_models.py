@@ -19,6 +19,9 @@ class UnifiedSource(BaseModel):
     chunk_id: str | None = None
     document_id: str | None = None
     sku: str | None = None
+    retrieval_method: str | None = None
+    reranker_score: float | None = None
+    rrf_score: float | None = None
 
 
 class EvidenceDebug(UnifiedSource):
@@ -38,10 +41,20 @@ class RetrievalDebug(BaseModel):
     evidence: list[EvidenceDebug]
 
 
+class PipelineMetadata(BaseModel):
+    """Timing and evidence counts produced by one unified RAG request."""
+
+    retrieval_count: int
+    latency_ms: float
+    retrieval_latency_ms: float
+    generation_latency_ms: float
+
+
 class UnifiedRAGResponse(BaseModel):
     """One stable response shape across every retrieval route."""
 
     answer: str
     route: QueryRoute
     sources: list[UnifiedSource]
+    metadata: PipelineMetadata
     retrieval_debug: RetrievalDebug | None = None

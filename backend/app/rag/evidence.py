@@ -82,7 +82,7 @@ def evidence_from_product(
         source=product.source,
         document_name=product.source,
         document_type="csv",
-        section=f"product {product.sku}",
+        section=product.sku,
         sku=product.sku,
         retrieval_info={
             "strategy": "structured",
