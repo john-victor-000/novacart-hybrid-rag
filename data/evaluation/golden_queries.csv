@@ -1,0 +1,7 @@
+query,expected_route,expected_source
+What is the standard return window?,HYBRID,return_policy.pdf
+How long does standard delivery take?,HYBRID,shipping_policy.pdf
+What is the price of NKM-10?,STRUCTURED,products.csv
+What is the warranty of NCM-24?,STRUCTURED,products.csv
+Which products have more than 12 months warranty?,STRUCTURED,products.csv
+Can I change my address after the order is packed?,HYBRID,shipping_policy.pdf

@@ -1,7 +1,7 @@
 # NovaCart Hybrid RAG Knowledge Assistant
 
 A learning and portfolio project for a fictional e-commerce knowledge assistant,
-built incrementally. **Current implementation: Accelerated Stage B**: a FastAPI
+built incrementally. **Current implementation: Accelerated Stage C**: a FastAPI
 backend plus local dataset ingestion, chunking, metadata refinement, and
 embeddings with independent persistent dense and BM25 retrieval, plus a baseline
 Groq RAG pipeline, hybrid retrieval using Reciprocal Rank Fusion, and optional
@@ -10,6 +10,8 @@ a deterministic structured retrieval layer. An observable query router now
 selects structured, hybrid, or multi-source evidence for one unified RAG API.
 Responses now include evidence-backed citations, request timing metadata, and
 lightweight conversation history with deterministic SKU follow-up handling.
+The project also includes reproducible dense, BM25, Hybrid RRF, and reranked
+retrieval evaluation with saved per-query results.
 
 Dense, BM25, non-reranked hybrid, reranked hybrid, and structured retrieval
 remain independently callable for debugging and evaluation.
@@ -512,6 +514,20 @@ evidence, and retrieval diagnostics under a separate `debug` field. The older
 .\.venv\Scripts\python.exe -m pytest tests/test_unified_rag.py -q
 .\.venv\Scripts\python.exe -m pytest -q
 ```
+
+## Evaluate retrieval quality
+
+Run the reproducible comparison of dense retrieval, BM25, Hybrid RRF, and
+Hybrid RRF with reranking:
+
+```powershell
+.\.venv\Scripts\python.exe -m scripts.evaluate --local-files-only
+```
+
+The command prints Hit Rate, Recall, Precision, MRR, NDCG, and warm-model
+latency, then saves detailed per-query rankings under
+`data/evaluation/results/`. See [the evaluation report](docs/evaluation.md) for
+the measured results, methodology, and current failure cases.
 
 ## Legacy baseline RAG CLI
 

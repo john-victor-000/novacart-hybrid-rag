@@ -1,0 +1,4103 @@
+{
+  "generated_at": "2026-09-28T13:01:47.712941+00:00",
+  "question_count": 10,
+  "k_values": [
+    1,
+    3,
+    5
+  ],
+  "configuration": {
+    "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+    "reranker_model": "BAAI/bge-reranker-base",
+    "vector_collection": "novacart_chunks",
+    "bm25_index": "data/bm25_index.json",
+    "rrf_k": 60,
+    "hybrid_dense_top_k": 10,
+    "hybrid_bm25_top_k": 10,
+    "rerank_candidates": 20,
+    "k_values": [
+      1,
+      3,
+      5
+    ],
+    "warm_up_before_timing": true
+  },
+  "warmup_ms": {
+    "Dense": 12097.749,
+    "BM25": 0.263,
+    "Hybrid RRF": 28.611,
+    "Hybrid + Reranker": 10830.0
+  },
+  "summary": [
+    {
+      "retriever": "Dense",
+      "metrics": {
+        "1": {
+          "hit_rate": 0.8,
+          "recall": 0.65,
+          "precision": 0.8,
+          "reciprocal_rank": 0.8,
+          "ndcg": 0.8
+        },
+        "3": {
+          "hit_rate": 0.9,
+          "recall": 0.85,
+          "precision": 0.366667,
+          "reciprocal_rank": 0.85,
+          "ndcg": 0.81638
+        },
+        "5": {
+          "hit_rate": 0.9,
+          "recall": 0.9,
+          "precision": 0.24,
+          "reciprocal_rank": 0.85,
+          "ndcg": 0.842787
+        }
+      },
+      "mean_latency_ms": 32.057,
+      "mean_retrieval_latency_ms": 32.057,
+      "mean_reranking_latency_ms": 0.0,
+      "max_latency_ms": 36.002
+    },
+    {
+      "retriever": "BM25",
+      "metrics": {
+        "1": {
+          "hit_rate": 0.5,
+          "recall": 0.35,
+          "precision": 0.5,
+          "reciprocal_rank": 0.5,
+          "ndcg": 0.5
+        },
+        "3": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.433333,
+          "reciprocal_rank": 0.75,
+          "ndcg": 0.807437
+        },
+        "5": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.26,
+          "reciprocal_rank": 0.75,
+          "ndcg": 0.807437
+        }
+      },
+      "mean_latency_ms": 0.352,
+      "mean_retrieval_latency_ms": 0.352,
+      "mean_reranking_latency_ms": 0.0,
+      "max_latency_ms": 0.47
+    },
+    {
+      "retriever": "Hybrid RRF",
+      "metrics": {
+        "1": {
+          "hit_rate": 0.8,
+          "recall": 0.65,
+          "precision": 0.8,
+          "reciprocal_rank": 0.8,
+          "ndcg": 0.8
+        },
+        "3": {
+          "hit_rate": 0.9,
+          "recall": 0.9,
+          "precision": 0.4,
+          "reciprocal_rank": 0.85,
+          "ndcg": 0.855065
+        },
+        "5": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.26,
+          "reciprocal_rank": 0.875,
+          "ndcg": 0.898133
+        }
+      },
+      "mean_latency_ms": 30.378,
+      "mean_retrieval_latency_ms": 30.378,
+      "mean_reranking_latency_ms": 0.0,
+      "max_latency_ms": 32.75
+    },
+    {
+      "retriever": "Hybrid + Reranker",
+      "metrics": {
+        "1": {
+          "hit_rate": 0.8,
+          "recall": 0.65,
+          "precision": 0.8,
+          "reciprocal_rank": 0.8,
+          "ndcg": 0.8
+        },
+        "3": {
+          "hit_rate": 0.9,
+          "recall": 0.9,
+          "precision": 0.4,
+          "reciprocal_rank": 0.85,
+          "ndcg": 0.855065
+        },
+        "5": {
+          "hit_rate": 0.9,
+          "recall": 0.9,
+          "precision": 0.24,
+          "reciprocal_rank": 0.85,
+          "ndcg": 0.855065
+        }
+      },
+      "mean_latency_ms": 8734.248,
+      "mean_retrieval_latency_ms": 33.378,
+      "mean_reranking_latency_ms": 8700.835,
+      "max_latency_ms": 13088.495
+    }
+  ],
+  "queries": [
+    {
+      "id": "E01",
+      "query": "What is the standard return window?",
+      "retrieval_type": "semantic",
+      "expected_sources": [
+        "return_policy.pdf"
+      ],
+      "retrieval_mode": "Dense",
+      "latency_ms": 31.552,
+      "base_retrieval_latency_ms": 31.552,
+      "reranking_latency_ms": 0.0,
+      "expected_found": true,
+      "metrics": {
+        "1": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        },
+        "3": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.3333333333333333,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        },
+        "5": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.2,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        }
+      },
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "af81754fac2b9ddbc606b4814053f4ff68451c0bd03b2ed7f060a4379592501f",
+          "document_name": "return_policy.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\return_policy.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.3769557285098075
+        },
+        {
+          "rank": 2,
+          "chunk_id": "ff28a76ba359380dff80705cea33058100e3f986b92660e203cd3f7e5747cac2",
+          "document_name": "faq.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\faq.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.3616024765966621
+        },
+        {
+          "rank": 3,
+          "chunk_id": "2d42b7137b877a688d4eb8d51860c3d1de394f9135edf9b40fc96e5c1b1f9a7e",
+          "document_name": "return_policy.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\return_policy.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.2821401082492283
+        },
+        {
+          "rank": 4,
+          "chunk_id": "7fddd29093ffd2ae6b719e2228b22cbc41ade5f59758d4549cdf253ef0fa4e32",
+          "document_name": "warranty_guide.docx",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\warranty_guide.docx",
+          "page": null,
+          "section": null,
+          "score": 0.21421158062190349
+        },
+        {
+          "rank": 5,
+          "chunk_id": "2170143e86631d0bbddba280b8d36255a6dc71a504900bc8c7659efb7f701864",
+          "document_name": "products.csv",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\products.csv",
+          "page": null,
+          "section": "row 2",
+          "score": 0.1734333953453122
+        }
+      ]
+    },
+    {
+      "id": "E02",
+      "query": "How long does standard delivery take?",
+      "retrieval_type": "semantic",
+      "expected_sources": [
+        "shipping_policy.pdf"
+      ],
+      "retrieval_mode": "Dense",
+      "latency_ms": 34.708,
+      "base_retrieval_latency_ms": 34.708,
+      "reranking_latency_ms": 0.0,
+      "expected_found": true,
+      "metrics": {
+        "1": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        },
+        "3": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.3333333333333333,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        },
+        "5": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.2,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        }
+      },
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "6cfc0c94ea5779562942e1fc458fc400dae7bd1b5b7cf1122fa6c738666df7c6",
+          "document_name": "shipping_policy.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\shipping_policy.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.6003887615913783
+        },
+        {
+          "rank": 2,
+          "chunk_id": "af81754fac2b9ddbc606b4814053f4ff68451c0bd03b2ed7f060a4379592501f",
+          "document_name": "return_policy.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\return_policy.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.4217107444223829
+        },
+        {
+          "rank": 3,
+          "chunk_id": "ff28a76ba359380dff80705cea33058100e3f986b92660e203cd3f7e5747cac2",
+          "document_name": "faq.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\faq.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.40264306213282086
+        },
+        {
+          "rank": 4,
+          "chunk_id": "2d42b7137b877a688d4eb8d51860c3d1de394f9135edf9b40fc96e5c1b1f9a7e",
+          "document_name": "return_policy.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\return_policy.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.3549049173312586
+        },
+        {
+          "rank": 5,
+          "chunk_id": "6ca72c8512077a2da68692f340d8bd96f296d65dce77efaa28a3bc26937d5123",
+          "document_name": "company_information.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\company_information.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.252792930319962
+        }
+      ]
+    },
+    {
+      "id": "E03",
+      "query": "What is the price of NKM-10?",
+      "retrieval_type": "keyword/structured",
+      "expected_sources": [
+        "products.csv"
+      ],
+      "retrieval_mode": "Dense",
+      "latency_ms": 29.622,
+      "base_retrieval_latency_ms": 29.622,
+      "reranking_latency_ms": 0.0,
+      "expected_found": true,
+      "metrics": {
+        "1": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        },
+        "3": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.3333333333333333,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        },
+        "5": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.2,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        }
+      },
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "d119ef1e387be6a14d82e18890cb5ab0236d7b59d0aa564496eb3be83fed0d3d",
+          "document_name": "products.csv",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\products.csv",
+          "page": null,
+          "section": "row 3",
+          "score": 0.5462541309659148
+        },
+        {
+          "rank": 2,
+          "chunk_id": "584ec3cec82c20f860b0a25a54020d0f1f65ffb982eca5cc976bc2f710e21599",
+          "document_name": "product_documentation.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\product_documentation.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.44559793640252066
+        },
+        {
+          "rank": 3,
+          "chunk_id": "8312e55e2a5cbe9ac7087192ff0f63343e49ae7d68746e43ab2c51e12b6b08b2",
+          "document_name": "warranty_guide.docx",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\warranty_guide.docx",
+          "page": null,
+          "section": "Examples",
+          "score": 0.41332999049838537
+        },
+        {
+          "rank": 4,
+          "chunk_id": "43307a0aaf997e203e660d6033af74a5614d4673739a983efe494b618dd0763b",
+          "document_name": "products.csv",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\products.csv",
+          "page": null,
+          "section": "row 1",
+          "score": 0.4033251811527274
+        },
+        {
+          "rank": 5,
+          "chunk_id": "13a0850397000cadd74c51cb249446da168958f5ebc0b88c0fa4097453fb93d4",
+          "document_name": "products.csv",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\products.csv",
+          "page": null,
+          "section": "row 4",
+          "score": 0.35379066759622324
+        }
+      ]
+    },
+    {
+      "id": "E04",
+      "query": "How long is the NCM-24 warranty?",
+      "retrieval_type": "hybrid",
+      "expected_sources": [
+        "products.csv",
+        "warranty_guide.docx"
+      ],
+      "retrieval_mode": "Dense",
+      "latency_ms": 36.002,
+      "base_retrieval_latency_ms": 36.002,
+      "reranking_latency_ms": 0.0,
+      "expected_found": true,
+      "metrics": {
+        "1": {
+          "hit_rate": 1.0,
+          "recall": 0.5,
+          "precision": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        },
+        "3": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.6666666666666666,
+          "reciprocal_rank": 1.0,
+          "ndcg": 0.9197207891481876
+        },
+        "5": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.4,
+          "reciprocal_rank": 1.0,
+          "ndcg": 0.9197207891481876
+        }
+      },
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "8312e55e2a5cbe9ac7087192ff0f63343e49ae7d68746e43ab2c51e12b6b08b2",
+          "document_name": "warranty_guide.docx",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\warranty_guide.docx",
+          "page": null,
+          "section": "Examples",
+          "score": 0.7194689851216547
+        },
+        {
+          "rank": 2,
+          "chunk_id": "7fddd29093ffd2ae6b719e2228b22cbc41ade5f59758d4549cdf253ef0fa4e32",
+          "document_name": "warranty_guide.docx",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\warranty_guide.docx",
+          "page": null,
+          "section": null,
+          "score": 0.46840963840283556
+        },
+        {
+          "rank": 3,
+          "chunk_id": "13a0850397000cadd74c51cb249446da168958f5ebc0b88c0fa4097453fb93d4",
+          "document_name": "products.csv",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\products.csv",
+          "page": null,
+          "section": "row 4",
+          "score": 0.46472816679828344
+        },
+        {
+          "rank": 4,
+          "chunk_id": "65c4d27b4ed3d751c9dfb3209c596db0c2547aca561e594db1235ad1c0c940b3",
+          "document_name": "warranty_guide.docx",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\warranty_guide.docx",
+          "page": null,
+          "section": "Warranty Basics",
+          "score": 0.45840005156320185
+        },
+        {
+          "rank": 5,
+          "chunk_id": "584ec3cec82c20f860b0a25a54020d0f1f65ffb982eca5cc976bc2f710e21599",
+          "document_name": "product_documentation.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\product_documentation.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.42884116406175843
+        }
+      ]
+    },
+    {
+      "id": "E05",
+      "query": "Can I change my address after the order is packed?",
+      "retrieval_type": "semantic",
+      "expected_sources": [
+        "shipping_policy.pdf"
+      ],
+      "retrieval_mode": "Dense",
+      "latency_ms": 30.056,
+      "base_retrieval_latency_ms": 30.056,
+      "reranking_latency_ms": 0.0,
+      "expected_found": true,
+      "metrics": {
+        "1": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        },
+        "3": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.3333333333333333,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        },
+        "5": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.2,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        }
+      },
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "e0556b3771baa4377d6d23187734cd61dde46ee559343371761e873401949e8e",
+          "document_name": "shipping_policy.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\shipping_policy.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.7638713529870422
+        },
+        {
+          "rank": 2,
+          "chunk_id": "6cfc0c94ea5779562942e1fc458fc400dae7bd1b5b7cf1122fa6c738666df7c6",
+          "document_name": "shipping_policy.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\shipping_policy.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.42777746455324084
+        },
+        {
+          "rank": 3,
+          "chunk_id": "2d42b7137b877a688d4eb8d51860c3d1de394f9135edf9b40fc96e5c1b1f9a7e",
+          "document_name": "return_policy.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\return_policy.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.34673841770206404
+        },
+        {
+          "rank": 4,
+          "chunk_id": "ff28a76ba359380dff80705cea33058100e3f986b92660e203cd3f7e5747cac2",
+          "document_name": "faq.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\faq.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.29125376377824597
+        },
+        {
+          "rank": 5,
+          "chunk_id": "73c78a8b2a4d559ff2c1228375e98ebac84cac6f2b600894cb5864be7ed624e3",
+          "document_name": "warranty_guide.docx",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\warranty_guide.docx",
+          "page": null,
+          "section": "Service",
+          "score": 0.26947604879302633
+        }
+      ]
+    },
+    {
+      "id": "E06",
+      "query": "Is the NCB-100 covered by warranty?",
+      "retrieval_type": "hybrid",
+      "expected_sources": [
+        "product_documentation.pdf",
+        "warranty_guide.docx"
+      ],
+      "retrieval_mode": "Dense",
+      "latency_ms": 35.701,
+      "base_retrieval_latency_ms": 35.701,
+      "reranking_latency_ms": 0.0,
+      "expected_found": true,
+      "metrics": {
+        "1": {
+          "hit_rate": 1.0,
+          "recall": 0.5,
+          "precision": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        },
+        "3": {
+          "hit_rate": 1.0,
+          "recall": 0.5,
+          "precision": 0.3333333333333333,
+          "reciprocal_rank": 1.0,
+          "ndcg": 0.6131471927654584
+        },
+        "5": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.4,
+          "reciprocal_rank": 1.0,
+          "ndcg": 0.8772153153380493
+        }
+      },
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "8312e55e2a5cbe9ac7087192ff0f63343e49ae7d68746e43ab2c51e12b6b08b2",
+          "document_name": "warranty_guide.docx",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\warranty_guide.docx",
+          "page": null,
+          "section": "Examples",
+          "score": 0.6494281577330469
+        },
+        {
+          "rank": 2,
+          "chunk_id": "43307a0aaf997e203e660d6033af74a5614d4673739a983efe494b618dd0763b",
+          "document_name": "products.csv",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\products.csv",
+          "page": null,
+          "section": "row 1",
+          "score": 0.4714347637442412
+        },
+        {
+          "rank": 3,
+          "chunk_id": "7fddd29093ffd2ae6b719e2228b22cbc41ade5f59758d4549cdf253ef0fa4e32",
+          "document_name": "warranty_guide.docx",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\warranty_guide.docx",
+          "page": null,
+          "section": null,
+          "score": 0.46882527890543446
+        },
+        {
+          "rank": 4,
+          "chunk_id": "584ec3cec82c20f860b0a25a54020d0f1f65ffb982eca5cc976bc2f710e21599",
+          "document_name": "product_documentation.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\product_documentation.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.45513119488694764
+        },
+        {
+          "rank": 5,
+          "chunk_id": "65c4d27b4ed3d751c9dfb3209c596db0c2547aca561e594db1235ad1c0c940b3",
+          "document_name": "warranty_guide.docx",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\warranty_guide.docx",
+          "page": null,
+          "section": "Warranty Basics",
+          "score": 0.4462975469772501
+        }
+      ]
+    },
+    {
+      "id": "E07",
+      "query": "What happens to a refund after return inspection?",
+      "retrieval_type": "semantic",
+      "expected_sources": [
+        "return_policy.pdf"
+      ],
+      "retrieval_mode": "Dense",
+      "latency_ms": 31.291,
+      "base_retrieval_latency_ms": 31.291,
+      "reranking_latency_ms": 0.0,
+      "expected_found": true,
+      "metrics": {
+        "1": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        },
+        "3": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.3333333333333333,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        },
+        "5": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.2,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        }
+      },
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "af81754fac2b9ddbc606b4814053f4ff68451c0bd03b2ed7f060a4379592501f",
+          "document_name": "return_policy.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\return_policy.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.6200671260525059
+        },
+        {
+          "rank": 2,
+          "chunk_id": "ff28a76ba359380dff80705cea33058100e3f986b92660e203cd3f7e5747cac2",
+          "document_name": "faq.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\faq.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.564917591660549
+        },
+        {
+          "rank": 3,
+          "chunk_id": "2d42b7137b877a688d4eb8d51860c3d1de394f9135edf9b40fc96e5c1b1f9a7e",
+          "document_name": "return_policy.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\return_policy.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.5001191438769349
+        },
+        {
+          "rank": 4,
+          "chunk_id": "7fddd29093ffd2ae6b719e2228b22cbc41ade5f59758d4549cdf253ef0fa4e32",
+          "document_name": "warranty_guide.docx",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\warranty_guide.docx",
+          "page": null,
+          "section": null,
+          "score": 0.31013821634820626
+        },
+        {
+          "rank": 5,
+          "chunk_id": "2f123bb4d37407b7cabbca8f950bf8778ea10e460f96e48172ee2bc83a852720",
+          "document_name": "warranty_guide.docx",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\warranty_guide.docx",
+          "page": null,
+          "section": "Exclusions",
+          "score": 0.27301111297500547
+        }
+      ]
+    },
+    {
+      "id": "E08",
+      "query": "Which products have more than 12 months warranty?",
+      "retrieval_type": "structured/filter",
+      "expected_sources": [
+        "products.csv"
+      ],
+      "retrieval_mode": "Dense",
+      "latency_ms": 30.013,
+      "base_retrieval_latency_ms": 30.013,
+      "reranking_latency_ms": 0.0,
+      "expected_found": false,
+      "metrics": {
+        "1": {
+          "hit_rate": 0.0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "reciprocal_rank": 0.0,
+          "ndcg": 0.0
+        },
+        "3": {
+          "hit_rate": 0.0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "reciprocal_rank": 0.0,
+          "ndcg": 0.0
+        },
+        "5": {
+          "hit_rate": 0.0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "reciprocal_rank": 0.0,
+          "ndcg": 0.0
+        }
+      },
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "65c4d27b4ed3d751c9dfb3209c596db0c2547aca561e594db1235ad1c0c940b3",
+          "document_name": "warranty_guide.docx",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\warranty_guide.docx",
+          "page": null,
+          "section": "Warranty Basics",
+          "score": 0.49774287721066046
+        },
+        {
+          "rank": 2,
+          "chunk_id": "db71f5a8074531b192e3575d9e36bde06b7f0855e3f9b99b149a323ce5282856",
+          "document_name": "faq.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\faq.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.45976527710105586
+        },
+        {
+          "rank": 3,
+          "chunk_id": "8312e55e2a5cbe9ac7087192ff0f63343e49ae7d68746e43ab2c51e12b6b08b2",
+          "document_name": "warranty_guide.docx",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\warranty_guide.docx",
+          "page": null,
+          "section": "Examples",
+          "score": 0.4355555195904075
+        },
+        {
+          "rank": 4,
+          "chunk_id": "7fddd29093ffd2ae6b719e2228b22cbc41ade5f59758d4549cdf253ef0fa4e32",
+          "document_name": "warranty_guide.docx",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\warranty_guide.docx",
+          "page": null,
+          "section": null,
+          "score": 0.3993753610316869
+        },
+        {
+          "rank": 5,
+          "chunk_id": "584ec3cec82c20f860b0a25a54020d0f1f65ffb982eca5cc976bc2f710e21599",
+          "document_name": "product_documentation.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\product_documentation.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.3840175887857602
+        }
+      ]
+    },
+    {
+      "id": "E09",
+      "query": "Can every opened product be returned?",
+      "retrieval_type": "hybrid",
+      "expected_sources": [
+        "faq.pdf",
+        "return_policy.pdf"
+      ],
+      "retrieval_mode": "Dense",
+      "latency_ms": 29.261,
+      "base_retrieval_latency_ms": 29.261,
+      "reranking_latency_ms": 0.0,
+      "expected_found": true,
+      "metrics": {
+        "1": {
+          "hit_rate": 1.0,
+          "recall": 0.5,
+          "precision": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        },
+        "3": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.6666666666666666,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        },
+        "5": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.4,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        }
+      },
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "ff28a76ba359380dff80705cea33058100e3f986b92660e203cd3f7e5747cac2",
+          "document_name": "faq.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\faq.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.46618235313801426
+        },
+        {
+          "rank": 2,
+          "chunk_id": "af81754fac2b9ddbc606b4814053f4ff68451c0bd03b2ed7f060a4379592501f",
+          "document_name": "return_policy.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\return_policy.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.4574269991956459
+        },
+        {
+          "rank": 3,
+          "chunk_id": "2d42b7137b877a688d4eb8d51860c3d1de394f9135edf9b40fc96e5c1b1f9a7e",
+          "document_name": "return_policy.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\return_policy.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.3620300650387185
+        },
+        {
+          "rank": 4,
+          "chunk_id": "2f123bb4d37407b7cabbca8f950bf8778ea10e460f96e48172ee2bc83a852720",
+          "document_name": "warranty_guide.docx",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\warranty_guide.docx",
+          "page": null,
+          "section": "Exclusions",
+          "score": 0.2706119181976212
+        },
+        {
+          "rank": 5,
+          "chunk_id": "65c4d27b4ed3d751c9dfb3209c596db0c2547aca561e594db1235ad1c0c940b3",
+          "document_name": "warranty_guide.docx",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\warranty_guide.docx",
+          "page": null,
+          "section": "Warranty Basics",
+          "score": 0.2620176565140717
+        }
+      ]
+    },
+    {
+      "id": "E10",
+      "query": "What are the NCL-200 RAM and storage specifications?",
+      "retrieval_type": "keyword/semantic",
+      "expected_sources": [
+        "product_documentation.pdf"
+      ],
+      "retrieval_mode": "Dense",
+      "latency_ms": 32.368,
+      "base_retrieval_latency_ms": 32.368,
+      "reranking_latency_ms": 0.0,
+      "expected_found": true,
+      "metrics": {
+        "1": {
+          "hit_rate": 0.0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "reciprocal_rank": 0.0,
+          "ndcg": 0.0
+        },
+        "3": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.3333333333333333,
+          "reciprocal_rank": 0.5,
+          "ndcg": 0.6309297535714575
+        },
+        "5": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.2,
+          "reciprocal_rank": 0.5,
+          "ndcg": 0.6309297535714575
+        }
+      },
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "2170143e86631d0bbddba280b8d36255a6dc71a504900bc8c7659efb7f701864",
+          "document_name": "products.csv",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\products.csv",
+          "page": null,
+          "section": "row 2",
+          "score": 0.5035970556218353
+        },
+        {
+          "rank": 2,
+          "chunk_id": "584ec3cec82c20f860b0a25a54020d0f1f65ffb982eca5cc976bc2f710e21599",
+          "document_name": "product_documentation.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\product_documentation.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.44812871044174374
+        },
+        {
+          "rank": 3,
+          "chunk_id": "8e06ffe7d425d5992126b644263dea46bcc46ab4798d60499484aade969ef868",
+          "document_name": "products.csv",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\products.csv",
+          "page": null,
+          "section": "row 5",
+          "score": 0.367650504031386
+        },
+        {
+          "rank": 4,
+          "chunk_id": "13a0850397000cadd74c51cb249446da168958f5ebc0b88c0fa4097453fb93d4",
+          "document_name": "products.csv",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\products.csv",
+          "page": null,
+          "section": "row 4",
+          "score": 0.364776430452487
+        },
+        {
+          "rank": 5,
+          "chunk_id": "8312e55e2a5cbe9ac7087192ff0f63343e49ae7d68746e43ab2c51e12b6b08b2",
+          "document_name": "warranty_guide.docx",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\warranty_guide.docx",
+          "page": null,
+          "section": "Examples",
+          "score": 0.3498203805878768
+        }
+      ]
+    },
+    {
+      "id": "E01",
+      "query": "What is the standard return window?",
+      "retrieval_type": "semantic",
+      "expected_sources": [
+        "return_policy.pdf"
+      ],
+      "retrieval_mode": "BM25",
+      "latency_ms": 0.341,
+      "base_retrieval_latency_ms": 0.341,
+      "reranking_latency_ms": 0.0,
+      "expected_found": true,
+      "metrics": {
+        "1": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        },
+        "3": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.3333333333333333,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        },
+        "5": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.2,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        }
+      },
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "af81754fac2b9ddbc606b4814053f4ff68451c0bd03b2ed7f060a4379592501f",
+          "document_name": "return_policy.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\return_policy.pdf",
+          "page": 1,
+          "section": null,
+          "score": 6.905230348974913
+        },
+        {
+          "rank": 2,
+          "chunk_id": "6cfc0c94ea5779562942e1fc458fc400dae7bd1b5b7cf1122fa6c738666df7c6",
+          "document_name": "shipping_policy.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\shipping_policy.pdf",
+          "page": 1,
+          "section": null,
+          "score": 4.6364308010248605
+        },
+        {
+          "rank": 3,
+          "chunk_id": "2d42b7137b877a688d4eb8d51860c3d1de394f9135edf9b40fc96e5c1b1f9a7e",
+          "document_name": "return_policy.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\return_policy.pdf",
+          "page": 1,
+          "section": null,
+          "score": 4.629027337587923
+        },
+        {
+          "rank": 4,
+          "chunk_id": "ff28a76ba359380dff80705cea33058100e3f986b92660e203cd3f7e5747cac2",
+          "document_name": "faq.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\faq.pdf",
+          "page": 1,
+          "section": null,
+          "score": 3.6896117250938256
+        },
+        {
+          "rank": 5,
+          "chunk_id": "e0556b3771baa4377d6d23187734cd61dde46ee559343371761e873401949e8e",
+          "document_name": "shipping_policy.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\shipping_policy.pdf",
+          "page": 1,
+          "section": null,
+          "score": 3.022913731847572
+        }
+      ]
+    },
+    {
+      "id": "E02",
+      "query": "How long does standard delivery take?",
+      "retrieval_type": "semantic",
+      "expected_sources": [
+        "shipping_policy.pdf"
+      ],
+      "retrieval_mode": "BM25",
+      "latency_ms": 0.277,
+      "base_retrieval_latency_ms": 0.277,
+      "reranking_latency_ms": 0.0,
+      "expected_found": true,
+      "metrics": {
+        "1": {
+          "hit_rate": 0.0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "reciprocal_rank": 0.0,
+          "ndcg": 0.0
+        },
+        "3": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.3333333333333333,
+          "reciprocal_rank": 0.5,
+          "ndcg": 0.6309297535714575
+        },
+        "5": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.2,
+          "reciprocal_rank": 0.5,
+          "ndcg": 0.6309297535714575
+        }
+      },
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "ff28a76ba359380dff80705cea33058100e3f986b92660e203cd3f7e5747cac2",
+          "document_name": "faq.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\faq.pdf",
+          "page": 1,
+          "section": null,
+          "score": 8.686805062285105
+        },
+        {
+          "rank": 2,
+          "chunk_id": "6cfc0c94ea5779562942e1fc458fc400dae7bd1b5b7cf1122fa6c738666df7c6",
+          "document_name": "shipping_policy.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\shipping_policy.pdf",
+          "page": 1,
+          "section": null,
+          "score": 6.174831504898804
+        },
+        {
+          "rank": 3,
+          "chunk_id": "af81754fac2b9ddbc606b4814053f4ff68451c0bd03b2ed7f060a4379592501f",
+          "document_name": "return_policy.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\return_policy.pdf",
+          "page": 1,
+          "section": null,
+          "score": 3.272952778834239
+        },
+        {
+          "rank": 4,
+          "chunk_id": "db71f5a8074531b192e3575d9e36bde06b7f0855e3f9b99b149a323ce5282856",
+          "document_name": "faq.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\faq.pdf",
+          "page": 1,
+          "section": null,
+          "score": 2.4987335817663467
+        },
+        {
+          "rank": 5,
+          "chunk_id": "584ec3cec82c20f860b0a25a54020d0f1f65ffb982eca5cc976bc2f710e21599",
+          "document_name": "product_documentation.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\product_documentation.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.802027041067636
+        }
+      ]
+    },
+    {
+      "id": "E03",
+      "query": "What is the price of NKM-10?",
+      "retrieval_type": "keyword/structured",
+      "expected_sources": [
+        "products.csv"
+      ],
+      "retrieval_mode": "BM25",
+      "latency_ms": 0.413,
+      "base_retrieval_latency_ms": 0.413,
+      "reranking_latency_ms": 0.0,
+      "expected_found": true,
+      "metrics": {
+        "1": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        },
+        "3": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.3333333333333333,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        },
+        "5": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.2,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        }
+      },
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "d119ef1e387be6a14d82e18890cb5ab0236d7b59d0aa564496eb3be83fed0d3d",
+          "document_name": "products.csv",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\products.csv",
+          "page": null,
+          "section": "row 3",
+          "score": 8.651114413971477
+        },
+        {
+          "rank": 2,
+          "chunk_id": "8312e55e2a5cbe9ac7087192ff0f63343e49ae7d68746e43ab2c51e12b6b08b2",
+          "document_name": "warranty_guide.docx",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\warranty_guide.docx",
+          "page": null,
+          "section": "Examples",
+          "score": 7.267276168897006
+        },
+        {
+          "rank": 3,
+          "chunk_id": "584ec3cec82c20f860b0a25a54020d0f1f65ffb982eca5cc976bc2f710e21599",
+          "document_name": "product_documentation.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\product_documentation.pdf",
+          "page": 1,
+          "section": null,
+          "score": 6.297953138599651
+        },
+        {
+          "rank": 4,
+          "chunk_id": "2d42b7137b877a688d4eb8d51860c3d1de394f9135edf9b40fc96e5c1b1f9a7e",
+          "document_name": "return_policy.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\return_policy.pdf",
+          "page": 1,
+          "section": null,
+          "score": 3.7464793601582125
+        },
+        {
+          "rank": 5,
+          "chunk_id": "6cfc0c94ea5779562942e1fc458fc400dae7bd1b5b7cf1122fa6c738666df7c6",
+          "document_name": "shipping_policy.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\shipping_policy.pdf",
+          "page": 1,
+          "section": null,
+          "score": 3.5559222625271714
+        }
+      ]
+    },
+    {
+      "id": "E04",
+      "query": "How long is the NCM-24 warranty?",
+      "retrieval_type": "hybrid",
+      "expected_sources": [
+        "products.csv",
+        "warranty_guide.docx"
+      ],
+      "retrieval_mode": "BM25",
+      "latency_ms": 0.283,
+      "base_retrieval_latency_ms": 0.283,
+      "reranking_latency_ms": 0.0,
+      "expected_found": true,
+      "metrics": {
+        "1": {
+          "hit_rate": 1.0,
+          "recall": 0.5,
+          "precision": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        },
+        "3": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.6666666666666666,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        },
+        "5": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.4,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        }
+      },
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "13a0850397000cadd74c51cb249446da168958f5ebc0b88c0fa4097453fb93d4",
+          "document_name": "products.csv",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\products.csv",
+          "page": null,
+          "section": "row 4",
+          "score": 8.792424873644471
+        },
+        {
+          "rank": 2,
+          "chunk_id": "8312e55e2a5cbe9ac7087192ff0f63343e49ae7d68746e43ab2c51e12b6b08b2",
+          "document_name": "warranty_guide.docx",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\warranty_guide.docx",
+          "page": null,
+          "section": "Examples",
+          "score": 8.690639094581776
+        },
+        {
+          "rank": 3,
+          "chunk_id": "584ec3cec82c20f860b0a25a54020d0f1f65ffb982eca5cc976bc2f710e21599",
+          "document_name": "product_documentation.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\product_documentation.pdf",
+          "page": 1,
+          "section": null,
+          "score": 6.178874739990909
+        },
+        {
+          "rank": 4,
+          "chunk_id": "ff28a76ba359380dff80705cea33058100e3f986b92660e203cd3f7e5747cac2",
+          "document_name": "faq.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\faq.pdf",
+          "page": 1,
+          "section": null,
+          "score": 4.5537144500978695
+        },
+        {
+          "rank": 5,
+          "chunk_id": "e0556b3771baa4377d6d23187734cd61dde46ee559343371761e873401949e8e",
+          "document_name": "shipping_policy.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\shipping_policy.pdf",
+          "page": 1,
+          "section": null,
+          "score": 3.022913731847572
+        }
+      ]
+    },
+    {
+      "id": "E05",
+      "query": "Can I change my address after the order is packed?",
+      "retrieval_type": "semantic",
+      "expected_sources": [
+        "shipping_policy.pdf"
+      ],
+      "retrieval_mode": "BM25",
+      "latency_ms": 0.244,
+      "base_retrieval_latency_ms": 0.244,
+      "reranking_latency_ms": 0.0,
+      "expected_found": true,
+      "metrics": {
+        "1": {
+          "hit_rate": 0.0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "reciprocal_rank": 0.0,
+          "ndcg": 0.0
+        },
+        "3": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.3333333333333333,
+          "reciprocal_rank": 0.5,
+          "ndcg": 0.6309297535714575
+        },
+        "5": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.2,
+          "reciprocal_rank": 0.5,
+          "ndcg": 0.6309297535714575
+        }
+      },
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "ff28a76ba359380dff80705cea33058100e3f986b92660e203cd3f7e5747cac2",
+          "document_name": "faq.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\faq.pdf",
+          "page": 1,
+          "section": null,
+          "score": 12.889755926510176
+        },
+        {
+          "rank": 2,
+          "chunk_id": "e0556b3771baa4377d6d23187734cd61dde46ee559343371761e873401949e8e",
+          "document_name": "shipping_policy.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\shipping_policy.pdf",
+          "page": 1,
+          "section": null,
+          "score": 12.607872195744125
+        },
+        {
+          "rank": 3,
+          "chunk_id": "6cfc0c94ea5779562942e1fc458fc400dae7bd1b5b7cf1122fa6c738666df7c6",
+          "document_name": "shipping_policy.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\shipping_policy.pdf",
+          "page": 1,
+          "section": null,
+          "score": 9.430448964575813
+        },
+        {
+          "rank": 4,
+          "chunk_id": "5fd4e0d4b96c45ca694d947c30c2828e1b3778d87f1a9a41f2b101e9d467041c",
+          "document_name": "company_information.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\company_information.pdf",
+          "page": 1,
+          "section": null,
+          "score": 6.288531055368686
+        },
+        {
+          "rank": 5,
+          "chunk_id": "6ca72c8512077a2da68692f340d8bd96f296d65dce77efaa28a3bc26937d5123",
+          "document_name": "company_information.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\company_information.pdf",
+          "page": 1,
+          "section": null,
+          "score": 6.09687215390675
+        }
+      ]
+    },
+    {
+      "id": "E06",
+      "query": "Is the NCB-100 covered by warranty?",
+      "retrieval_type": "hybrid",
+      "expected_sources": [
+        "product_documentation.pdf",
+        "warranty_guide.docx"
+      ],
+      "retrieval_mode": "BM25",
+      "latency_ms": 0.275,
+      "base_retrieval_latency_ms": 0.275,
+      "reranking_latency_ms": 0.0,
+      "expected_found": true,
+      "metrics": {
+        "1": {
+          "hit_rate": 1.0,
+          "recall": 0.5,
+          "precision": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        },
+        "3": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.6666666666666666,
+          "reciprocal_rank": 1.0,
+          "ndcg": 0.9197207891481876
+        },
+        "5": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.4,
+          "reciprocal_rank": 1.0,
+          "ndcg": 0.9197207891481876
+        }
+      },
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "8312e55e2a5cbe9ac7087192ff0f63343e49ae7d68746e43ab2c51e12b6b08b2",
+          "document_name": "warranty_guide.docx",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\warranty_guide.docx",
+          "page": null,
+          "section": "Examples",
+          "score": 7.968675703117978
+        },
+        {
+          "rank": 2,
+          "chunk_id": "43307a0aaf997e203e660d6033af74a5614d4673739a983efe494b618dd0763b",
+          "document_name": "products.csv",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\products.csv",
+          "page": null,
+          "section": "row 1",
+          "score": 7.876870683496804
+        },
+        {
+          "rank": 3,
+          "chunk_id": "584ec3cec82c20f860b0a25a54020d0f1f65ffb982eca5cc976bc2f710e21599",
+          "document_name": "product_documentation.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\product_documentation.pdf",
+          "page": 1,
+          "section": null,
+          "score": 5.857959225535131
+        },
+        {
+          "rank": 4,
+          "chunk_id": "5fd4e0d4b96c45ca694d947c30c2828e1b3778d87f1a9a41f2b101e9d467041c",
+          "document_name": "company_information.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\company_information.pdf",
+          "page": 1,
+          "section": null,
+          "score": 4.321246873640845
+        },
+        {
+          "rank": 5,
+          "chunk_id": "db71f5a8074531b192e3575d9e36bde06b7f0855e3f9b99b149a323ce5282856",
+          "document_name": "faq.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\faq.pdf",
+          "page": 1,
+          "section": null,
+          "score": 3.7742433226174046
+        }
+      ]
+    },
+    {
+      "id": "E07",
+      "query": "What happens to a refund after return inspection?",
+      "retrieval_type": "semantic",
+      "expected_sources": [
+        "return_policy.pdf"
+      ],
+      "retrieval_mode": "BM25",
+      "latency_ms": 0.421,
+      "base_retrieval_latency_ms": 0.421,
+      "reranking_latency_ms": 0.0,
+      "expected_found": true,
+      "metrics": {
+        "1": {
+          "hit_rate": 0.0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "reciprocal_rank": 0.0,
+          "ndcg": 0.0
+        },
+        "3": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.3333333333333333,
+          "reciprocal_rank": 0.5,
+          "ndcg": 0.6309297535714575
+        },
+        "5": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.2,
+          "reciprocal_rank": 0.5,
+          "ndcg": 0.6309297535714575
+        }
+      },
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "ff28a76ba359380dff80705cea33058100e3f986b92660e203cd3f7e5747cac2",
+          "document_name": "faq.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\faq.pdf",
+          "page": 1,
+          "section": null,
+          "score": 8.915349956717106
+        },
+        {
+          "rank": 2,
+          "chunk_id": "af81754fac2b9ddbc606b4814053f4ff68451c0bd03b2ed7f060a4379592501f",
+          "document_name": "return_policy.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\return_policy.pdf",
+          "page": 1,
+          "section": null,
+          "score": 6.500134738620437
+        },
+        {
+          "rank": 3,
+          "chunk_id": "6ca72c8512077a2da68692f340d8bd96f296d65dce77efaa28a3bc26937d5123",
+          "document_name": "company_information.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\company_information.pdf",
+          "page": 1,
+          "section": null,
+          "score": 4.285907188464486
+        },
+        {
+          "rank": 4,
+          "chunk_id": "6cfc0c94ea5779562942e1fc458fc400dae7bd1b5b7cf1122fa6c738666df7c6",
+          "document_name": "shipping_policy.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\shipping_policy.pdf",
+          "page": 1,
+          "section": null,
+          "score": 3.75950048892656
+        },
+        {
+          "rank": 5,
+          "chunk_id": "2d42b7137b877a688d4eb8d51860c3d1de394f9135edf9b40fc96e5c1b1f9a7e",
+          "document_name": "return_policy.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\return_policy.pdf",
+          "page": 1,
+          "section": null,
+          "score": 3.58615998421628
+        }
+      ]
+    },
+    {
+      "id": "E08",
+      "query": "Which products have more than 12 months warranty?",
+      "retrieval_type": "structured/filter",
+      "expected_sources": [
+        "products.csv"
+      ],
+      "retrieval_mode": "BM25",
+      "latency_ms": 0.422,
+      "base_retrieval_latency_ms": 0.422,
+      "reranking_latency_ms": 0.0,
+      "expected_found": true,
+      "metrics": {
+        "1": {
+          "hit_rate": 0.0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "reciprocal_rank": 0.0,
+          "ndcg": 0.0
+        },
+        "3": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.3333333333333333,
+          "reciprocal_rank": 0.5,
+          "ndcg": 0.6309297535714575
+        },
+        "5": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.2,
+          "reciprocal_rank": 0.5,
+          "ndcg": 0.6309297535714575
+        }
+      },
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "8312e55e2a5cbe9ac7087192ff0f63343e49ae7d68746e43ab2c51e12b6b08b2",
+          "document_name": "warranty_guide.docx",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\warranty_guide.docx",
+          "page": null,
+          "section": "Examples",
+          "score": 5.175896074135005
+        },
+        {
+          "rank": 2,
+          "chunk_id": "43307a0aaf997e203e660d6033af74a5614d4673739a983efe494b618dd0763b",
+          "document_name": "products.csv",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\products.csv",
+          "page": null,
+          "section": "row 1",
+          "score": 3.85978982149117
+        },
+        {
+          "rank": 3,
+          "chunk_id": "2170143e86631d0bbddba280b8d36255a6dc71a504900bc8c7659efb7f701864",
+          "document_name": "products.csv",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\products.csv",
+          "page": null,
+          "section": "row 2",
+          "score": 3.7728576183044313
+        },
+        {
+          "rank": 4,
+          "chunk_id": "584ec3cec82c20f860b0a25a54020d0f1f65ffb982eca5cc976bc2f710e21599",
+          "document_name": "product_documentation.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\product_documentation.pdf",
+          "page": 1,
+          "section": null,
+          "score": 3.7334912656400534
+        },
+        {
+          "rank": 5,
+          "chunk_id": "8e06ffe7d425d5992126b644263dea46bcc46ab4798d60499484aade969ef868",
+          "document_name": "products.csv",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\products.csv",
+          "page": null,
+          "section": "row 5",
+          "score": 3.6897550275928803
+        }
+      ]
+    },
+    {
+      "id": "E09",
+      "query": "Can every opened product be returned?",
+      "retrieval_type": "hybrid",
+      "expected_sources": [
+        "faq.pdf",
+        "return_policy.pdf"
+      ],
+      "retrieval_mode": "BM25",
+      "latency_ms": 0.376,
+      "base_retrieval_latency_ms": 0.376,
+      "reranking_latency_ms": 0.0,
+      "expected_found": true,
+      "metrics": {
+        "1": {
+          "hit_rate": 1.0,
+          "recall": 0.5,
+          "precision": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        },
+        "3": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.6666666666666666,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        },
+        "5": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.4,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        }
+      },
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "ff28a76ba359380dff80705cea33058100e3f986b92660e203cd3f7e5747cac2",
+          "document_name": "faq.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\faq.pdf",
+          "page": 1,
+          "section": null,
+          "score": 5.376912011220039
+        },
+        {
+          "rank": 2,
+          "chunk_id": "af81754fac2b9ddbc606b4814053f4ff68451c0bd03b2ed7f060a4379592501f",
+          "document_name": "return_policy.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\return_policy.pdf",
+          "page": 1,
+          "section": null,
+          "score": 4.910395430497994
+        },
+        {
+          "rank": 3,
+          "chunk_id": "db71f5a8074531b192e3575d9e36bde06b7f0855e3f9b99b149a323ce5282856",
+          "document_name": "faq.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\faq.pdf",
+          "page": 1,
+          "section": null,
+          "score": 2.9367523488450367
+        },
+        {
+          "rank": 4,
+          "chunk_id": "2f123bb4d37407b7cabbca8f950bf8778ea10e460f96e48172ee2bc83a852720",
+          "document_name": "warranty_guide.docx",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\warranty_guide.docx",
+          "page": null,
+          "section": "Exclusions",
+          "score": 2.848054311850403
+        },
+        {
+          "rank": 5,
+          "chunk_id": "5fd4e0d4b96c45ca694d947c30c2828e1b3778d87f1a9a41f2b101e9d467041c",
+          "document_name": "company_information.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\company_information.pdf",
+          "page": 1,
+          "section": null,
+          "score": 2.563019696948345
+        }
+      ]
+    },
+    {
+      "id": "E10",
+      "query": "What are the NCL-200 RAM and storage specifications?",
+      "retrieval_type": "keyword/semantic",
+      "expected_sources": [
+        "product_documentation.pdf"
+      ],
+      "retrieval_mode": "BM25",
+      "latency_ms": 0.47,
+      "base_retrieval_latency_ms": 0.47,
+      "reranking_latency_ms": 0.0,
+      "expected_found": true,
+      "metrics": {
+        "1": {
+          "hit_rate": 0.0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "reciprocal_rank": 0.0,
+          "ndcg": 0.0
+        },
+        "3": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.3333333333333333,
+          "reciprocal_rank": 0.5,
+          "ndcg": 0.6309297535714575
+        },
+        "5": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.2,
+          "reciprocal_rank": 0.5,
+          "ndcg": 0.6309297535714575
+        }
+      },
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "8312e55e2a5cbe9ac7087192ff0f63343e49ae7d68746e43ab2c51e12b6b08b2",
+          "document_name": "warranty_guide.docx",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\warranty_guide.docx",
+          "page": null,
+          "section": "Examples",
+          "score": 7.267276168897006
+        },
+        {
+          "rank": 2,
+          "chunk_id": "584ec3cec82c20f860b0a25a54020d0f1f65ffb982eca5cc976bc2f710e21599",
+          "document_name": "product_documentation.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\product_documentation.pdf",
+          "page": 1,
+          "section": null,
+          "score": 7.064932216596681
+        },
+        {
+          "rank": 3,
+          "chunk_id": "2170143e86631d0bbddba280b8d36255a6dc71a504900bc8c7659efb7f701864",
+          "document_name": "products.csv",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\products.csv",
+          "page": null,
+          "section": "row 2",
+          "score": 7.021760082109944
+        },
+        {
+          "rank": 4,
+          "chunk_id": "db71f5a8074531b192e3575d9e36bde06b7f0855e3f9b99b149a323ce5282856",
+          "document_name": "faq.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\faq.pdf",
+          "page": 1,
+          "section": null,
+          "score": 3.939474387132665
+        },
+        {
+          "rank": 5,
+          "chunk_id": "af81754fac2b9ddbc606b4814053f4ff68451c0bd03b2ed7f060a4379592501f",
+          "document_name": "return_policy.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\return_policy.pdf",
+          "page": 1,
+          "section": null,
+          "score": 3.364445687792737
+        }
+      ]
+    },
+    {
+      "id": "E01",
+      "query": "What is the standard return window?",
+      "retrieval_type": "semantic",
+      "expected_sources": [
+        "return_policy.pdf"
+      ],
+      "retrieval_mode": "Hybrid RRF",
+      "latency_ms": 28.373,
+      "base_retrieval_latency_ms": 28.373,
+      "reranking_latency_ms": 0.0,
+      "expected_found": true,
+      "metrics": {
+        "1": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        },
+        "3": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.3333333333333333,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        },
+        "5": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.2,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        }
+      },
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "af81754fac2b9ddbc606b4814053f4ff68451c0bd03b2ed7f060a4379592501f",
+          "document_name": "return_policy.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\return_policy.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.03278688524590164,
+          "dense_rank": 1,
+          "dense_score": 0.3769557285098075,
+          "bm25_rank": 1,
+          "bm25_score": 6.905230348974913,
+          "rrf_score": 0.03278688524590164
+        },
+        {
+          "rank": 2,
+          "chunk_id": "ff28a76ba359380dff80705cea33058100e3f986b92660e203cd3f7e5747cac2",
+          "document_name": "faq.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\faq.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.031754032258064516,
+          "dense_rank": 2,
+          "dense_score": 0.3616024765966621,
+          "bm25_rank": 4,
+          "bm25_score": 3.6896117250938256,
+          "rrf_score": 0.031754032258064516
+        },
+        {
+          "rank": 3,
+          "chunk_id": "2d42b7137b877a688d4eb8d51860c3d1de394f9135edf9b40fc96e5c1b1f9a7e",
+          "document_name": "return_policy.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\return_policy.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.031746031746031744,
+          "dense_rank": 3,
+          "dense_score": 0.2821401082492283,
+          "bm25_rank": 3,
+          "bm25_score": 4.629027337587923,
+          "rrf_score": 0.031746031746031744
+        },
+        {
+          "rank": 4,
+          "chunk_id": "6ca72c8512077a2da68692f340d8bd96f296d65dce77efaa28a3bc26937d5123",
+          "document_name": "company_information.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\company_information.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.029857397504456328,
+          "dense_rank": 8,
+          "dense_score": 0.12740858338621774,
+          "bm25_rank": 6,
+          "bm25_score": 2.860138367680162,
+          "rrf_score": 0.029857397504456328
+        },
+        {
+          "rank": 5,
+          "chunk_id": "584ec3cec82c20f860b0a25a54020d0f1f65ffb982eca5cc976bc2f710e21599",
+          "document_name": "product_documentation.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\product_documentation.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.02919863597612958,
+          "dense_rank": 9,
+          "dense_score": 0.11880986779750646,
+          "bm25_rank": 8,
+          "bm25_score": 2.2793447604237174,
+          "rrf_score": 0.02919863597612958
+        }
+      ]
+    },
+    {
+      "id": "E02",
+      "query": "How long does standard delivery take?",
+      "retrieval_type": "semantic",
+      "expected_sources": [
+        "shipping_policy.pdf"
+      ],
+      "retrieval_mode": "Hybrid RRF",
+      "latency_ms": 30.482,
+      "base_retrieval_latency_ms": 30.482,
+      "reranking_latency_ms": 0.0,
+      "expected_found": true,
+      "metrics": {
+        "1": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        },
+        "3": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.3333333333333333,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        },
+        "5": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.2,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        }
+      },
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "6cfc0c94ea5779562942e1fc458fc400dae7bd1b5b7cf1122fa6c738666df7c6",
+          "document_name": "shipping_policy.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\shipping_policy.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.03252247488101534,
+          "dense_rank": 1,
+          "dense_score": 0.6003887615913783,
+          "bm25_rank": 2,
+          "bm25_score": 6.174831504898804,
+          "rrf_score": 0.03252247488101534
+        },
+        {
+          "rank": 2,
+          "chunk_id": "ff28a76ba359380dff80705cea33058100e3f986b92660e203cd3f7e5747cac2",
+          "document_name": "faq.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\faq.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.032266458495966696,
+          "dense_rank": 3,
+          "dense_score": 0.40264306213282086,
+          "bm25_rank": 1,
+          "bm25_score": 8.686805062285105,
+          "rrf_score": 0.032266458495966696
+        },
+        {
+          "rank": 3,
+          "chunk_id": "af81754fac2b9ddbc606b4814053f4ff68451c0bd03b2ed7f060a4379592501f",
+          "document_name": "return_policy.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\return_policy.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.03200204813108039,
+          "dense_rank": 2,
+          "dense_score": 0.4217107444223829,
+          "bm25_rank": 3,
+          "bm25_score": 3.272952778834239,
+          "rrf_score": 0.03200204813108039
+        },
+        {
+          "rank": 4,
+          "chunk_id": "db71f5a8074531b192e3575d9e36bde06b7f0855e3f9b99b149a323ce5282856",
+          "document_name": "faq.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\faq.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.029910714285714284,
+          "dense_rank": 10,
+          "dense_score": 0.11979903431429517,
+          "bm25_rank": 4,
+          "bm25_score": 2.4987335817663467,
+          "rrf_score": 0.029910714285714284
+        },
+        {
+          "rank": 5,
+          "chunk_id": "2d42b7137b877a688d4eb8d51860c3d1de394f9135edf9b40fc96e5c1b1f9a7e",
+          "document_name": "return_policy.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\return_policy.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.015625,
+          "dense_rank": 4,
+          "dense_score": 0.3549049173312586,
+          "rrf_score": 0.015625
+        }
+      ]
+    },
+    {
+      "id": "E03",
+      "query": "What is the price of NKM-10?",
+      "retrieval_type": "keyword/structured",
+      "expected_sources": [
+        "products.csv"
+      ],
+      "retrieval_mode": "Hybrid RRF",
+      "latency_ms": 30.611,
+      "base_retrieval_latency_ms": 30.611,
+      "reranking_latency_ms": 0.0,
+      "expected_found": true,
+      "metrics": {
+        "1": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        },
+        "3": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.3333333333333333,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        },
+        "5": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.2,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        }
+      },
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "d119ef1e387be6a14d82e18890cb5ab0236d7b59d0aa564496eb3be83fed0d3d",
+          "document_name": "products.csv",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\products.csv",
+          "page": null,
+          "section": "row 3",
+          "score": 0.03278688524590164,
+          "dense_rank": 1,
+          "dense_score": 0.5462541309659148,
+          "bm25_rank": 1,
+          "bm25_score": 8.651114413971477,
+          "rrf_score": 0.03278688524590164
+        },
+        {
+          "rank": 2,
+          "chunk_id": "584ec3cec82c20f860b0a25a54020d0f1f65ffb982eca5cc976bc2f710e21599",
+          "document_name": "product_documentation.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\product_documentation.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.03200204813108039,
+          "dense_rank": 2,
+          "dense_score": 0.44559793640252066,
+          "bm25_rank": 3,
+          "bm25_score": 6.297953138599651,
+          "rrf_score": 0.03200204813108039
+        },
+        {
+          "rank": 3,
+          "chunk_id": "8312e55e2a5cbe9ac7087192ff0f63343e49ae7d68746e43ab2c51e12b6b08b2",
+          "document_name": "warranty_guide.docx",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\warranty_guide.docx",
+          "page": null,
+          "section": "Examples",
+          "score": 0.03200204813108039,
+          "dense_rank": 3,
+          "dense_score": 0.41332999049838537,
+          "bm25_rank": 2,
+          "bm25_score": 7.267276168897006,
+          "rrf_score": 0.03200204813108039
+        },
+        {
+          "rank": 4,
+          "chunk_id": "8e06ffe7d425d5992126b644263dea46bcc46ab4798d60499484aade969ef868",
+          "document_name": "products.csv",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\products.csv",
+          "page": null,
+          "section": "row 5",
+          "score": 0.030303030303030304,
+          "dense_rank": 6,
+          "dense_score": 0.3443300197479007,
+          "bm25_rank": 6,
+          "bm25_score": 3.2097948714933064,
+          "rrf_score": 0.030303030303030304
+        },
+        {
+          "rank": 5,
+          "chunk_id": "73c78a8b2a4d559ff2c1228375e98ebac84cac6f2b600894cb5864be7ed624e3",
+          "document_name": "warranty_guide.docx",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\warranty_guide.docx",
+          "page": null,
+          "section": "Service",
+          "score": 0.029631255487269532,
+          "dense_rank": 8,
+          "dense_score": 0.2693007743165621,
+          "bm25_rank": 7,
+          "bm25_score": 3.187669123467054,
+          "rrf_score": 0.029631255487269532
+        }
+      ]
+    },
+    {
+      "id": "E04",
+      "query": "How long is the NCM-24 warranty?",
+      "retrieval_type": "hybrid",
+      "expected_sources": [
+        "products.csv",
+        "warranty_guide.docx"
+      ],
+      "retrieval_mode": "Hybrid RRF",
+      "latency_ms": 30.866,
+      "base_retrieval_latency_ms": 30.866,
+      "reranking_latency_ms": 0.0,
+      "expected_found": true,
+      "metrics": {
+        "1": {
+          "hit_rate": 1.0,
+          "recall": 0.5,
+          "precision": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        },
+        "3": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.6666666666666666,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        },
+        "5": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.4,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        }
+      },
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "8312e55e2a5cbe9ac7087192ff0f63343e49ae7d68746e43ab2c51e12b6b08b2",
+          "document_name": "warranty_guide.docx",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\warranty_guide.docx",
+          "page": null,
+          "section": "Examples",
+          "score": 0.03252247488101534,
+          "dense_rank": 1,
+          "dense_score": 0.7194689851216547,
+          "bm25_rank": 2,
+          "bm25_score": 8.690639094581776,
+          "rrf_score": 0.03252247488101534
+        },
+        {
+          "rank": 2,
+          "chunk_id": "13a0850397000cadd74c51cb249446da168958f5ebc0b88c0fa4097453fb93d4",
+          "document_name": "products.csv",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\products.csv",
+          "page": null,
+          "section": "row 4",
+          "score": 0.032266458495966696,
+          "dense_rank": 3,
+          "dense_score": 0.46472816679828344,
+          "bm25_rank": 1,
+          "bm25_score": 8.792424873644471,
+          "rrf_score": 0.032266458495966696
+        },
+        {
+          "rank": 3,
+          "chunk_id": "584ec3cec82c20f860b0a25a54020d0f1f65ffb982eca5cc976bc2f710e21599",
+          "document_name": "product_documentation.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\product_documentation.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.03125763125763126,
+          "dense_rank": 5,
+          "dense_score": 0.42884116406175843,
+          "bm25_rank": 3,
+          "bm25_score": 6.178874739990909,
+          "rrf_score": 0.03125763125763126
+        },
+        {
+          "rank": 4,
+          "chunk_id": "ff28a76ba359380dff80705cea33058100e3f986b92660e203cd3f7e5747cac2",
+          "document_name": "faq.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\faq.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.03055037313432836,
+          "dense_rank": 7,
+          "dense_score": 0.37271166943596956,
+          "bm25_rank": 4,
+          "bm25_score": 4.5537144500978695,
+          "rrf_score": 0.03055037313432836
+        },
+        {
+          "rank": 5,
+          "chunk_id": "af81754fac2b9ddbc606b4814053f4ff68451c0bd03b2ed7f060a4379592501f",
+          "document_name": "return_policy.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\return_policy.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.029857397504456328,
+          "dense_rank": 6,
+          "dense_score": 0.3830876718869838,
+          "bm25_rank": 8,
+          "bm25_score": 2.446507785589609,
+          "rrf_score": 0.029857397504456328
+        }
+      ]
+    },
+    {
+      "id": "E05",
+      "query": "Can I change my address after the order is packed?",
+      "retrieval_type": "semantic",
+      "expected_sources": [
+        "shipping_policy.pdf"
+      ],
+      "retrieval_mode": "Hybrid RRF",
+      "latency_ms": 30.808,
+      "base_retrieval_latency_ms": 30.808,
+      "reranking_latency_ms": 0.0,
+      "expected_found": true,
+      "metrics": {
+        "1": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        },
+        "3": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.3333333333333333,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        },
+        "5": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.2,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        }
+      },
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "e0556b3771baa4377d6d23187734cd61dde46ee559343371761e873401949e8e",
+          "document_name": "shipping_policy.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\shipping_policy.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.03252247488101534,
+          "dense_rank": 1,
+          "dense_score": 0.7638713529870422,
+          "bm25_rank": 2,
+          "bm25_score": 12.607872195744125,
+          "rrf_score": 0.03252247488101534
+        },
+        {
+          "rank": 2,
+          "chunk_id": "ff28a76ba359380dff80705cea33058100e3f986b92660e203cd3f7e5747cac2",
+          "document_name": "faq.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\faq.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.032018442622950824,
+          "dense_rank": 4,
+          "dense_score": 0.29125376377824597,
+          "bm25_rank": 1,
+          "bm25_score": 12.889755926510176,
+          "rrf_score": 0.032018442622950824
+        },
+        {
+          "rank": 3,
+          "chunk_id": "6cfc0c94ea5779562942e1fc458fc400dae7bd1b5b7cf1122fa6c738666df7c6",
+          "document_name": "shipping_policy.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\shipping_policy.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.03200204813108039,
+          "dense_rank": 2,
+          "dense_score": 0.42777746455324084,
+          "bm25_rank": 3,
+          "bm25_score": 9.430448964575813,
+          "rrf_score": 0.03200204813108039
+        },
+        {
+          "rank": 4,
+          "chunk_id": "2d42b7137b877a688d4eb8d51860c3d1de394f9135edf9b40fc96e5c1b1f9a7e",
+          "document_name": "return_policy.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\return_policy.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.031024531024531024,
+          "dense_rank": 3,
+          "dense_score": 0.34673841770206404,
+          "bm25_rank": 6,
+          "bm25_score": 3.962414431341975,
+          "rrf_score": 0.031024531024531024
+        },
+        {
+          "rank": 5,
+          "chunk_id": "5fd4e0d4b96c45ca694d947c30c2828e1b3778d87f1a9a41f2b101e9d467041c",
+          "document_name": "company_information.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\company_information.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.030330882352941176,
+          "dense_rank": 8,
+          "dense_score": 0.09049632440377331,
+          "bm25_rank": 4,
+          "bm25_score": 6.288531055368686,
+          "rrf_score": 0.030330882352941176
+        }
+      ]
+    },
+    {
+      "id": "E06",
+      "query": "Is the NCB-100 covered by warranty?",
+      "retrieval_type": "hybrid",
+      "expected_sources": [
+        "product_documentation.pdf",
+        "warranty_guide.docx"
+      ],
+      "retrieval_mode": "Hybrid RRF",
+      "latency_ms": 32.75,
+      "base_retrieval_latency_ms": 32.75,
+      "reranking_latency_ms": 0.0,
+      "expected_found": true,
+      "metrics": {
+        "1": {
+          "hit_rate": 1.0,
+          "recall": 0.5,
+          "precision": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        },
+        "3": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.6666666666666666,
+          "reciprocal_rank": 1.0,
+          "ndcg": 0.9197207891481876
+        },
+        "5": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.4,
+          "reciprocal_rank": 1.0,
+          "ndcg": 0.9197207891481876
+        }
+      },
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "8312e55e2a5cbe9ac7087192ff0f63343e49ae7d68746e43ab2c51e12b6b08b2",
+          "document_name": "warranty_guide.docx",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\warranty_guide.docx",
+          "page": null,
+          "section": "Examples",
+          "score": 0.03278688524590164,
+          "dense_rank": 1,
+          "dense_score": 0.6494281577330469,
+          "bm25_rank": 1,
+          "bm25_score": 7.968675703117978,
+          "rrf_score": 0.03278688524590164
+        },
+        {
+          "rank": 2,
+          "chunk_id": "43307a0aaf997e203e660d6033af74a5614d4673739a983efe494b618dd0763b",
+          "document_name": "products.csv",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\products.csv",
+          "page": null,
+          "section": "row 1",
+          "score": 0.03225806451612903,
+          "dense_rank": 2,
+          "dense_score": 0.4714347637442412,
+          "bm25_rank": 2,
+          "bm25_score": 7.876870683496804,
+          "rrf_score": 0.03225806451612903
+        },
+        {
+          "rank": 3,
+          "chunk_id": "584ec3cec82c20f860b0a25a54020d0f1f65ffb982eca5cc976bc2f710e21599",
+          "document_name": "product_documentation.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\product_documentation.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.03149801587301587,
+          "dense_rank": 4,
+          "dense_score": 0.45513119488694764,
+          "bm25_rank": 3,
+          "bm25_score": 5.857959225535131,
+          "rrf_score": 0.03149801587301587
+        },
+        {
+          "rank": 4,
+          "chunk_id": "db71f5a8074531b192e3575d9e36bde06b7f0855e3f9b99b149a323ce5282856",
+          "document_name": "faq.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\faq.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.030536130536130537,
+          "dense_rank": 6,
+          "dense_score": 0.44001677820815677,
+          "bm25_rank": 5,
+          "bm25_score": 3.7742433226174046,
+          "rrf_score": 0.030536130536130537
+        },
+        {
+          "rank": 5,
+          "chunk_id": "65c4d27b4ed3d751c9dfb3209c596db0c2547aca561e594db1235ad1c0c940b3",
+          "document_name": "warranty_guide.docx",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\warranty_guide.docx",
+          "page": null,
+          "section": "Warranty Basics",
+          "score": 0.030309988518943745,
+          "dense_rank": 5,
+          "dense_score": 0.4462975469772501,
+          "bm25_rank": 7,
+          "bm25_score": 2.966690407699029,
+          "rrf_score": 0.030309988518943745
+        }
+      ]
+    },
+    {
+      "id": "E07",
+      "query": "What happens to a refund after return inspection?",
+      "retrieval_type": "semantic",
+      "expected_sources": [
+        "return_policy.pdf"
+      ],
+      "retrieval_mode": "Hybrid RRF",
+      "latency_ms": 30.989,
+      "base_retrieval_latency_ms": 30.989,
+      "reranking_latency_ms": 0.0,
+      "expected_found": true,
+      "metrics": {
+        "1": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        },
+        "3": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.3333333333333333,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        },
+        "5": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.2,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        }
+      },
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "af81754fac2b9ddbc606b4814053f4ff68451c0bd03b2ed7f060a4379592501f",
+          "document_name": "return_policy.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\return_policy.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.03252247488101534,
+          "dense_rank": 1,
+          "dense_score": 0.6200671260525059,
+          "bm25_rank": 2,
+          "bm25_score": 6.500134738620437,
+          "rrf_score": 0.03252247488101534
+        },
+        {
+          "rank": 2,
+          "chunk_id": "ff28a76ba359380dff80705cea33058100e3f986b92660e203cd3f7e5747cac2",
+          "document_name": "faq.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\faq.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.03252247488101534,
+          "dense_rank": 2,
+          "dense_score": 0.564917591660549,
+          "bm25_rank": 1,
+          "bm25_score": 8.915349956717106,
+          "rrf_score": 0.03252247488101534
+        },
+        {
+          "rank": 3,
+          "chunk_id": "2d42b7137b877a688d4eb8d51860c3d1de394f9135edf9b40fc96e5c1b1f9a7e",
+          "document_name": "return_policy.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\return_policy.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.03125763125763126,
+          "dense_rank": 3,
+          "dense_score": 0.5001191438769349,
+          "bm25_rank": 5,
+          "bm25_score": 3.58615998421628,
+          "rrf_score": 0.03125763125763126
+        },
+        {
+          "rank": 4,
+          "chunk_id": "6ca72c8512077a2da68692f340d8bd96f296d65dce77efaa28a3bc26937d5123",
+          "document_name": "company_information.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\company_information.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.03057889822595705,
+          "dense_rank": 8,
+          "dense_score": 0.2134130097392073,
+          "bm25_rank": 3,
+          "bm25_score": 4.285907188464486,
+          "rrf_score": 0.03057889822595705
+        },
+        {
+          "rank": 5,
+          "chunk_id": "6cfc0c94ea5779562942e1fc458fc400dae7bd1b5b7cf1122fa6c738666df7c6",
+          "document_name": "shipping_policy.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\shipping_policy.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.030117753623188408,
+          "dense_rank": 9,
+          "dense_score": 0.19341459775519554,
+          "bm25_rank": 4,
+          "bm25_score": 3.75950048892656,
+          "rrf_score": 0.030117753623188408
+        }
+      ]
+    },
+    {
+      "id": "E08",
+      "query": "Which products have more than 12 months warranty?",
+      "retrieval_type": "structured/filter",
+      "expected_sources": [
+        "products.csv"
+      ],
+      "retrieval_mode": "Hybrid RRF",
+      "latency_ms": 29.454,
+      "base_retrieval_latency_ms": 29.454,
+      "reranking_latency_ms": 0.0,
+      "expected_found": true,
+      "metrics": {
+        "1": {
+          "hit_rate": 0.0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "reciprocal_rank": 0.0,
+          "ndcg": 0.0
+        },
+        "3": {
+          "hit_rate": 0.0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "reciprocal_rank": 0.0,
+          "ndcg": 0.0
+        },
+        "5": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.2,
+          "reciprocal_rank": 0.25,
+          "ndcg": 0.43067655807339306
+        }
+      },
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "8312e55e2a5cbe9ac7087192ff0f63343e49ae7d68746e43ab2c51e12b6b08b2",
+          "document_name": "warranty_guide.docx",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\warranty_guide.docx",
+          "page": null,
+          "section": "Examples",
+          "score": 0.032266458495966696,
+          "dense_rank": 3,
+          "dense_score": 0.4355555195904075,
+          "bm25_rank": 1,
+          "bm25_score": 5.175896074135005,
+          "rrf_score": 0.032266458495966696
+        },
+        {
+          "rank": 2,
+          "chunk_id": "db71f5a8074531b192e3575d9e36bde06b7f0855e3f9b99b149a323ce5282856",
+          "document_name": "faq.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\faq.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.03128054740957967,
+          "dense_rank": 2,
+          "dense_score": 0.45976527710105586,
+          "bm25_rank": 6,
+          "bm25_score": 3.4410104090548557,
+          "rrf_score": 0.03128054740957967
+        },
+        {
+          "rank": 3,
+          "chunk_id": "584ec3cec82c20f860b0a25a54020d0f1f65ffb982eca5cc976bc2f710e21599",
+          "document_name": "product_documentation.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\product_documentation.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.031009615384615385,
+          "dense_rank": 5,
+          "dense_score": 0.3840175887857602,
+          "bm25_rank": 4,
+          "bm25_score": 3.7334912656400534,
+          "rrf_score": 0.031009615384615385
+        },
+        {
+          "rank": 4,
+          "chunk_id": "2170143e86631d0bbddba280b8d36255a6dc71a504900bc8c7659efb7f701864",
+          "document_name": "products.csv",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\products.csv",
+          "page": null,
+          "section": "row 2",
+          "score": 0.030158730158730156,
+          "dense_rank": 10,
+          "dense_score": 0.30984628894135113,
+          "bm25_rank": 3,
+          "bm25_score": 3.7728576183044313,
+          "rrf_score": 0.030158730158730156
+        },
+        {
+          "rank": 5,
+          "chunk_id": "af81754fac2b9ddbc606b4814053f4ff68451c0bd03b2ed7f060a4379592501f",
+          "document_name": "return_policy.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\return_policy.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.029411764705882353,
+          "dense_rank": 8,
+          "dense_score": 0.34003321572128875,
+          "bm25_rank": 8,
+          "bm25_score": 2.8440509424461746,
+          "rrf_score": 0.029411764705882353
+        }
+      ]
+    },
+    {
+      "id": "E09",
+      "query": "Can every opened product be returned?",
+      "retrieval_type": "hybrid",
+      "expected_sources": [
+        "faq.pdf",
+        "return_policy.pdf"
+      ],
+      "retrieval_mode": "Hybrid RRF",
+      "latency_ms": 27.566,
+      "base_retrieval_latency_ms": 27.566,
+      "reranking_latency_ms": 0.0,
+      "expected_found": true,
+      "metrics": {
+        "1": {
+          "hit_rate": 1.0,
+          "recall": 0.5,
+          "precision": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        },
+        "3": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.6666666666666666,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        },
+        "5": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.4,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        }
+      },
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "ff28a76ba359380dff80705cea33058100e3f986b92660e203cd3f7e5747cac2",
+          "document_name": "faq.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\faq.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.03278688524590164,
+          "dense_rank": 1,
+          "dense_score": 0.46618235313801426,
+          "bm25_rank": 1,
+          "bm25_score": 5.376912011220039,
+          "rrf_score": 0.03278688524590164
+        },
+        {
+          "rank": 2,
+          "chunk_id": "af81754fac2b9ddbc606b4814053f4ff68451c0bd03b2ed7f060a4379592501f",
+          "document_name": "return_policy.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\return_policy.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.03225806451612903,
+          "dense_rank": 2,
+          "dense_score": 0.4574269991956459,
+          "bm25_rank": 2,
+          "bm25_score": 4.910395430497994,
+          "rrf_score": 0.03225806451612903
+        },
+        {
+          "rank": 3,
+          "chunk_id": "2f123bb4d37407b7cabbca8f950bf8778ea10e460f96e48172ee2bc83a852720",
+          "document_name": "warranty_guide.docx",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\warranty_guide.docx",
+          "page": null,
+          "section": "Exclusions",
+          "score": 0.03125,
+          "dense_rank": 4,
+          "dense_score": 0.2706119181976212,
+          "bm25_rank": 4,
+          "bm25_score": 2.848054311850403,
+          "rrf_score": 0.03125
+        },
+        {
+          "rank": 4,
+          "chunk_id": "db71f5a8074531b192e3575d9e36bde06b7f0855e3f9b99b149a323ce5282856",
+          "document_name": "faq.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\faq.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.031024531024531024,
+          "dense_rank": 6,
+          "dense_score": 0.24115240083205358,
+          "bm25_rank": 3,
+          "bm25_score": 2.9367523488450367,
+          "rrf_score": 0.031024531024531024
+        },
+        {
+          "rank": 5,
+          "chunk_id": "65c4d27b4ed3d751c9dfb3209c596db0c2547aca561e594db1235ad1c0c940b3",
+          "document_name": "warranty_guide.docx",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\warranty_guide.docx",
+          "page": null,
+          "section": "Warranty Basics",
+          "score": 0.030309988518943745,
+          "dense_rank": 5,
+          "dense_score": 0.2620176565140717,
+          "bm25_rank": 7,
+          "bm25_score": 0.3595732466678537,
+          "rrf_score": 0.030309988518943745
+        }
+      ]
+    },
+    {
+      "id": "E10",
+      "query": "What are the NCL-200 RAM and storage specifications?",
+      "retrieval_type": "keyword/semantic",
+      "expected_sources": [
+        "product_documentation.pdf"
+      ],
+      "retrieval_mode": "Hybrid RRF",
+      "latency_ms": 31.886,
+      "base_retrieval_latency_ms": 31.886,
+      "reranking_latency_ms": 0.0,
+      "expected_found": true,
+      "metrics": {
+        "1": {
+          "hit_rate": 0.0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "reciprocal_rank": 0.0,
+          "ndcg": 0.0
+        },
+        "3": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.3333333333333333,
+          "reciprocal_rank": 0.5,
+          "ndcg": 0.6309297535714575
+        },
+        "5": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.2,
+          "reciprocal_rank": 0.5,
+          "ndcg": 0.6309297535714575
+        }
+      },
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "2170143e86631d0bbddba280b8d36255a6dc71a504900bc8c7659efb7f701864",
+          "document_name": "products.csv",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\products.csv",
+          "page": null,
+          "section": "row 2",
+          "score": 0.032266458495966696,
+          "dense_rank": 1,
+          "dense_score": 0.5035970556218353,
+          "bm25_rank": 3,
+          "bm25_score": 7.021760082109944,
+          "rrf_score": 0.032266458495966696
+        },
+        {
+          "rank": 2,
+          "chunk_id": "584ec3cec82c20f860b0a25a54020d0f1f65ffb982eca5cc976bc2f710e21599",
+          "document_name": "product_documentation.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\product_documentation.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.03225806451612903,
+          "dense_rank": 2,
+          "dense_score": 0.44812871044174374,
+          "bm25_rank": 2,
+          "bm25_score": 7.064932216596681,
+          "rrf_score": 0.03225806451612903
+        },
+        {
+          "rank": 3,
+          "chunk_id": "8312e55e2a5cbe9ac7087192ff0f63343e49ae7d68746e43ab2c51e12b6b08b2",
+          "document_name": "warranty_guide.docx",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\warranty_guide.docx",
+          "page": null,
+          "section": "Examples",
+          "score": 0.03177805800756621,
+          "dense_rank": 5,
+          "dense_score": 0.3498203805878768,
+          "bm25_rank": 1,
+          "bm25_score": 7.267276168897006,
+          "rrf_score": 0.03177805800756621
+        },
+        {
+          "rank": 4,
+          "chunk_id": "8e06ffe7d425d5992126b644263dea46bcc46ab4798d60499484aade969ef868",
+          "document_name": "products.csv",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\products.csv",
+          "page": null,
+          "section": "row 5",
+          "score": 0.015873015873015872,
+          "dense_rank": 3,
+          "dense_score": 0.367650504031386,
+          "rrf_score": 0.015873015873015872
+        },
+        {
+          "rank": 5,
+          "chunk_id": "13a0850397000cadd74c51cb249446da168958f5ebc0b88c0fa4097453fb93d4",
+          "document_name": "products.csv",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\products.csv",
+          "page": null,
+          "section": "row 4",
+          "score": 0.015625,
+          "dense_rank": 4,
+          "dense_score": 0.364776430452487,
+          "rrf_score": 0.015625
+        }
+      ]
+    },
+    {
+      "id": "E01",
+      "query": "What is the standard return window?",
+      "retrieval_type": "semantic",
+      "expected_sources": [
+        "return_policy.pdf"
+      ],
+      "retrieval_mode": "Hybrid + Reranker",
+      "latency_ms": 6848.543,
+      "base_retrieval_latency_ms": 30.756,
+      "reranking_latency_ms": 6817.757,
+      "expected_found": true,
+      "metrics": {
+        "1": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        },
+        "3": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.3333333333333333,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        },
+        "5": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.2,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        }
+      },
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "af81754fac2b9ddbc606b4814053f4ff68451c0bd03b2ed7f060a4379592501f",
+          "document_name": "return_policy.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\return_policy.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.9259437918663025,
+          "dense_rank": 1,
+          "dense_score": 0.3769557285098075,
+          "bm25_rank": 1,
+          "bm25_score": 6.905230348974913,
+          "rrf_rank": 1,
+          "rrf_score": 0.03278688524590164,
+          "reranker_rank": 1,
+          "reranker_score": 0.9259437918663025
+        },
+        {
+          "rank": 2,
+          "chunk_id": "8312e55e2a5cbe9ac7087192ff0f63343e49ae7d68746e43ab2c51e12b6b08b2",
+          "document_name": "warranty_guide.docx",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\warranty_guide.docx",
+          "page": null,
+          "section": "Examples",
+          "score": 0.00626440579071641,
+          "dense_rank": 10,
+          "dense_score": 0.11688810055253962,
+          "rrf_rank": 14,
+          "rrf_score": 0.014285714285714285,
+          "reranker_rank": 2,
+          "reranker_score": 0.00626440579071641
+        },
+        {
+          "rank": 3,
+          "chunk_id": "6cfc0c94ea5779562942e1fc458fc400dae7bd1b5b7cf1122fa6c738666df7c6",
+          "document_name": "shipping_policy.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\shipping_policy.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.004928079899400473,
+          "bm25_rank": 2,
+          "bm25_score": 4.6364308010248605,
+          "rrf_rank": 6,
+          "rrf_score": 0.016129032258064516,
+          "reranker_rank": 3,
+          "reranker_score": 0.004928079899400473
+        },
+        {
+          "rank": 4,
+          "chunk_id": "ff28a76ba359380dff80705cea33058100e3f986b92660e203cd3f7e5747cac2",
+          "document_name": "faq.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\faq.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.0018236804753541946,
+          "dense_rank": 2,
+          "dense_score": 0.3616024765966621,
+          "bm25_rank": 4,
+          "bm25_score": 3.6896117250938256,
+          "rrf_rank": 2,
+          "rrf_score": 0.031754032258064516,
+          "reranker_rank": 4,
+          "reranker_score": 0.0018236804753541946
+        },
+        {
+          "rank": 5,
+          "chunk_id": "e0556b3771baa4377d6d23187734cd61dde46ee559343371761e873401949e8e",
+          "document_name": "shipping_policy.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\shipping_policy.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.0008541144197806716,
+          "bm25_rank": 5,
+          "bm25_score": 3.022913731847572,
+          "rrf_rank": 9,
+          "rrf_score": 0.015384615384615385,
+          "reranker_rank": 5,
+          "reranker_score": 0.0008541144197806716
+        }
+      ]
+    },
+    {
+      "id": "E02",
+      "query": "How long does standard delivery take?",
+      "retrieval_type": "semantic",
+      "expected_sources": [
+        "shipping_policy.pdf"
+      ],
+      "retrieval_mode": "Hybrid + Reranker",
+      "latency_ms": 6227.877,
+      "base_retrieval_latency_ms": 31.148,
+      "reranking_latency_ms": 6196.7,
+      "expected_found": true,
+      "metrics": {
+        "1": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        },
+        "3": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.3333333333333333,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        },
+        "5": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.2,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        }
+      },
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "6cfc0c94ea5779562942e1fc458fc400dae7bd1b5b7cf1122fa6c738666df7c6",
+          "document_name": "shipping_policy.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\shipping_policy.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.9975670576095581,
+          "dense_rank": 1,
+          "dense_score": 0.6003887615913783,
+          "bm25_rank": 2,
+          "bm25_score": 6.174831504898804,
+          "rrf_rank": 1,
+          "rrf_score": 0.03252247488101534,
+          "reranker_rank": 1,
+          "reranker_score": 0.9975670576095581
+        },
+        {
+          "rank": 2,
+          "chunk_id": "ff28a76ba359380dff80705cea33058100e3f986b92660e203cd3f7e5747cac2",
+          "document_name": "faq.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\faq.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.9928799271583557,
+          "dense_rank": 3,
+          "dense_score": 0.40264306213282086,
+          "bm25_rank": 1,
+          "bm25_score": 8.686805062285105,
+          "rrf_rank": 2,
+          "rrf_score": 0.032266458495966696,
+          "reranker_rank": 2,
+          "reranker_score": 0.9928799271583557
+        },
+        {
+          "rank": 3,
+          "chunk_id": "af81754fac2b9ddbc606b4814053f4ff68451c0bd03b2ed7f060a4379592501f",
+          "document_name": "return_policy.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\return_policy.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.7628306746482849,
+          "dense_rank": 2,
+          "dense_score": 0.4217107444223829,
+          "bm25_rank": 3,
+          "bm25_score": 3.272952778834239,
+          "rrf_rank": 3,
+          "rrf_score": 0.03200204813108039,
+          "reranker_rank": 3,
+          "reranker_score": 0.7628306746482849
+        },
+        {
+          "rank": 4,
+          "chunk_id": "8312e55e2a5cbe9ac7087192ff0f63343e49ae7d68746e43ab2c51e12b6b08b2",
+          "document_name": "warranty_guide.docx",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\warranty_guide.docx",
+          "page": null,
+          "section": "Examples",
+          "score": 0.061675120145082474,
+          "dense_rank": 6,
+          "dense_score": 0.2288723427468654,
+          "rrf_rank": 8,
+          "rrf_score": 0.015151515151515152,
+          "reranker_rank": 4,
+          "reranker_score": 0.061675120145082474
+        },
+        {
+          "rank": 5,
+          "chunk_id": "65c4d27b4ed3d751c9dfb3209c596db0c2547aca561e594db1235ad1c0c940b3",
+          "document_name": "warranty_guide.docx",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\warranty_guide.docx",
+          "page": null,
+          "section": "Warranty Basics",
+          "score": 0.016010619699954987,
+          "dense_rank": 7,
+          "dense_score": 0.17814019949838866,
+          "rrf_rank": 9,
+          "rrf_score": 0.014925373134328358,
+          "reranker_rank": 5,
+          "reranker_score": 0.016010619699954987
+        }
+      ]
+    },
+    {
+      "id": "E03",
+      "query": "What is the price of NKM-10?",
+      "retrieval_type": "keyword/structured",
+      "expected_sources": [
+        "products.csv"
+      ],
+      "retrieval_mode": "Hybrid + Reranker",
+      "latency_ms": 9630.197,
+      "base_retrieval_latency_ms": 27.062,
+      "reranking_latency_ms": 9603.105,
+      "expected_found": true,
+      "metrics": {
+        "1": {
+          "hit_rate": 0.0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "reciprocal_rank": 0.0,
+          "ndcg": 0.0
+        },
+        "3": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.3333333333333333,
+          "reciprocal_rank": 0.5,
+          "ndcg": 0.6309297535714575
+        },
+        "5": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.2,
+          "reciprocal_rank": 0.5,
+          "ndcg": 0.6309297535714575
+        }
+      },
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "584ec3cec82c20f860b0a25a54020d0f1f65ffb982eca5cc976bc2f710e21599",
+          "document_name": "product_documentation.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\product_documentation.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.8816627264022827,
+          "dense_rank": 2,
+          "dense_score": 0.44559793640252066,
+          "bm25_rank": 3,
+          "bm25_score": 6.297953138599651,
+          "rrf_rank": 2,
+          "rrf_score": 0.03200204813108039,
+          "reranker_rank": 1,
+          "reranker_score": 0.8816627264022827
+        },
+        {
+          "rank": 2,
+          "chunk_id": "d119ef1e387be6a14d82e18890cb5ab0236d7b59d0aa564496eb3be83fed0d3d",
+          "document_name": "products.csv",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\products.csv",
+          "page": null,
+          "section": "row 3",
+          "score": 0.30608153343200684,
+          "dense_rank": 1,
+          "dense_score": 0.5462541309659148,
+          "bm25_rank": 1,
+          "bm25_score": 8.651114413971477,
+          "rrf_rank": 1,
+          "rrf_score": 0.03278688524590164,
+          "reranker_rank": 2,
+          "reranker_score": 0.30608153343200684
+        },
+        {
+          "rank": 3,
+          "chunk_id": "8312e55e2a5cbe9ac7087192ff0f63343e49ae7d68746e43ab2c51e12b6b08b2",
+          "document_name": "warranty_guide.docx",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\warranty_guide.docx",
+          "page": null,
+          "section": "Examples",
+          "score": 0.014753497205674648,
+          "dense_rank": 3,
+          "dense_score": 0.41332999049838537,
+          "bm25_rank": 2,
+          "bm25_score": 7.267276168897006,
+          "rrf_rank": 3,
+          "rrf_score": 0.03200204813108039,
+          "reranker_rank": 3,
+          "reranker_score": 0.014753497205674648
+        },
+        {
+          "rank": 4,
+          "chunk_id": "6ca72c8512077a2da68692f340d8bd96f296d65dce77efaa28a3bc26937d5123",
+          "document_name": "company_information.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\company_information.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.001680226530879736,
+          "dense_rank": 9,
+          "dense_score": 0.17145043310325536,
+          "rrf_rank": 12,
+          "rrf_score": 0.014492753623188406,
+          "reranker_rank": 4,
+          "reranker_score": 0.001680226530879736
+        },
+        {
+          "rank": 5,
+          "chunk_id": "6cfc0c94ea5779562942e1fc458fc400dae7bd1b5b7cf1122fa6c738666df7c6",
+          "document_name": "shipping_policy.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\shipping_policy.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.0005102260620333254,
+          "bm25_rank": 5,
+          "bm25_score": 3.5559222625271714,
+          "rrf_rank": 9,
+          "rrf_score": 0.015384615384615385,
+          "reranker_rank": 5,
+          "reranker_score": 0.0005102260620333254
+        }
+      ]
+    },
+    {
+      "id": "E04",
+      "query": "How long is the NCM-24 warranty?",
+      "retrieval_type": "hybrid",
+      "expected_sources": [
+        "products.csv",
+        "warranty_guide.docx"
+      ],
+      "retrieval_mode": "Hybrid + Reranker",
+      "latency_ms": 9106.192,
+      "base_retrieval_latency_ms": 28.646,
+      "reranking_latency_ms": 9077.519,
+      "expected_found": true,
+      "metrics": {
+        "1": {
+          "hit_rate": 1.0,
+          "recall": 0.5,
+          "precision": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        },
+        "3": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.6666666666666666,
+          "reciprocal_rank": 1.0,
+          "ndcg": 0.9197207891481876
+        },
+        "5": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.4,
+          "reciprocal_rank": 1.0,
+          "ndcg": 0.9197207891481876
+        }
+      },
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "8312e55e2a5cbe9ac7087192ff0f63343e49ae7d68746e43ab2c51e12b6b08b2",
+          "document_name": "warranty_guide.docx",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\warranty_guide.docx",
+          "page": null,
+          "section": "Examples",
+          "score": 0.9977868795394897,
+          "dense_rank": 1,
+          "dense_score": 0.7194689851216547,
+          "bm25_rank": 2,
+          "bm25_score": 8.690639094581776,
+          "rrf_rank": 1,
+          "rrf_score": 0.03252247488101534,
+          "reranker_rank": 1,
+          "reranker_score": 0.9977868795394897
+        },
+        {
+          "rank": 2,
+          "chunk_id": "584ec3cec82c20f860b0a25a54020d0f1f65ffb982eca5cc976bc2f710e21599",
+          "document_name": "product_documentation.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\product_documentation.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.8700289130210876,
+          "dense_rank": 5,
+          "dense_score": 0.42884116406175843,
+          "bm25_rank": 3,
+          "bm25_score": 6.178874739990909,
+          "rrf_rank": 3,
+          "rrf_score": 0.03125763125763126,
+          "reranker_rank": 2,
+          "reranker_score": 0.8700289130210876
+        },
+        {
+          "rank": 3,
+          "chunk_id": "13a0850397000cadd74c51cb249446da168958f5ebc0b88c0fa4097453fb93d4",
+          "document_name": "products.csv",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\products.csv",
+          "page": null,
+          "section": "row 4",
+          "score": 0.6517195701599121,
+          "dense_rank": 3,
+          "dense_score": 0.46472816679828344,
+          "bm25_rank": 1,
+          "bm25_score": 8.792424873644471,
+          "rrf_rank": 2,
+          "rrf_score": 0.032266458495966696,
+          "reranker_rank": 3,
+          "reranker_score": 0.6517195701599121
+        },
+        {
+          "rank": 4,
+          "chunk_id": "65c4d27b4ed3d751c9dfb3209c596db0c2547aca561e594db1235ad1c0c940b3",
+          "document_name": "warranty_guide.docx",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\warranty_guide.docx",
+          "page": null,
+          "section": "Warranty Basics",
+          "score": 0.07816077023744583,
+          "dense_rank": 4,
+          "dense_score": 0.45840005156320185,
+          "rrf_rank": 7,
+          "rrf_score": 0.015625,
+          "reranker_rank": 4,
+          "reranker_score": 0.07816077023744583
+        },
+        {
+          "rank": 5,
+          "chunk_id": "af81754fac2b9ddbc606b4814053f4ff68451c0bd03b2ed7f060a4379592501f",
+          "document_name": "return_policy.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\return_policy.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.0030885273590683937,
+          "dense_rank": 6,
+          "dense_score": 0.3830876718869838,
+          "bm25_rank": 8,
+          "bm25_score": 2.446507785589609,
+          "rrf_rank": 5,
+          "rrf_score": 0.029857397504456328,
+          "reranker_rank": 5,
+          "reranker_score": 0.0030885273590683937
+        }
+      ]
+    },
+    {
+      "id": "E05",
+      "query": "Can I change my address after the order is packed?",
+      "retrieval_type": "semantic",
+      "expected_sources": [
+        "shipping_policy.pdf"
+      ],
+      "retrieval_mode": "Hybrid + Reranker",
+      "latency_ms": 6646.787,
+      "base_retrieval_latency_ms": 32.499,
+      "reranking_latency_ms": 6614.231,
+      "expected_found": true,
+      "metrics": {
+        "1": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        },
+        "3": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.3333333333333333,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        },
+        "5": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.2,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        }
+      },
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "e0556b3771baa4377d6d23187734cd61dde46ee559343371761e873401949e8e",
+          "document_name": "shipping_policy.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\shipping_policy.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.998871386051178,
+          "dense_rank": 1,
+          "dense_score": 0.7638713529870422,
+          "bm25_rank": 2,
+          "bm25_score": 12.607872195744125,
+          "rrf_rank": 1,
+          "rrf_score": 0.03252247488101534,
+          "reranker_rank": 1,
+          "reranker_score": 0.998871386051178
+        },
+        {
+          "rank": 2,
+          "chunk_id": "ff28a76ba359380dff80705cea33058100e3f986b92660e203cd3f7e5747cac2",
+          "document_name": "faq.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\faq.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.9493293166160583,
+          "dense_rank": 4,
+          "dense_score": 0.29125376377824597,
+          "bm25_rank": 1,
+          "bm25_score": 12.889755926510176,
+          "rrf_rank": 2,
+          "rrf_score": 0.032018442622950824,
+          "reranker_rank": 2,
+          "reranker_score": 0.9493293166160583
+        },
+        {
+          "rank": 3,
+          "chunk_id": "6cfc0c94ea5779562942e1fc458fc400dae7bd1b5b7cf1122fa6c738666df7c6",
+          "document_name": "shipping_policy.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\shipping_policy.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.9011173844337463,
+          "dense_rank": 2,
+          "dense_score": 0.42777746455324084,
+          "bm25_rank": 3,
+          "bm25_score": 9.430448964575813,
+          "rrf_rank": 3,
+          "rrf_score": 0.03200204813108039,
+          "reranker_rank": 3,
+          "reranker_score": 0.9011173844337463
+        },
+        {
+          "rank": 4,
+          "chunk_id": "6ca72c8512077a2da68692f340d8bd96f296d65dce77efaa28a3bc26937d5123",
+          "document_name": "company_information.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\company_information.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.0026128028985112906,
+          "dense_rank": 7,
+          "dense_score": 0.1871556438944113,
+          "bm25_rank": 5,
+          "bm25_score": 6.09687215390675,
+          "rrf_rank": 6,
+          "rrf_score": 0.030309988518943745,
+          "reranker_rank": 4,
+          "reranker_score": 0.0026128028985112906
+        },
+        {
+          "rank": 5,
+          "chunk_id": "73c78a8b2a4d559ff2c1228375e98ebac84cac6f2b600894cb5864be7ed624e3",
+          "document_name": "warranty_guide.docx",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\warranty_guide.docx",
+          "page": null,
+          "section": "Service",
+          "score": 0.0014213501708582044,
+          "dense_rank": 5,
+          "dense_score": 0.26947604879302633,
+          "bm25_rank": 8,
+          "bm25_score": 2.947839001920925,
+          "rrf_rank": 7,
+          "rrf_score": 0.030090497737556562,
+          "reranker_rank": 5,
+          "reranker_score": 0.0014213501708582044
+        }
+      ]
+    },
+    {
+      "id": "E06",
+      "query": "Is the NCB-100 covered by warranty?",
+      "retrieval_type": "hybrid",
+      "expected_sources": [
+        "product_documentation.pdf",
+        "warranty_guide.docx"
+      ],
+      "retrieval_mode": "Hybrid + Reranker",
+      "latency_ms": 10992.191,
+      "base_retrieval_latency_ms": 41.353,
+      "reranking_latency_ms": 10950.801,
+      "expected_found": true,
+      "metrics": {
+        "1": {
+          "hit_rate": 1.0,
+          "recall": 0.5,
+          "precision": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        },
+        "3": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.6666666666666666,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        },
+        "5": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.4,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        }
+      },
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "8312e55e2a5cbe9ac7087192ff0f63343e49ae7d68746e43ab2c51e12b6b08b2",
+          "document_name": "warranty_guide.docx",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\warranty_guide.docx",
+          "page": null,
+          "section": "Examples",
+          "score": 0.9933253526687622,
+          "dense_rank": 1,
+          "dense_score": 0.6494281577330469,
+          "bm25_rank": 1,
+          "bm25_score": 7.968675703117978,
+          "rrf_rank": 1,
+          "rrf_score": 0.03278688524590164,
+          "reranker_rank": 1,
+          "reranker_score": 0.9933253526687622
+        },
+        {
+          "rank": 2,
+          "chunk_id": "584ec3cec82c20f860b0a25a54020d0f1f65ffb982eca5cc976bc2f710e21599",
+          "document_name": "product_documentation.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\product_documentation.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.9581219553947449,
+          "dense_rank": 4,
+          "dense_score": 0.45513119488694764,
+          "bm25_rank": 3,
+          "bm25_score": 5.857959225535131,
+          "rrf_rank": 3,
+          "rrf_score": 0.03149801587301587,
+          "reranker_rank": 2,
+          "reranker_score": 0.9581219553947449
+        },
+        {
+          "rank": 3,
+          "chunk_id": "43307a0aaf997e203e660d6033af74a5614d4673739a983efe494b618dd0763b",
+          "document_name": "products.csv",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\products.csv",
+          "page": null,
+          "section": "row 1",
+          "score": 0.9066395163536072,
+          "dense_rank": 2,
+          "dense_score": 0.4714347637442412,
+          "bm25_rank": 2,
+          "bm25_score": 7.876870683496804,
+          "rrf_rank": 2,
+          "rrf_score": 0.03225806451612903,
+          "reranker_rank": 3,
+          "reranker_score": 0.9066395163536072
+        },
+        {
+          "rank": 4,
+          "chunk_id": "65c4d27b4ed3d751c9dfb3209c596db0c2547aca561e594db1235ad1c0c940b3",
+          "document_name": "warranty_guide.docx",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\warranty_guide.docx",
+          "page": null,
+          "section": "Warranty Basics",
+          "score": 0.27002185583114624,
+          "dense_rank": 5,
+          "dense_score": 0.4462975469772501,
+          "bm25_rank": 7,
+          "bm25_score": 2.966690407699029,
+          "rrf_rank": 5,
+          "rrf_score": 0.030309988518943745,
+          "reranker_rank": 4,
+          "reranker_score": 0.27002185583114624
+        },
+        {
+          "rank": 5,
+          "chunk_id": "db71f5a8074531b192e3575d9e36bde06b7f0855e3f9b99b149a323ce5282856",
+          "document_name": "faq.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\faq.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.016042938455939293,
+          "dense_rank": 6,
+          "dense_score": 0.44001677820815677,
+          "bm25_rank": 5,
+          "bm25_score": 3.7742433226174046,
+          "rrf_rank": 4,
+          "rrf_score": 0.030536130536130537,
+          "reranker_rank": 5,
+          "reranker_score": 0.016042938455939293
+        }
+      ]
+    },
+    {
+      "id": "E07",
+      "query": "What happens to a refund after return inspection?",
+      "retrieval_type": "semantic",
+      "expected_sources": [
+        "return_policy.pdf"
+      ],
+      "retrieval_mode": "Hybrid + Reranker",
+      "latency_ms": 7471.531,
+      "base_retrieval_latency_ms": 32.802,
+      "reranking_latency_ms": 7438.694,
+      "expected_found": true,
+      "metrics": {
+        "1": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        },
+        "3": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.3333333333333333,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        },
+        "5": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.2,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        }
+      },
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "af81754fac2b9ddbc606b4814053f4ff68451c0bd03b2ed7f060a4379592501f",
+          "document_name": "return_policy.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\return_policy.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.8147334456443787,
+          "dense_rank": 1,
+          "dense_score": 0.6200671260525059,
+          "bm25_rank": 2,
+          "bm25_score": 6.500134738620437,
+          "rrf_rank": 1,
+          "rrf_score": 0.03252247488101534,
+          "reranker_rank": 1,
+          "reranker_score": 0.8147334456443787
+        },
+        {
+          "rank": 2,
+          "chunk_id": "ff28a76ba359380dff80705cea33058100e3f986b92660e203cd3f7e5747cac2",
+          "document_name": "faq.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\faq.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.6410821676254272,
+          "dense_rank": 2,
+          "dense_score": 0.564917591660549,
+          "bm25_rank": 1,
+          "bm25_score": 8.915349956717106,
+          "rrf_rank": 2,
+          "rrf_score": 0.03252247488101534,
+          "reranker_rank": 2,
+          "reranker_score": 0.6410821676254272
+        },
+        {
+          "rank": 3,
+          "chunk_id": "2f123bb4d37407b7cabbca8f950bf8778ea10e460f96e48172ee2bc83a852720",
+          "document_name": "warranty_guide.docx",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\warranty_guide.docx",
+          "page": null,
+          "section": "Exclusions",
+          "score": 0.13185666501522064,
+          "dense_rank": 5,
+          "dense_score": 0.27301111297500547,
+          "rrf_rank": 7,
+          "rrf_score": 0.015384615384615385,
+          "reranker_rank": 3,
+          "reranker_score": 0.13185666501522064
+        },
+        {
+          "rank": 4,
+          "chunk_id": "65c4d27b4ed3d751c9dfb3209c596db0c2547aca561e594db1235ad1c0c940b3",
+          "document_name": "warranty_guide.docx",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\warranty_guide.docx",
+          "page": null,
+          "section": "Warranty Basics",
+          "score": 0.0029539507813751698,
+          "dense_rank": 6,
+          "dense_score": 0.2667645103791063,
+          "rrf_rank": 9,
+          "rrf_score": 0.015151515151515152,
+          "reranker_rank": 4,
+          "reranker_score": 0.0029539507813751698
+        },
+        {
+          "rank": 5,
+          "chunk_id": "2d42b7137b877a688d4eb8d51860c3d1de394f9135edf9b40fc96e5c1b1f9a7e",
+          "document_name": "return_policy.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\return_policy.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.0012201995123177767,
+          "dense_rank": 3,
+          "dense_score": 0.5001191438769349,
+          "bm25_rank": 5,
+          "bm25_score": 3.58615998421628,
+          "rrf_rank": 3,
+          "rrf_score": 0.03125763125763126,
+          "reranker_rank": 5,
+          "reranker_score": 0.0012201995123177767
+        }
+      ]
+    },
+    {
+      "id": "E08",
+      "query": "Which products have more than 12 months warranty?",
+      "retrieval_type": "structured/filter",
+      "expected_sources": [
+        "products.csv"
+      ],
+      "retrieval_mode": "Hybrid + Reranker",
+      "latency_ms": 10798.086,
+      "base_retrieval_latency_ms": 36.366,
+      "reranking_latency_ms": 10761.681,
+      "expected_found": false,
+      "metrics": {
+        "1": {
+          "hit_rate": 0.0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "reciprocal_rank": 0.0,
+          "ndcg": 0.0
+        },
+        "3": {
+          "hit_rate": 0.0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "reciprocal_rank": 0.0,
+          "ndcg": 0.0
+        },
+        "5": {
+          "hit_rate": 0.0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "reciprocal_rank": 0.0,
+          "ndcg": 0.0
+        }
+      },
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "8312e55e2a5cbe9ac7087192ff0f63343e49ae7d68746e43ab2c51e12b6b08b2",
+          "document_name": "warranty_guide.docx",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\warranty_guide.docx",
+          "page": null,
+          "section": "Examples",
+          "score": 0.9396887421607971,
+          "dense_rank": 3,
+          "dense_score": 0.4355555195904075,
+          "bm25_rank": 1,
+          "bm25_score": 5.175896074135005,
+          "rrf_rank": 1,
+          "rrf_score": 0.032266458495966696,
+          "reranker_rank": 1,
+          "reranker_score": 0.9396887421607971
+        },
+        {
+          "rank": 2,
+          "chunk_id": "584ec3cec82c20f860b0a25a54020d0f1f65ffb982eca5cc976bc2f710e21599",
+          "document_name": "product_documentation.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\product_documentation.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.24029384553432465,
+          "dense_rank": 5,
+          "dense_score": 0.3840175887857602,
+          "bm25_rank": 4,
+          "bm25_score": 3.7334912656400534,
+          "rrf_rank": 3,
+          "rrf_score": 0.031009615384615385,
+          "reranker_rank": 2,
+          "reranker_score": 0.24029384553432465
+        },
+        {
+          "rank": 3,
+          "chunk_id": "65c4d27b4ed3d751c9dfb3209c596db0c2547aca561e594db1235ad1c0c940b3",
+          "document_name": "warranty_guide.docx",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\warranty_guide.docx",
+          "page": null,
+          "section": "Warranty Basics",
+          "score": 0.06995336711406708,
+          "dense_rank": 1,
+          "dense_score": 0.49774287721066046,
+          "rrf_rank": 6,
+          "rrf_score": 0.01639344262295082,
+          "reranker_rank": 3,
+          "reranker_score": 0.06995336711406708
+        },
+        {
+          "rank": 4,
+          "chunk_id": "2f123bb4d37407b7cabbca8f950bf8778ea10e460f96e48172ee2bc83a852720",
+          "document_name": "warranty_guide.docx",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\warranty_guide.docx",
+          "page": null,
+          "section": "Exclusions",
+          "score": 0.0259599257260561,
+          "dense_rank": 6,
+          "dense_score": 0.35079489833704747,
+          "rrf_rank": 10,
+          "rrf_score": 0.015151515151515152,
+          "reranker_rank": 4,
+          "reranker_score": 0.0259599257260561
+        },
+        {
+          "rank": 5,
+          "chunk_id": "db71f5a8074531b192e3575d9e36bde06b7f0855e3f9b99b149a323ce5282856",
+          "document_name": "faq.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\faq.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.013092583045363426,
+          "dense_rank": 2,
+          "dense_score": 0.45976527710105586,
+          "bm25_rank": 6,
+          "bm25_score": 3.4410104090548557,
+          "rrf_rank": 2,
+          "rrf_score": 0.03128054740957967,
+          "reranker_rank": 5,
+          "reranker_score": 0.013092583045363426
+        }
+      ]
+    },
+    {
+      "id": "E09",
+      "query": "Can every opened product be returned?",
+      "retrieval_type": "hybrid",
+      "expected_sources": [
+        "faq.pdf",
+        "return_policy.pdf"
+      ],
+      "retrieval_mode": "Hybrid + Reranker",
+      "latency_ms": 6532.583,
+      "base_retrieval_latency_ms": 34.821,
+      "reranking_latency_ms": 6497.728,
+      "expected_found": true,
+      "metrics": {
+        "1": {
+          "hit_rate": 1.0,
+          "recall": 0.5,
+          "precision": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        },
+        "3": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.6666666666666666,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        },
+        "5": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.4,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        }
+      },
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "ff28a76ba359380dff80705cea33058100e3f986b92660e203cd3f7e5747cac2",
+          "document_name": "faq.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\faq.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.9449706077575684,
+          "dense_rank": 1,
+          "dense_score": 0.46618235313801426,
+          "bm25_rank": 1,
+          "bm25_score": 5.376912011220039,
+          "rrf_rank": 1,
+          "rrf_score": 0.03278688524590164,
+          "reranker_rank": 1,
+          "reranker_score": 0.9449706077575684
+        },
+        {
+          "rank": 2,
+          "chunk_id": "af81754fac2b9ddbc606b4814053f4ff68451c0bd03b2ed7f060a4379592501f",
+          "document_name": "return_policy.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\return_policy.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.6089674234390259,
+          "dense_rank": 2,
+          "dense_score": 0.4574269991956459,
+          "bm25_rank": 2,
+          "bm25_score": 4.910395430497994,
+          "rrf_rank": 2,
+          "rrf_score": 0.03225806451612903,
+          "reranker_rank": 2,
+          "reranker_score": 0.6089674234390259
+        },
+        {
+          "rank": 3,
+          "chunk_id": "2f123bb4d37407b7cabbca8f950bf8778ea10e460f96e48172ee2bc83a852720",
+          "document_name": "warranty_guide.docx",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\warranty_guide.docx",
+          "page": null,
+          "section": "Exclusions",
+          "score": 0.21329113841056824,
+          "dense_rank": 4,
+          "dense_score": 0.2706119181976212,
+          "bm25_rank": 4,
+          "bm25_score": 2.848054311850403,
+          "rrf_rank": 3,
+          "rrf_score": 0.03125,
+          "reranker_rank": 3,
+          "reranker_score": 0.21329113841056824
+        },
+        {
+          "rank": 4,
+          "chunk_id": "db71f5a8074531b192e3575d9e36bde06b7f0855e3f9b99b149a323ce5282856",
+          "document_name": "faq.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\faq.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.05785631388425827,
+          "dense_rank": 6,
+          "dense_score": 0.24115240083205358,
+          "bm25_rank": 3,
+          "bm25_score": 2.9367523488450367,
+          "rrf_rank": 4,
+          "rrf_score": 0.031024531024531024,
+          "reranker_rank": 4,
+          "reranker_score": 0.05785631388425827
+        },
+        {
+          "rank": 5,
+          "chunk_id": "65c4d27b4ed3d751c9dfb3209c596db0c2547aca561e594db1235ad1c0c940b3",
+          "document_name": "warranty_guide.docx",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\warranty_guide.docx",
+          "page": null,
+          "section": "Warranty Basics",
+          "score": 0.03610515221953392,
+          "dense_rank": 5,
+          "dense_score": 0.2620176565140717,
+          "bm25_rank": 7,
+          "bm25_score": 0.3595732466678537,
+          "rrf_rank": 5,
+          "rrf_score": 0.030309988518943745,
+          "reranker_rank": 5,
+          "reranker_score": 0.03610515221953392
+        }
+      ]
+    },
+    {
+      "id": "E10",
+      "query": "What are the NCL-200 RAM and storage specifications?",
+      "retrieval_type": "keyword/semantic",
+      "expected_sources": [
+        "product_documentation.pdf"
+      ],
+      "retrieval_mode": "Hybrid + Reranker",
+      "latency_ms": 13088.495,
+      "base_retrieval_latency_ms": 38.323,
+      "reranking_latency_ms": 13050.139,
+      "expected_found": true,
+      "metrics": {
+        "1": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        },
+        "3": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.3333333333333333,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        },
+        "5": {
+          "hit_rate": 1.0,
+          "recall": 1.0,
+          "precision": 0.2,
+          "reciprocal_rank": 1.0,
+          "ndcg": 1.0
+        }
+      },
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "584ec3cec82c20f860b0a25a54020d0f1f65ffb982eca5cc976bc2f710e21599",
+          "document_name": "product_documentation.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\product_documentation.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.4920567572116852,
+          "dense_rank": 2,
+          "dense_score": 0.44812871044174374,
+          "bm25_rank": 2,
+          "bm25_score": 7.064932216596681,
+          "rrf_rank": 2,
+          "rrf_score": 0.03225806451612903,
+          "reranker_rank": 1,
+          "reranker_score": 0.4920567572116852
+        },
+        {
+          "rank": 2,
+          "chunk_id": "8312e55e2a5cbe9ac7087192ff0f63343e49ae7d68746e43ab2c51e12b6b08b2",
+          "document_name": "warranty_guide.docx",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\warranty_guide.docx",
+          "page": null,
+          "section": "Examples",
+          "score": 0.269787073135376,
+          "dense_rank": 5,
+          "dense_score": 0.3498203805878768,
+          "bm25_rank": 1,
+          "bm25_score": 7.267276168897006,
+          "rrf_rank": 3,
+          "rrf_score": 0.03177805800756621,
+          "reranker_rank": 2,
+          "reranker_score": 0.269787073135376
+        },
+        {
+          "rank": 3,
+          "chunk_id": "2170143e86631d0bbddba280b8d36255a6dc71a504900bc8c7659efb7f701864",
+          "document_name": "products.csv",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\products.csv",
+          "page": null,
+          "section": "row 2",
+          "score": 0.039485592395067215,
+          "dense_rank": 1,
+          "dense_score": 0.5035970556218353,
+          "bm25_rank": 3,
+          "bm25_score": 7.021760082109944,
+          "rrf_rank": 1,
+          "rrf_score": 0.032266458495966696,
+          "reranker_rank": 3,
+          "reranker_score": 0.039485592395067215
+        },
+        {
+          "rank": 4,
+          "chunk_id": "aee46aa90876573ecb68d0012f2f9fa41f852802b70ff44700d280353ac784b8",
+          "document_name": "product_documentation.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\product_documentation.pdf",
+          "page": 2,
+          "section": null,
+          "score": 0.02314789593219757,
+          "dense_rank": 7,
+          "dense_score": 0.28864903691241084,
+          "rrf_rank": 10,
+          "rrf_score": 0.014925373134328358,
+          "reranker_rank": 4,
+          "reranker_score": 0.02314789593219757
+        },
+        {
+          "rank": 5,
+          "chunk_id": "6ca72c8512077a2da68692f340d8bd96f296d65dce77efaa28a3bc26937d5123",
+          "document_name": "company_information.pdf",
+          "source": "F:\\novacart-hybrid-rag\\data\\raw\\company_information.pdf",
+          "page": 1,
+          "section": null,
+          "score": 0.0006365763838402927,
+          "dense_rank": 10,
+          "dense_score": 0.155850721350409,
+          "rrf_rank": 16,
+          "rrf_score": 0.014285714285714285,
+          "reranker_rank": 5,
+          "reranker_score": 0.0006365763838402927
+        }
+      ]
+    }
+  ]
+}
