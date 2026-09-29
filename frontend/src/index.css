@@ -1,29 +1,102 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap');
 
-:root {
-  --navy: #18292f;
-  --navy-soft: #314c53;
-  --text: #26393e;
-  --muted: #687b7e;
-  --border: #dce4e3;
-  --assistant: #f4f7f5;
-  --sage-light: #e6efeb;
-  --coral: #e66f5c;
+:root,
+:root[data-theme='dark'] {
+  --bg: #06080d;
+  --bg-elevated: #090d14;
+  --surface: rgba(12, 17, 26, 0.84);
+  --surface-solid: #0d121b;
+  --surface-elevated: #121824;
+  --surface-soft: rgba(18, 24, 36, 0.7);
+  --surface-hover: rgba(30, 41, 59, 0.76);
+  --text: #dfe7f3;
+  --text-strong: #f7faff;
+  --muted: #94a3b8;
+  --subtle: #64748b;
+  --border: rgba(148, 163, 184, 0.15);
+  --border-strong: rgba(96, 165, 250, 0.28);
+  --assistant-bg: rgba(17, 24, 39, 0.68);
+  --user-bg: linear-gradient(135deg, rgba(30, 64, 175, 0.7), rgba(88, 28, 135, 0.58));
+  --user-border: rgba(96, 165, 250, 0.35);
+  --source-bg: rgba(8, 13, 22, 0.68);
+  --composer-bg: rgba(9, 14, 23, 0.96);
+  --input-bg: rgba(8, 12, 20, 0.9);
+  --badge-bg: rgba(15, 23, 42, 0.64);
+  --avatar-bg: rgba(16, 24, 40, 0.84);
+  --accent-cyan: #22d3ee;
+  --accent-blue: #3b82f6;
+  --accent-violet: #8b5cf6;
+  --accent-purple: #a855f7;
+  --accent-pink: #ec4899;
+  --accent-gradient: linear-gradient(110deg, #67e8f9 0%, #60a5fa 38%, #a78bfa 74%, #c084fc 100%);
+  --focus: #67e8f9;
+  --success: #34d399;
+  --danger: #fb7185;
+  --error-bg: rgba(127, 29, 29, 0.2);
+  --error-border: rgba(251, 113, 133, 0.36);
+  --error-text: #fecdd3;
+  --grid-line: rgba(148, 163, 184, 0.035);
+  --ambient-one: rgba(37, 99, 235, 0.2);
+  --ambient-two: rgba(126, 34, 206, 0.18);
+  --card-shadow: 0 28px 90px rgba(0, 0, 0, 0.48);
+  --glow-shadow: 0 0 45px rgba(59, 130, 246, 0.09);
+  --scroll-thumb: rgba(100, 116, 139, 0.36);
   --heading: 'Manrope', 'Segoe UI', sans-serif;
   --body: 'DM Sans', 'Segoe UI', sans-serif;
   --mono: 'SFMono-Regular', Consolas, monospace;
-  --shadow: 0 22px 60px rgba(30, 51, 56, 0.11);
 
+  color-scheme: dark;
   color: var(--text);
-  background:
-    radial-gradient(circle at 10% 0%, rgba(216, 232, 223, 0.72), transparent 32%),
-    radial-gradient(circle at 92% 22%, rgba(242, 217, 207, 0.54), transparent 29%),
-    #f7f6f1;
+  background: var(--bg);
   font-family: var(--body);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+:root[data-theme='light'] {
+  --bg: #f4f7fb;
+  --bg-elevated: #edf2f8;
+  --surface: rgba(255, 255, 255, 0.86);
+  --surface-solid: #ffffff;
+  --surface-elevated: #f8faff;
+  --surface-soft: rgba(241, 245, 249, 0.82);
+  --surface-hover: rgba(226, 232, 240, 0.84);
+  --text: #334155;
+  --text-strong: #0f172a;
+  --muted: #64748b;
+  --subtle: #8492a6;
+  --border: rgba(51, 65, 85, 0.14);
+  --border-strong: rgba(37, 99, 235, 0.24);
+  --assistant-bg: rgba(248, 250, 252, 0.9);
+  --user-bg: linear-gradient(135deg, #1d4ed8, #6d28d9);
+  --user-border: rgba(37, 99, 235, 0.38);
+  --source-bg: rgba(255, 255, 255, 0.86);
+  --composer-bg: rgba(248, 250, 252, 0.96);
+  --input-bg: rgba(255, 255, 255, 0.96);
+  --badge-bg: rgba(255, 255, 255, 0.72);
+  --avatar-bg: rgba(235, 241, 250, 0.92);
+  --accent-cyan: #0891b2;
+  --accent-blue: #2563eb;
+  --accent-violet: #7c3aed;
+  --accent-purple: #9333ea;
+  --accent-pink: #db2777;
+  --accent-gradient: linear-gradient(110deg, #0891b2 0%, #2563eb 40%, #7c3aed 76%, #9333ea 100%);
+  --focus: #2563eb;
+  --success: #059669;
+  --danger: #e11d48;
+  --error-bg: rgba(255, 228, 230, 0.76);
+  --error-border: rgba(225, 29, 72, 0.26);
+  --error-text: #9f1239;
+  --grid-line: rgba(51, 65, 85, 0.045);
+  --ambient-one: rgba(59, 130, 246, 0.14);
+  --ambient-two: rgba(139, 92, 246, 0.12);
+  --card-shadow: 0 24px 70px rgba(51, 65, 85, 0.14);
+  --glow-shadow: 0 0 38px rgba(59, 130, 246, 0.08);
+  --scroll-thumb: rgba(100, 116, 139, 0.28);
+
+  color-scheme: light;
 }
 
 * {
@@ -33,21 +106,71 @@
 html {
   min-width: 320px;
   min-height: 100%;
+  background: var(--bg);
 }
 
 body {
+  position: relative;
   min-width: 320px;
   min-height: 100vh;
   margin: 0;
+  overflow-x: hidden;
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(circle at 12% -8%, var(--ambient-one), transparent 31rem),
+    radial-gradient(circle at 92% 24%, var(--ambient-two), transparent 34rem),
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: auto, auto, 44px 44px, 44px 44px;
+  transition: background-color 220ms ease, color 220ms ease;
+}
+
+body::before {
+  position: fixed;
+  z-index: -1;
+  top: 18%;
+  left: 45%;
+  width: 440px;
+  height: 440px;
+  border-radius: 50%;
+  background: var(--ambient-one);
+  content: '';
+  filter: blur(120px);
+  opacity: 0.34;
+  pointer-events: none;
 }
 
 button,
 textarea {
-  font-family: inherit;
+  font: inherit;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
 }
 
 button:focus-visible,
 textarea:focus-visible {
-  outline: 2px solid #496f76;
-  outline-offset: 2px;
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+
+::selection {
+  color: var(--text-strong);
+  background: color-mix(in srgb, var(--accent-blue) 38%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

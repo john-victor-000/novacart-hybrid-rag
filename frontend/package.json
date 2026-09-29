@@ -10,8 +10,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "border-beam": "^1.4.1",
+    "bot-avatars": "^0.1.1",
+    "metal-fx": "^2.0.11",
     "react": "^19.2.8",
-    "react-dom": "^19.2.8"
+    "react-dom": "^19.2.8",
+    "thinking-orbs": "^0.3.2"
   },
   "devDependencies": {
     "@types/react": "^19.2.18",
