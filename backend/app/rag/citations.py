@@ -7,7 +7,10 @@ import re
 from backend.app.rag.evidence import Evidence
 from backend.app.rag.unified_models import UnifiedSource
 
-SOURCE_LABEL_PATTERN = re.compile(r"\[Source\s+(\d+)\]", re.IGNORECASE)
+SOURCE_LABEL_PATTERN = re.compile(
+    r"(?:\[|【)\s*Source\s+(\d+)\s*(?:\]|】)",
+    re.IGNORECASE,
+)
 
 
 class CitationBuilder:

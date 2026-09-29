@@ -17,6 +17,10 @@ class Settings(BaseSettings):
 
     app_name: str = "NovaCart Hybrid RAG Knowledge Assistant"
     app_debug: bool = False
+    cors_allowed_origins: str = (
+        "http://localhost:5173,http://127.0.0.1:5173,"
+        "http://localhost:3000,http://127.0.0.1:3000"
+    )
     chunk_size: int = Field(default=900, gt=0)
     chunk_overlap: int = Field(default=150, ge=0)
     embedding_model_name: str = "sentence-transformers/all-MiniLM-L6-v2"
@@ -49,6 +53,15 @@ class Settings(BaseSettings):
     groq_model: str = "llama-3.1-8b-instant"
     llm_timeout_seconds: float = Field(default=120.0, gt=0)
 
+    @property
+    def cors_origins(self) -> list[str]:
+        """Return normalized browser origins for FastAPI CORS middleware."""
+        return [
+            origin.strip()
+            for origin in self.cors_allowed_origins.split(",")
+            if origin.strip()
+        ]
+
     @model_validator(mode="after")
     def validate_chunk_settings(self) -> "Settings":
         """Keep overlap smaller than chunk size so chunking can progress."""
@@ -63,5 +76,11 @@ class Settings(BaseSettings):
         if self.rerank_candidates < self.rerank_top_k:
             raise ValueError(
                 "RERANK_CANDIDATES must be greater than or equal to RERANK_TOP_K"
+            )
+        if not self.cors_origins:
+            raise ValueError("CORS_ALLOWED_ORIGINS must contain an origin")
+        if "*" in self.cors_origins:
+            raise ValueError(
+                "CORS_ALLOWED_ORIGINS cannot use a wildcard; list trusted origins"
             )
         return self

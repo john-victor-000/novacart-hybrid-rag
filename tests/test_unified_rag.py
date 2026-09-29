@@ -151,6 +151,18 @@ def test_duplicate_evidence_is_removed_before_generation() -> None:
     assert "[Source 2]" not in llm.prompts[0]
 
 
+def test_unicode_citation_brackets_are_normalized() -> None:
+    service, _, _, _, _ = _service(
+        hybrid_results=[_chunk()],
+        llm_answer="Seven calendar days. 【Source 1】",
+    )
+
+    response = service.answer("What is the return policy?")
+
+    assert response.answer == "Seven calendar days. [Source 1]"
+    assert [source.chunk_id for source in response.sources] == ["return-1"]
+
+
 def test_insufficient_evidence_skips_generation() -> None:
     service, _, _, _, llm = _service(hybrid_results=[])
 

@@ -1,0 +1,75 @@
+name: novacart-hybrid-rag
+
+x-backend-environment: &backend-environment
+  VECTOR_DB_PATH: /app/data/indexes/vector_store
+  BM25_INDEX_PATH: /app/data/indexes/bm25_index.json
+  PRODUCTS_CSV_PATH: /app/data/raw/products.csv
+  CORS_ALLOWED_ORIGINS: http://localhost:3000,http://127.0.0.1:3000
+
+x-backend-volumes: &backend-volumes
+  - rag-indexes:/app/data/indexes
+  - model-cache:/app/.cache/huggingface
+
+services:
+  indexer:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    profiles: ["tools"]
+    env_file:
+      - .env
+    environment:
+      <<: *backend-environment
+    volumes: *backend-volumes
+    command:
+      - /bin/sh
+      - -c
+      - >
+        python -m scripts.index_vectors
+        --input-dir /app/data/raw
+        --db-path /app/data/indexes/vector_store
+        &&
+        python -m scripts.index_bm25
+        --input-dir /app/data/raw
+        --index-path /app/data/indexes/bm25_index.json
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    env_file:
+      - .env
+    environment:
+      <<: *backend-environment
+    volumes: *backend-volumes
+    ports:
+      - "8000:8000"
+    init: true
+    restart: unless-stopped
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - >
+          import urllib.request;
+          urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=3)
+      interval: 30s
+      timeout: 5s
+      start_period: 10s
+      retries: 3
+
+  frontend:
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    depends_on:
+      backend:
+        condition: service_healthy
+    ports:
+      - "3000:80"
+    restart: unless-stopped
+
+volumes:
+  rag-indexes:
+  model-cache:

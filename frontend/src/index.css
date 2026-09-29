@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700&display=swap');
+
+:root {
+  --navy: #18292f;
+  --navy-soft: #314c53;
+  --text: #26393e;
+  --muted: #687b7e;
+  --border: #dce4e3;
+  --assistant: #f4f7f5;
+  --sage-light: #e6efeb;
+  --coral: #e66f5c;
+  --heading: 'Manrope', 'Segoe UI', sans-serif;
+  --body: 'DM Sans', 'Segoe UI', sans-serif;
+  --mono: 'SFMono-Regular', Consolas, monospace;
+  --shadow: 0 22px 60px rgba(30, 51, 56, 0.11);
+
+  color: var(--text);
+  background:
+    radial-gradient(circle at 10% 0%, rgba(216, 232, 223, 0.72), transparent 32%),
+    radial-gradient(circle at 92% 22%, rgba(242, 217, 207, 0.54), transparent 29%),
+    #f7f6f1;
+  font-family: var(--body);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  min-height: 100%;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+}
+
+button,
+textarea {
+  font-family: inherit;
+}
+
+button:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #496f76;
+  outline-offset: 2px;
+}

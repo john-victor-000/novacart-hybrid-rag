@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-28T13:01:47.712941+00:00",
+  "generated_at": "2026-09-28T13:30:45.175096+00:00",
   "question_count": 10,
   "k_values": [
     1,
@@ -23,10 +23,10 @@
     "warm_up_before_timing": true
   },
   "warmup_ms": {
-    "Dense": 12097.749,
-    "BM25": 0.263,
-    "Hybrid RRF": 28.611,
-    "Hybrid + Reranker": 10830.0
+    "Dense": 12672.569,
+    "BM25": 0.244,
+    "Hybrid RRF": 33.048,
+    "Hybrid + Reranker": 11987.482
   },
   "summary": [
     {
@@ -54,10 +54,10 @@
           "ndcg": 0.842787
         }
       },
-      "mean_latency_ms": 32.057,
-      "mean_retrieval_latency_ms": 32.057,
+      "mean_latency_ms": 38.264,
+      "mean_retrieval_latency_ms": 38.264,
       "mean_reranking_latency_ms": 0.0,
-      "max_latency_ms": 36.002
+      "max_latency_ms": 99.21
     },
     {
       "retriever": "BM25",
@@ -84,10 +84,10 @@
           "ndcg": 0.807437
         }
       },
-      "mean_latency_ms": 0.352,
-      "mean_retrieval_latency_ms": 0.352,
+      "mean_latency_ms": 0.458,
+      "mean_retrieval_latency_ms": 0.458,
       "mean_reranking_latency_ms": 0.0,
-      "max_latency_ms": 0.47
+      "max_latency_ms": 1.063
     },
     {
       "retriever": "Hybrid RRF",
@@ -114,10 +114,10 @@
           "ndcg": 0.898133
         }
       },
-      "mean_latency_ms": 30.378,
-      "mean_retrieval_latency_ms": 30.378,
+      "mean_latency_ms": 30.135,
+      "mean_retrieval_latency_ms": 30.135,
       "mean_reranking_latency_ms": 0.0,
-      "max_latency_ms": 32.75
+      "max_latency_ms": 33.851
     },
     {
       "retriever": "Hybrid + Reranker",
@@ -144,10 +144,10 @@
           "ndcg": 0.855065
         }
       },
-      "mean_latency_ms": 8734.248,
-      "mean_retrieval_latency_ms": 33.378,
-      "mean_reranking_latency_ms": 8700.835,
-      "max_latency_ms": 13088.495
+      "mean_latency_ms": 8278.079,
+      "mean_retrieval_latency_ms": 29.965,
+      "mean_reranking_latency_ms": 8248.086,
+      "max_latency_ms": 11639.028
     }
   ],
   "queries": [
@@ -159,8 +159,8 @@
         "return_policy.pdf"
       ],
       "retrieval_mode": "Dense",
-      "latency_ms": 31.552,
-      "base_retrieval_latency_ms": 31.552,
+      "latency_ms": 99.21,
+      "base_retrieval_latency_ms": 99.21,
       "reranking_latency_ms": 0.0,
       "expected_found": true,
       "metrics": {
@@ -242,8 +242,8 @@
         "shipping_policy.pdf"
       ],
       "retrieval_mode": "Dense",
-      "latency_ms": 34.708,
-      "base_retrieval_latency_ms": 34.708,
+      "latency_ms": 30.762,
+      "base_retrieval_latency_ms": 30.762,
       "reranking_latency_ms": 0.0,
       "expected_found": true,
       "metrics": {
@@ -325,8 +325,8 @@
         "products.csv"
       ],
       "retrieval_mode": "Dense",
-      "latency_ms": 29.622,
-      "base_retrieval_latency_ms": 29.622,
+      "latency_ms": 34.421,
+      "base_retrieval_latency_ms": 34.421,
       "reranking_latency_ms": 0.0,
       "expected_found": true,
       "metrics": {
@@ -409,8 +409,8 @@
         "warranty_guide.docx"
       ],
       "retrieval_mode": "Dense",
-      "latency_ms": 36.002,
-      "base_retrieval_latency_ms": 36.002,
+      "latency_ms": 33.442,
+      "base_retrieval_latency_ms": 33.442,
       "reranking_latency_ms": 0.0,
       "expected_found": true,
       "metrics": {
@@ -492,8 +492,8 @@
         "shipping_policy.pdf"
       ],
       "retrieval_mode": "Dense",
-      "latency_ms": 30.056,
-      "base_retrieval_latency_ms": 30.056,
+      "latency_ms": 30.303,
+      "base_retrieval_latency_ms": 30.303,
       "reranking_latency_ms": 0.0,
       "expected_found": true,
       "metrics": {
@@ -576,8 +576,8 @@
         "warranty_guide.docx"
       ],
       "retrieval_mode": "Dense",
-      "latency_ms": 35.701,
-      "base_retrieval_latency_ms": 35.701,
+      "latency_ms": 32.128,
+      "base_retrieval_latency_ms": 32.128,
       "reranking_latency_ms": 0.0,
       "expected_found": true,
       "metrics": {
@@ -659,8 +659,8 @@
         "return_policy.pdf"
       ],
       "retrieval_mode": "Dense",
-      "latency_ms": 31.291,
-      "base_retrieval_latency_ms": 31.291,
+      "latency_ms": 30.117,
+      "base_retrieval_latency_ms": 30.117,
       "reranking_latency_ms": 0.0,
       "expected_found": true,
       "metrics": {
@@ -742,8 +742,8 @@
         "products.csv"
       ],
       "retrieval_mode": "Dense",
-      "latency_ms": 30.013,
-      "base_retrieval_latency_ms": 30.013,
+      "latency_ms": 29.338,
+      "base_retrieval_latency_ms": 29.338,
       "reranking_latency_ms": 0.0,
       "expected_found": false,
       "metrics": {
@@ -826,8 +826,8 @@
         "return_policy.pdf"
       ],
       "retrieval_mode": "Dense",
-      "latency_ms": 29.261,
-      "base_retrieval_latency_ms": 29.261,
+      "latency_ms": 30.742,
+      "base_retrieval_latency_ms": 30.742,
       "reranking_latency_ms": 0.0,
       "expected_found": true,
       "metrics": {
@@ -909,8 +909,8 @@
         "product_documentation.pdf"
       ],
       "retrieval_mode": "Dense",
-      "latency_ms": 32.368,
-      "base_retrieval_latency_ms": 32.368,
+      "latency_ms": 32.182,
+      "base_retrieval_latency_ms": 32.182,
       "reranking_latency_ms": 0.0,
       "expected_found": true,
       "metrics": {
@@ -992,8 +992,8 @@
         "return_policy.pdf"
       ],
       "retrieval_mode": "BM25",
-      "latency_ms": 0.341,
-      "base_retrieval_latency_ms": 0.341,
+      "latency_ms": 1.063,
+      "base_retrieval_latency_ms": 1.063,
       "reranking_latency_ms": 0.0,
       "expected_found": true,
       "metrics": {
@@ -1075,8 +1075,8 @@
         "shipping_policy.pdf"
       ],
       "retrieval_mode": "BM25",
-      "latency_ms": 0.277,
-      "base_retrieval_latency_ms": 0.277,
+      "latency_ms": 0.237,
+      "base_retrieval_latency_ms": 0.237,
       "reranking_latency_ms": 0.0,
       "expected_found": true,
       "metrics": {
@@ -1158,8 +1158,8 @@
         "products.csv"
       ],
       "retrieval_mode": "BM25",
-      "latency_ms": 0.413,
-      "base_retrieval_latency_ms": 0.413,
+      "latency_ms": 0.473,
+      "base_retrieval_latency_ms": 0.473,
       "reranking_latency_ms": 0.0,
       "expected_found": true,
       "metrics": {
@@ -1242,8 +1242,8 @@
         "warranty_guide.docx"
       ],
       "retrieval_mode": "BM25",
-      "latency_ms": 0.283,
-      "base_retrieval_latency_ms": 0.283,
+      "latency_ms": 0.44,
+      "base_retrieval_latency_ms": 0.44,
       "reranking_latency_ms": 0.0,
       "expected_found": true,
       "metrics": {
@@ -1325,8 +1325,8 @@
         "shipping_policy.pdf"
       ],
       "retrieval_mode": "BM25",
-      "latency_ms": 0.244,
-      "base_retrieval_latency_ms": 0.244,
+      "latency_ms": 0.559,
+      "base_retrieval_latency_ms": 0.559,
       "reranking_latency_ms": 0.0,
       "expected_found": true,
       "metrics": {
@@ -1409,8 +1409,8 @@
         "warranty_guide.docx"
       ],
       "retrieval_mode": "BM25",
-      "latency_ms": 0.275,
-      "base_retrieval_latency_ms": 0.275,
+      "latency_ms": 0.386,
+      "base_retrieval_latency_ms": 0.386,
       "reranking_latency_ms": 0.0,
       "expected_found": true,
       "metrics": {
@@ -1492,8 +1492,8 @@
         "return_policy.pdf"
       ],
       "retrieval_mode": "BM25",
-      "latency_ms": 0.421,
-      "base_retrieval_latency_ms": 0.421,
+      "latency_ms": 0.307,
+      "base_retrieval_latency_ms": 0.307,
       "reranking_latency_ms": 0.0,
       "expected_found": true,
       "metrics": {
@@ -1575,8 +1575,8 @@
         "products.csv"
       ],
       "retrieval_mode": "BM25",
-      "latency_ms": 0.422,
-      "base_retrieval_latency_ms": 0.422,
+      "latency_ms": 0.373,
+      "base_retrieval_latency_ms": 0.373,
       "reranking_latency_ms": 0.0,
       "expected_found": true,
       "metrics": {
@@ -1659,8 +1659,8 @@
         "return_policy.pdf"
       ],
       "retrieval_mode": "BM25",
-      "latency_ms": 0.376,
-      "base_retrieval_latency_ms": 0.376,
+      "latency_ms": 0.339,
+      "base_retrieval_latency_ms": 0.339,
       "reranking_latency_ms": 0.0,
       "expected_found": true,
       "metrics": {
@@ -1742,8 +1742,8 @@
         "product_documentation.pdf"
       ],
       "retrieval_mode": "BM25",
-      "latency_ms": 0.47,
-      "base_retrieval_latency_ms": 0.47,
+      "latency_ms": 0.406,
+      "base_retrieval_latency_ms": 0.406,
       "reranking_latency_ms": 0.0,
       "expected_found": true,
       "metrics": {
@@ -1825,8 +1825,8 @@
         "return_policy.pdf"
       ],
       "retrieval_mode": "Hybrid RRF",
-      "latency_ms": 28.373,
-      "base_retrieval_latency_ms": 28.373,
+      "latency_ms": 32.888,
+      "base_retrieval_latency_ms": 32.888,
       "reranking_latency_ms": 0.0,
       "expected_found": true,
       "metrics": {
@@ -1933,8 +1933,8 @@
         "shipping_policy.pdf"
       ],
       "retrieval_mode": "Hybrid RRF",
-      "latency_ms": 30.482,
-      "base_retrieval_latency_ms": 30.482,
+      "latency_ms": 27.671,
+      "base_retrieval_latency_ms": 27.671,
       "reranking_latency_ms": 0.0,
       "expected_found": true,
       "metrics": {
@@ -2039,8 +2039,8 @@
         "products.csv"
       ],
       "retrieval_mode": "Hybrid RRF",
-      "latency_ms": 30.611,
-      "base_retrieval_latency_ms": 30.611,
+      "latency_ms": 33.851,
+      "base_retrieval_latency_ms": 33.851,
       "reranking_latency_ms": 0.0,
       "expected_found": true,
       "metrics": {
@@ -2148,8 +2148,8 @@
         "warranty_guide.docx"
       ],
       "retrieval_mode": "Hybrid RRF",
-      "latency_ms": 30.866,
-      "base_retrieval_latency_ms": 30.866,
+      "latency_ms": 28.877,
+      "base_retrieval_latency_ms": 28.877,
       "reranking_latency_ms": 0.0,
       "expected_found": true,
       "metrics": {
@@ -2256,8 +2256,8 @@
         "shipping_policy.pdf"
       ],
       "retrieval_mode": "Hybrid RRF",
-      "latency_ms": 30.808,
-      "base_retrieval_latency_ms": 30.808,
+      "latency_ms": 32.239,
+      "base_retrieval_latency_ms": 32.239,
       "reranking_latency_ms": 0.0,
       "expected_found": true,
       "metrics": {
@@ -2365,8 +2365,8 @@
         "warranty_guide.docx"
       ],
       "retrieval_mode": "Hybrid RRF",
-      "latency_ms": 32.75,
-      "base_retrieval_latency_ms": 32.75,
+      "latency_ms": 28.094,
+      "base_retrieval_latency_ms": 28.094,
       "reranking_latency_ms": 0.0,
       "expected_found": true,
       "metrics": {
@@ -2473,8 +2473,8 @@
         "return_policy.pdf"
       ],
       "retrieval_mode": "Hybrid RRF",
-      "latency_ms": 30.989,
-      "base_retrieval_latency_ms": 30.989,
+      "latency_ms": 26.978,
+      "base_retrieval_latency_ms": 26.978,
       "reranking_latency_ms": 0.0,
       "expected_found": true,
       "metrics": {
@@ -2581,8 +2581,8 @@
         "products.csv"
       ],
       "retrieval_mode": "Hybrid RRF",
-      "latency_ms": 29.454,
-      "base_retrieval_latency_ms": 29.454,
+      "latency_ms": 30.958,
+      "base_retrieval_latency_ms": 30.958,
       "reranking_latency_ms": 0.0,
       "expected_found": true,
       "metrics": {
@@ -2690,8 +2690,8 @@
         "return_policy.pdf"
       ],
       "retrieval_mode": "Hybrid RRF",
-      "latency_ms": 27.566,
-      "base_retrieval_latency_ms": 27.566,
+      "latency_ms": 31.02,
+      "base_retrieval_latency_ms": 31.02,
       "reranking_latency_ms": 0.0,
       "expected_found": true,
       "metrics": {
@@ -2798,8 +2798,8 @@
         "product_documentation.pdf"
       ],
       "retrieval_mode": "Hybrid RRF",
-      "latency_ms": 31.886,
-      "base_retrieval_latency_ms": 31.886,
+      "latency_ms": 28.774,
+      "base_retrieval_latency_ms": 28.774,
       "reranking_latency_ms": 0.0,
       "expected_found": true,
       "metrics": {
@@ -2902,9 +2902,9 @@
         "return_policy.pdf"
       ],
       "retrieval_mode": "Hybrid + Reranker",
-      "latency_ms": 6848.543,
-      "base_retrieval_latency_ms": 30.756,
-      "reranking_latency_ms": 6817.757,
+      "latency_ms": 7251.728,
+      "base_retrieval_latency_ms": 26.98,
+      "reranking_latency_ms": 7224.713,
       "expected_found": true,
       "metrics": {
         "1": {
@@ -3019,9 +3019,9 @@
         "shipping_policy.pdf"
       ],
       "retrieval_mode": "Hybrid + Reranker",
-      "latency_ms": 6227.877,
-      "base_retrieval_latency_ms": 31.148,
-      "reranking_latency_ms": 6196.7,
+      "latency_ms": 6626.044,
+      "base_retrieval_latency_ms": 28.192,
+      "reranking_latency_ms": 6597.825,
       "expected_found": true,
       "metrics": {
         "1": {
@@ -3138,9 +3138,9 @@
         "products.csv"
       ],
       "retrieval_mode": "Hybrid + Reranker",
-      "latency_ms": 9630.197,
-      "base_retrieval_latency_ms": 27.062,
-      "reranking_latency_ms": 9603.105,
+      "latency_ms": 9938.282,
+      "base_retrieval_latency_ms": 29.46,
+      "reranking_latency_ms": 9908.797,
       "expected_found": true,
       "metrics": {
         "1": {
@@ -3258,9 +3258,9 @@
         "warranty_guide.docx"
       ],
       "retrieval_mode": "Hybrid + Reranker",
-      "latency_ms": 9106.192,
-      "base_retrieval_latency_ms": 28.646,
-      "reranking_latency_ms": 9077.519,
+      "latency_ms": 10248.958,
+      "base_retrieval_latency_ms": 29.422,
+      "reranking_latency_ms": 10219.499,
       "expected_found": true,
       "metrics": {
         "1": {
@@ -3379,9 +3379,9 @@
         "shipping_policy.pdf"
       ],
       "retrieval_mode": "Hybrid + Reranker",
-      "latency_ms": 6646.787,
-      "base_retrieval_latency_ms": 32.499,
-      "reranking_latency_ms": 6614.231,
+      "latency_ms": 5007.169,
+      "base_retrieval_latency_ms": 40.767,
+      "reranking_latency_ms": 4966.376,
       "expected_found": true,
       "metrics": {
         "1": {
@@ -3503,9 +3503,9 @@
         "warranty_guide.docx"
       ],
       "retrieval_mode": "Hybrid + Reranker",
-      "latency_ms": 10992.191,
-      "base_retrieval_latency_ms": 41.353,
-      "reranking_latency_ms": 10950.801,
+      "latency_ms": 10056.544,
+      "base_retrieval_latency_ms": 28.798,
+      "reranking_latency_ms": 10027.722,
       "expected_found": true,
       "metrics": {
         "1": {
@@ -3626,9 +3626,9 @@
         "return_policy.pdf"
       ],
       "retrieval_mode": "Hybrid + Reranker",
-      "latency_ms": 7471.531,
-      "base_retrieval_latency_ms": 32.802,
-      "reranking_latency_ms": 7438.694,
+      "latency_ms": 6840.38,
+      "base_retrieval_latency_ms": 26.891,
+      "reranking_latency_ms": 6813.46,
       "expected_found": true,
       "metrics": {
         "1": {
@@ -3745,9 +3745,9 @@
         "products.csv"
       ],
       "retrieval_mode": "Hybrid + Reranker",
-      "latency_ms": 10798.086,
-      "base_retrieval_latency_ms": 36.366,
-      "reranking_latency_ms": 10761.681,
+      "latency_ms": 9706.28,
+      "base_retrieval_latency_ms": 29.927,
+      "reranking_latency_ms": 9676.326,
       "expected_found": false,
       "metrics": {
         "1": {
@@ -3865,9 +3865,9 @@
         "return_policy.pdf"
       ],
       "retrieval_mode": "Hybrid + Reranker",
-      "latency_ms": 6532.583,
-      "base_retrieval_latency_ms": 34.821,
-      "reranking_latency_ms": 6497.728,
+      "latency_ms": 5466.377,
+      "base_retrieval_latency_ms": 26.7,
+      "reranking_latency_ms": 5439.654,
       "expected_found": true,
       "metrics": {
         "1": {
@@ -3988,9 +3988,9 @@
         "product_documentation.pdf"
       ],
       "retrieval_mode": "Hybrid + Reranker",
-      "latency_ms": 13088.495,
-      "base_retrieval_latency_ms": 38.323,
-      "reranking_latency_ms": 13050.139,
+      "latency_ms": 11639.028,
+      "base_retrieval_latency_ms": 32.509,
+      "reranking_latency_ms": 11606.488,
       "expected_found": true,
       "metrics": {
         "1": {

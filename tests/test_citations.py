@@ -30,6 +30,16 @@ def test_invalid_llm_source_label_cannot_create_citation() -> None:
     assert sources == []
 
 
+def test_unicode_source_brackets_resolve_to_server_evidence() -> None:
+    sources = CitationBuilder().build(
+        "Covered for 24 months. 【Source 1】",
+        [_evidence()],
+    )
+
+    assert len(sources) == 1
+    assert sources[0].chunk_id == "warranty-1"
+
+
 def _evidence(evidence_id: str = "warranty-1") -> Evidence:
     return Evidence(
         evidence_id=evidence_id,

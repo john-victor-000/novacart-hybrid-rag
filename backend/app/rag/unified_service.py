@@ -252,7 +252,7 @@ class UnifiedRAGService:
 def _remove_invalid_source_labels(answer: str, evidence_count: int) -> str:
     def replace(match: re.Match[str]) -> str:
         number = int(match.group(1))
-        return match.group(0) if 1 <= number <= evidence_count else ""
+        return f"[Source {number}]" if 1 <= number <= evidence_count else ""
 
     return " ".join(SOURCE_LABEL_PATTERN.sub(replace, answer).split())
 

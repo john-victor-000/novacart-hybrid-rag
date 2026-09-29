@@ -53,8 +53,8 @@ The measured run completed on 2026-09-28 using CPU inference:
 
 Each mode receives one warm-up query before measured queries. Model-loading time
 is recorded separately in `retrieval_results.json` and excluded from mean query
-latency. The first dense warm-up took 12,097.749 ms and the first
-hybrid-plus-reranker warm-up took 10,830.000 ms on this machine.
+latency. The final Stage D verification run recorded a 12,672.569 ms dense
+warm-up and an 11,987.482 ms hybrid-plus-reranker warm-up on this machine.
 
 Run the same experiment from the repository root:
 
@@ -91,10 +91,10 @@ The command writes detailed rankings to
 
 | Retriever | Hit@5 | Recall@5 | Precision@5 | MRR@5 | NDCG@5 | Retrieval ms | Rerank ms | Total ms |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| Dense | 0.900 | 0.900 | 0.240 | 0.850 | 0.843 | 32.057 | 0.000 | 32.057 |
-| BM25 | 1.000 | 1.000 | 0.260 | 0.750 | 0.807 | 0.352 | 0.000 | 0.352 |
-| Hybrid RRF | 1.000 | 1.000 | 0.260 | 0.875 | 0.898 | 30.378 | 0.000 | 30.378 |
-| Hybrid + Reranker | 0.900 | 0.900 | 0.240 | 0.850 | 0.855 | 33.378 | 8700.835 | 8734.248 |
+| Dense | 0.900 | 0.900 | 0.240 | 0.850 | 0.843 | 38.264 | 0.000 | 38.264 |
+| BM25 | 1.000 | 1.000 | 0.260 | 0.750 | 0.807 | 0.458 | 0.000 | 0.458 |
+| Hybrid RRF | 1.000 | 1.000 | 0.260 | 0.875 | 0.898 | 30.135 | 0.000 | 30.135 |
+| Hybrid + Reranker | 0.900 | 0.900 | 0.240 | 0.850 | 0.855 | 29.965 | 8248.086 | 8278.079 |
 
 These are results from an actual local run saved with the repository artifacts.
 They should be regenerated after changing documents, chunks, models, indexes,
@@ -110,7 +110,7 @@ the first relevant source lower on average.
 The cross-encoder reranker does not improve this benchmark. It removes
 `products.csv` from the top five for E08, “Which products have more than 12
 months warranty?”, reducing Hit@5 and Recall@5 to 0.900. On CPU it also adds
-about 8.7 seconds per query. This result supports leaving reranking configurable
+about 8.25 seconds per query. This result supports leaving reranking configurable
 and evaluating a smaller model or different candidate strategy before treating
 it as a default quality improvement.
 
